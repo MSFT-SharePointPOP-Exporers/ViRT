@@ -11,7 +11,7 @@
     <script src="Scripts/jquery-2.1.1.min.js"></script>
    <script type="text/javascript">
         $(document).ready(function () {
-            $('.button').click(function () {
+            $('#pipelines').click(function () {
                 $.ajax({
                     contentType: "text/html; charset=utf-8",
                     data: "Tag=" + $('#Tags').val(),
