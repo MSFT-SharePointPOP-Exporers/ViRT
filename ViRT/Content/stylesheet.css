@@ -1,0 +1,21 @@
+﻿    #pipelines {
+        background-color:#FF99CC;
+        width:11%;
+        height:100%;
+        float:left;
+    }
+
+    #overviewbar {
+        background-color:#a30b71;
+        width:15%;
+        height:100%;
+        float:left;
+    }
+
+    #rendering {
+      /*  background-color:#dd3a5d;*/
+        width:74%;
+        height:100%;
+        float:left;
+        overflow:scroll;
+    }
