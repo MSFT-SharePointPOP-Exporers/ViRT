@@ -61,8 +61,10 @@ namespace Test
 		 * @param pComponent	Component which reliability is calculated
 		 * @return		A DataTable with the relailbity calculation of every every hour for the component
 		 */
-		private DataTable CalculateComponent(String pComponent, SqlConnection dbConnect){
+		public DataTable CalculateComponent(String pComponent){
 			//get success and fail tags
+			SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
+			dbConnect.Open();
 			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Components = '" + pComponent + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
 			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
@@ -204,106 +206,6 @@ namespace Test
 			colFTag.DataType = System.Type.GetType("System.Int");
 
 			return null;
-		}
-
-		/*
-		 * 
-		 * 
-		 */
-		public DataTable OverviewCalculate()
-		{
-			SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
-			dbConnect.Open();
-			String query = "SELECT * FROM Pipeline";
-			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
-			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
-
-			DataTable pipelineTable = new DataTable();
-			pipelineTable.Load(queryCommandReader);
-
-			int length = pipelineTable.Rows.Count;
-			DataTable temp;
-			decimal total = 0;
-			
-			DataTable retTable = new DataTable();
-			retTable.Clear();
-
-			DataColumn colDateTime = new DataColumn("Pipeline");
-			colDateTime.DataType = System.Type.GetType("System.String");
-
-			DataColumn colPercent = new DataColumn("Percent");
-			colPercent.DataType = System.Type.GetType("System.Decimal");
-
-			retTable.Columns.Add(colDateTime);
-			retTable.Columns.Add(colPercent);
-
-			DataRow toAdd = retTable.NewRow();
-
-			for (int i = 0; i < length; i++)
-			{
-				temp = CalculateComponent((String)pipelineTable.Rows[i]["Pipeline"], dbConnect);
-
-				for (int j = 0; j < temp.Rows.Count; j++)
-				{
-					total = total + (decimal)temp.Rows[j]["Percent"];
-				}
-
-				total = total / temp.Rows.Count;
-
-				toAdd["Pipeline"] = (string)pipelineTable.Rows[i]["Pipleline"];
-				toAdd["Percent"] = total;
-				retTable.Rows.Add(toAdd);
-
-				if (!(i == length - 1))
-				{
-					toAdd = retTable.NewRow();
-				}
-			}
-
-			dbConnect.Close();
-			return null;
-		}
-
-		/*
-		 * 
-		 * 
-		 */
-		public DataTable PipelineCalculate(String pPipleine)
-		{
-			SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
-			dbConnect.Open();
-			String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipleine + "'";
-			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
-			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
-			DataTable componentsTable = new DataTable();
-			componentsTable.Load(queryCommandReader);
-
-			int length = componentsTable.Rows.Count;
-
-			DataTable[] datePercents = new DataTable[length];
-
-			for (int i = 0; i < length; i++)
-			{
-				datePercents[i] = CalculateComponent((string)componentsTable.Rows[i]["Component"], dbConnect);
-			}
-
-			DataTable dt = new DataTable();
-			dt.Columns.Add("Date", typeof(DateTime));
-			dt.Columns.Add("Comp1", typeof(decimal));
-			dt.Columns.Add("Comp2", typeof(decimal));
-
-			var result = from dataRows1 in datePercents[0].AsEnumerable()
-						 join dataRows2 in datePercents[1].AsEnumerable()
-						 on dataRows1.Field<DateTime>("Date") equals dataRows2.Field("Date")
-
-						 select dt.LoadDataRow(new object[]
-						 {
-							 dataRows1.Field("Date"),
-							 dataRows1.Field("Percent"),
-							 dataRows2.Field("Percent")
-						 },false);
-
-			result.CopyToDataTable();
 		}
 
 		/*
