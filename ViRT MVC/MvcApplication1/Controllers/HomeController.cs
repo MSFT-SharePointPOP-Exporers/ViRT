@@ -18,7 +18,7 @@ namespace MvcApplication1.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
-
+            string sjson;
             return View();
         }
 

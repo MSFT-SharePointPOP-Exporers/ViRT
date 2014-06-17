@@ -1,0 +1,44 @@
+﻿h1 {
+    font-size:5em;
+}
+
+h2 {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+ul {
+    height:100%;
+}
+
+#rendering {
+    padding-left:0;
+    padding-right:0;
+    overflow: scroll;
+}
+
+#legendBar {
+    position:fixed;
+}
+
+[class*="block-grid-"] {
+    margin:0;
+}
+
+
+li.network_box {
+    background-color: black;
+    display: inline-block;
+    height: 49%;
+    width: 355px;
+    margin: 15px;
+    padding: 0;
+}
+
+    li.farm_box {
+        background-color: blueviolet;
+        height: 14%;
+        display: inline-block;
+        border: 1px solid cyan;
+        margin: 3%;
+    }
