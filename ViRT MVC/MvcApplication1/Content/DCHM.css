@@ -1,34 +1,20 @@
 ﻿h1 {
     font-size:5em;
-    font-family:"Segoe WP SemiLight",Verdana,Helvetica,sans-serif;
 }
 
 h2 {
     font-size: 1.5em;
-    margin-bottom:0.5%;
     text-align: center;
-    font-family:"Segoe WP SemiLight",Verdana,Helvetica,sans-serif;
-}
-
-p {
-    font-family:"Segoe UI",Verdana,Helvetica,sans-serif;
-    font-size:14px;
-}
-
-#DCHM {
-    overflow:scroll;
-    height:100%
 }
 
 ul {
     height:100%;
-    text-align:center;
 }
 
 #rendering {
-    padding-left: 0;
-    padding-right: 0;
-    overflow: auto;
+    padding-left:0;
+    padding-right:0;
+    overflow: scroll;
 }
 
 #legendBar {
@@ -43,36 +29,16 @@ ul {
 li.network_box {
     background-color: black;
     display: inline-block;
-    height: 492px;
+    height: 49%;
     width: 355px;
-    margin: 3%;
+    margin: 15px;
     padding: 0;
-    float: none;
 }
 
     li.farm_box {
-background-color: #00ff00;
-height: 91px;
-border: 1px solid cyan;
-margin: 4%;
-padding-top: 3%;
-    }
-
-    li.farm_box:hover {
-        background-color:#9eff71;
-    }
-
-    @media only screen and (max-width: 40em) { 
-        #rendering {
-            height:initial;
-            overflow:visible;
-        }
-        
-        #DCHM {
-            overflow:inherit;
-        }
-        
-        #legendBar {
-            position:relative;
-        }
+        background-color: blueviolet;
+        height: 14%;
+        display: inline-block;
+        border: 1px solid cyan;
+        margin: 3%;
     }

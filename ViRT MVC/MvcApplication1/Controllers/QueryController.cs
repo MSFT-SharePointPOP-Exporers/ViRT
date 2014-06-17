@@ -13,10 +13,11 @@ namespace MvcApplication1.Controllers
 {
     public class QueryController : Controller
     {
+        public string sjson;
+
         public string Test()
         {
-            string v = Request.QueryString["Pipeline"];
-            return (v); 
+            return sjson;
         }
 
     }
