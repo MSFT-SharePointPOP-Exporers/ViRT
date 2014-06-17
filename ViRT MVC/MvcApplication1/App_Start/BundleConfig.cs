@@ -9,7 +9,12 @@ namespace MvcApplication1
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js","~/Scripts/ui.js","~/Scripts/foundation/foundation*"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/ui.js", 
+                        "~/Scripts/foundation/foundation/foundation.js", 
+                        "~/Scripts/foundation/foundation/foundation.topbar.js",
+                        "~/Scripts/foundation/foundation/foundation.dropdown.js",
+                        "~/Scripts/foundation/foundation/foundation.alert.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -23,7 +28,7 @@ namespace MvcApplication1
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/foundation/foundation.css","~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/foundation/foundation.css", "~/Content/foundation/normalize.css", "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

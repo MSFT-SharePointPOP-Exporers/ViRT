@@ -20,7 +20,7 @@ namespace MvcApplication1.Controllers
         {
             ReliabilityModels calc = new ReliabilityModels();
             DataTable test = calc.OverviewCalculate();
-            return test;
+            return null;
         }
 
     }
