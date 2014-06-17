@@ -334,6 +334,7 @@
     <Content Include="Scripts\amcharts\themes\chalk.js" />
     <Content Include="Scripts\amcharts\themes\dark.js" />
     <Content Include="Scripts\amcharts\themes\light.js" />
+    <Content Include="Views\Home\About2.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

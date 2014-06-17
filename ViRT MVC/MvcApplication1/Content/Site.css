@@ -67,9 +67,8 @@
         z-index:100;
     }
 
-    #small_dates {
-        padding: 1% 8.5%;
-        background-color: #673546;
+    #small_dates label{
+        color:#ebebeb;
     }
 
     #chartdiv {

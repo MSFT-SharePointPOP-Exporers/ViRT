@@ -48,16 +48,15 @@ display: inline-block;
 height: 500px;
 width: 355px;
 margin: 15px;
-padding: 1%;
 float: none;
 }
 
     li.farm_box {
 background-color: #00ff00;
-height: 81px;
+height: 89px;
 border: 1px solid cyan;
-margin: 4%;
-padding:2%;
+margin: 4.1%;
+padding: 2%;
     }
 
     li.farm_box:hover {

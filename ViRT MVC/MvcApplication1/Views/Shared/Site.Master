@@ -13,7 +13,8 @@
         <%: Scripts.Render("~/bundles/jqueryui") %>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#FeaturedContent_Datacenter').click(function () {
+                $(document).foundation();
+                $('#FeaturedContent_Datacenter').change(function () {
                     $.ajax({
                         contentType: "text/html; charset=utf-8",
                         data: "datacenter=" + $('#FeaturedContent_Datacenter').val(),
@@ -21,7 +22,7 @@
                         dataType: "html",
                         success: function (data) {
                             $("#rendering").html(data);
-                       }
+                        }
                     });
                 });
             });
@@ -29,42 +30,44 @@
         <asp:ContentPlaceHolder ID="Head" runat="server" />
     </head>
 <body>
-    <nav class="top-bar" data-topbar>
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="#">My Site</a></h1>
-            </li>
-            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+<nav class="top-bar" data-topbar>
+              <!-- Left Nav Section -->
+      <ul class="breadcrumbs show-for-medium-up">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Features</a></li>
+          <li class="unavailable"><a href="#">Gene Splicing</a></li>
+          <li class="current"><a href="#">Cloning</a></li>
+      </ul>
+  <ul class="title-area">
+    <li class="name">
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right show-for-small-only">
+        <li class="has-dropdown">
+        <a href="#">Change Pipeline</a>
+        <ul class="dropdown">
+            <li><%: Html.ActionLink("Pipeline 1", "Index") %></li>
+            <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
+            <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
         </ul>
-
-        <section class="top-bar-section">
-            <!-- Right Nav Section -->
-            <ul class="right">
-                <li class="active"><a href="#">Right Button Active</a></li>
-                <li class="has-dropdown">
-                    <a href="#">Right Button Dropdown</a>
-                    <ul class="dropdown">
-                        <li><a href="#">First link in dropdown</a></li>
-                        <li><a href="#">Second link in dropdown</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <!-- Left Nav Section -->
-            <ul class="left">
-                <li><a href="#">Left Nav Button</a></li>
-            </ul>
-        </section>
-        </nav>
-
-    <div id="small_dates" class="show-for-medium-down medium-12 small-12">
+      </li>
+        <li class="has-form">
+       <div id="small_dates" class="show-for-medium-down medium-12 small-12">
         <label for="from">Start Date:</label>
         <input type="text" class="from" name="from">
         <label for="to">End Date:</label>
         <input type="text" class="to" name="to">
         <a href="#" class="button success [tiny small large] expand">Apply Date Filters</a>
     </div>
+</li>
+    </ul>
+  </section>
+</nav>
 
     <div id="pipelines" class="show-for-medium-up medium-2 large-1 columns">
         <ul class="side-nav">

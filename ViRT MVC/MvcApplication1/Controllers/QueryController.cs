@@ -14,13 +14,10 @@ namespace MvcApplication1.Controllers
 {
     public class QueryController : Controller
     {
-        public string sjson;
 
-        public DataTable Test()
+        public ActionResult Test()
         {
-            ReliabilityModels calc = new ReliabilityModels();
-            DataTable test = calc.OverviewCalculate();
-            return null;
+            return View("~/Views/Home/About2.ascx");
         }
 
     }
