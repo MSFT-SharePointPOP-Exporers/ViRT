@@ -15,16 +15,17 @@
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-3">
+        <div id ="DHCM">
         <li class="network_box">
-            <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
+            <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
+                <li class="farm_box"><p>Farm 24</p><p>99.55%</p></li>
+                <li class="farm_box"><p>Farm 24</p><p>99.55%</p></li>
+                <li class="farm_box"><p>Farm 24</p><p>99.55%</p></li>
+                <li class="farm_box"><p>Farm 24</p><p>99.55%</p></li>
             </ul>
         </li>
         <li class="network_box">
-            <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+            <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
                 <li class="farm_box"><!-- Your content goes here --></li>
                 <li class="farm_box"><!-- Your content goes here --></li>
                 <li class="farm_box"><!-- Your content goes here --></li>
@@ -33,7 +34,7 @@
             </ul>
         </li>
         <li class="network_box">
-            <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+            <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
                 <li class="farm_box"><!-- Your content goes here --></li>
                 <li class="farm_box"><!-- Your content goes here --></li>
                 <li class="farm_box"><!-- Your content goes here --></li>
@@ -41,7 +42,7 @@
             </ul>
         </li>
         <li class="network_box">
-            <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+            <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
                 <li class="farm_box"><!-- Your content goes here --></li>
                 <li class="farm_box"><!-- Your content goes here --></li>
                 <li class="farm_box"><!-- Your content goes here --></li>
@@ -49,7 +50,7 @@
             </ul>
         </li>
         <li class="network_box">
-             <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+             <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
                 <li class="farm_box"><!-- Your content goes here --></li>
                 <li class="farm_box"><!-- Your content goes here --></li>
                 <li class="farm_box"><!-- Your content goes here --></li>

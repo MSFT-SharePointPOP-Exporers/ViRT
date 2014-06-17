@@ -7,12 +7,12 @@
     body {
         height:100%;
         margin:0;
-        font-family:"Segoe UI",Verdana,Helvetica,sans-serif;
+        font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
     }
         
 
     #pipelines {
-        background-color:#FF99CC;
+        background-color:#FF99CC;                                                                               
         height:100%;
         padding-top:60px;
         float:left;

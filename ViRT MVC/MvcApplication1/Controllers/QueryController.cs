@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
 using Newtonsoft.Json;
+using MvcApplication1.Models;
 
 
 namespace MvcApplication1.Controllers
@@ -15,9 +16,11 @@ namespace MvcApplication1.Controllers
     {
         public string sjson;
 
-        public string Test()
+        public DataTable Test()
         {
-            return sjson;
+            ReliabilityModels calc = new ReliabilityModels();
+            DataTable test = calc.OverviewCalculate();
+            return test;
         }
 
     }

@@ -20,7 +20,7 @@
                         url: '<%= Url.Action("Test", "Query") %>',
                         dataType: "html",
                         success: function (data) {
-                            //$("#rendering").html(data);
+                            $("#rendering").html(data);
                        }
                     });
                 });
@@ -28,69 +28,62 @@
         </script>
         <asp:ContentPlaceHolder ID="Head" runat="server" />
     </head>
-    <body>
-        <div class="sticky">
-            <nav class="top-bar" data-topbar>
-                <ul class="breadcrumbs show-for-medium-up">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li class="unavailable"><a href="#">Gene Splicing</a></li>
-                    <li class="current"><a href="#">Cloning</a></li>
-                </ul>
-                <ul class="title-area show-for-small-only">
-                    <li class="name">
-                        <h1><a href="#">My Site</a></h1>
-                    </li>
-                    <li class="toggle-topbar"><a href="#" class="menu-icon"><span>Pipelines</span></a></li>
-                </ul>
+<body>
+    <nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">My Site</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
 
-                <section class="top-bar-section show-for-small-only">
-                    <!-- Right Nav Section -->
-                    <ul class="right">
-                        <li class="active"><a href="#">Right Button Active</a></li>
-                        <li class="has-dropdown">
-                            <a href="#">Right Button Dropdown</a>
-                            <ul class="dropdown">
-                                <li><a href="#">First link in dropdown</a></li>
-                            </ul>
-                        </li>
+        <section class="top-bar-section show-for-small-only">
+            <!-- Right Nav Section -->
+            <ul class="right">
+                <li class="active"><a href="#">Right Button Active</a></li>
+                <li class="has-dropdown">
+                    <a href="#">Right Button Dropdown</a>
+                    <ul class="dropdown">
+                        <li><a href="#">First link in dropdown</a></li>
                     </ul>
+                </li>
+            </ul>
 
-                    <!-- Left Nav Section -->
-                    <ul class="left show-for-small-only">
-                        <li><a href="#">Left Nav Button</a></li>
-                    </ul>
-                </section>
-            </nav>
-        </div>
+            <!-- Left Nav Section -->
+            <ul class="left show-for-small-only">
+                <li><a href="#">Left Nav Button</a></li>
+            </ul>
+        </section>
+    </nav>
 
-        <div id ="small_dates" class="show-for-medium-down medium-12 small-12">
+    <div id="small_dates" class="show-for-medium-down medium-12 small-12">
+        <label for="from">Start Date:</label>
+        <input type="text" class="from" name="from">
+        <label for="to">End Date:</label>
+        <input type="text" class="to" name="to">
+        <a href="#" class="button success [tiny small large] expand">Apply Date Filters</a>
+    </div>
+
+    <div id="pipelines" class="show-for-medium-up medium-2 large-1 columns">
+        <ul class="side-nav">
+            <li><%: Html.ActionLink("Pipeline 1", "Index") %></li>
+            <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
+            <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
+        </ul>
+    </div>
+    <div id="overviewbar" class="small-12 medium-2 large-2 columns">
+    </div>
+    <div id="rendering" class="small-12 medium-8 large-9 columns">
+        <div id="dates" class="large-2 columns show-for-large-up">
             <label for="from">Start Date:</label>
             <input type="text" class="from" name="from">
             <label for="to">End Date:</label>
             <input type="text" class="to" name="to">
             <a href="#" class="button success [tiny small large] expand">Apply Date Filters</a>
         </div>
-
-        <div id="pipelines" class="show-for-medium-up medium-2 large-1 columns">
-            <ul class="side-nav">
-                <li><%: Html.ActionLink("Pipeline 1", "Index") %></li>
-                <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
-                <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
-            </ul>
-        </div>
-        <div id ="overviewbar" class="small-12 medium-2 large-2 columns">
-        </div>
-        <div id ="rendering" class="small-12 medium-8 large-9 columns">
-            <div id="dates" class="large-2 columns show-for-large-up">
-                <label for="from">Start Date:</label>
-                <input type="text" class="from" name="from">
-                <label for="to">End Date:</label>
-                <input type="text" class="to" name="to">
-                <a href="#" class="button success [tiny small large] expand">Apply Date Filters</a>
-            </div>
-           <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
-           <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-        </div>
-    </body>
+        <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+</body>
 </html>
