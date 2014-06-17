@@ -20,7 +20,7 @@
                         url: '<%= Url.Action("Test", "Query") %>',
                         dataType: "html",
                         success: function (data) {
-                            //$("#rendering").html(data);
+                            $("body").html(data);
                        }
                     });
                 });
