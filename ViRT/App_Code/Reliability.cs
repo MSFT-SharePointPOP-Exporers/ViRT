@@ -241,6 +241,60 @@ namespace Test
 
 			//Need to add the DataCenter to this.
 		}
+
+		public DataTable OverviewCalculate()
+		{
+			SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
+			dbConnect.Open();
+			String query = "SELECT * FROM Pipeline";
+			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+
+			DataTable pipelineTable = new DataTable();
+			pipelineTable.Load(queryCommandReader);
+
+			int length = pipelineTable.Rows.Count;
+			DataTable temp;
+			decimal total = 0;
+
+			DataTable retTable = new DataTable();
+			retTable.Clear();
+
+			DataColumn colDateTime = new DataColumn("Pipeline");
+			colDateTime.DataType = System.Type.GetType("System.String");
+
+			DataColumn colPercent = new DataColumn("Percent");
+			colPercent.DataType = System.Type.GetType("System.Decimal");
+
+			retTable.Columns.Add(colDateTime);
+			retTable.Columns.Add(colPercent);
+
+			DataRow toAdd = retTable.NewRow();
+
+			for (int i = 0; i < length; i++)
+			{
+				temp = CalculateComponent((String)pipelineTable.Rows[i]["Pipeline"], dbConnect);
+
+				for (int j = 0; j < temp.Rows.Count; j++)
+				{
+					total = total + (decimal)temp.Rows[j]["Percent"];
+				}
+
+				total = total / temp.Rows.Count;
+
+				toAdd["Pipeline"] = (string)pipelineTable.Rows[i]["Pipleline"];
+				toAdd["Percent"] = total;
+				retTable.Rows.Add(toAdd);
+
+				if (!(i == length - 1))
+				{
+					toAdd = retTable.NewRow();
+				}
+			}
+
+			dbConnect.Close();
+			return retTable;
+		}
 	}
 }
 /*
