@@ -5,7 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace WebApplication1.App_Code
+namespace Test
 {
 	public class Reliability
 	{
@@ -15,13 +15,13 @@ namespace WebApplication1.App_Code
 		private String pipeline;
 		private DateTime start;
 		private DateTime end;
+		private SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
 
 		/*
 		 * Default constructor
 		 * Used when a person first enters the page.
 		 * -1 refers to all "all networkId" and "all farmIDs)
 		 * dataCenter = "all" means every data center's data is queried.
-		 * 
 		 */
 		public Reliability()
 		{
@@ -78,8 +78,8 @@ namespace WebApplication1.App_Code
 			String failureTag = (String)twoTags.Rows[0][col.ColumnName];
 
 			//DataTable which have date, hour and hits
-			DataTable successTable = tagTable(successTag, dbConnect);
-			DataTable failureTable = tagTable(failureTag, dbConnect);
+			DataTable successTable = tagTable(successTag);
+			DataTable failureTable = tagTable(failureTag);
 
 			//return calculated table that has dates and percentages
 			return Calculate(successTable, failureTable);
@@ -92,7 +92,7 @@ namespace WebApplication1.App_Code
 		 * @param connect	The connection to DB
 		 * @return		Table with all the entries for that tag
 		 */
-		private DataTable tagTable(String pTag , SqlConnection connect)
+		private DataTable tagTable(String pTag)
 		{
 			//Strings that create the query
 			String query = "SELECT Date, Hour, NumberOfHits FROM ProdDollar_RandomJess";
@@ -115,7 +115,7 @@ namespace WebApplication1.App_Code
 			query = query + where;
 
 			//Gets the query info
-			SqlCommand queryCommand = new SqlCommand(query, connect);
+			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
 			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
 
 			//Put query into a DataTable
@@ -182,63 +182,9 @@ namespace WebApplication1.App_Code
 		/*
 		 * 
 		 * 
-		 
-		public DataTable RawDataTable(String pComp)
-		{
-			SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
-			dbConnect.Open();
-			String query = "SELECT * FROM Pipeline";
-			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
-			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
-
-			DataTable tagTable = new DataTable();
-			tagTable.Clear();
-
-			DataColumn colDateTime = new DataColumn("Date");
-			colDateTime.DataType = System.Type.GetType("System.DateTime");
-
-			DataColumn colSTag = new DataColumn("SuccessTag");
-			colSTag.DataType = System.Type.GetType("System.Int");
-
-			DataColumn colFTag = new DataColumn("FailureTag");
-			colFTag.DataType = System.Type.GetType("System.Int");
-
-			DataTable twoTags = new DataTable();
-			twoTags.Load(queryCommandReader);
-
-			//Pick out the two tags and convert 
-			DataColumn col = twoTags.Columns[0];
-			String successTag = (String)twoTags.Rows[0][col.ColumnName];
-			col = twoTags.Columns[1];
-			String failureTag = (String)twoTags.Rows[0][col.ColumnName];
-
-
-			query = 
-			String where = " 
-			//Creates the remainer of the where portion of the query
-			if (!dataCenter.Equals("all"))
-			{
-				if (networkID != -1 && farmID == -1)
-				{
-					where = where + " AND NetworkID = " + networkID.ToString();
-				}
-				else if (networkID != -1 && farmID != -1)
-				{
-					where += " AND NetworkID = " + networkID.ToString() + " AND FarmID = " + farmID.ToString();
-				}
-			}
-			return null;
-		}
-		*/
-
-
-		/*
-		 * 
-		 * 
 		 */
 		public DataTable OverviewCalculate()
 		{
-			SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
 			dbConnect.Open();
 			String query = "SELECT * FROM Pipeline";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
@@ -290,11 +236,13 @@ namespace WebApplication1.App_Code
 			return retTable;
 		}
 
-
-
+		/*
+		 * 
+		 * 
+		 * 
+		 */
 		public DataTable RawDataTable(String pComponent)
 		{
-			SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
 			dbConnect.Open();
 			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Components = '" + pComponent + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
@@ -310,8 +258,8 @@ namespace WebApplication1.App_Code
 			col = twoTags.Columns[1];
 			String failureTag = (String)twoTags.Rows[0][col.ColumnName];
 
-			DataTable successTable = tagTable(successTag, dbConnect);
-			DataTable failureTable = tagTable(failureTag, dbConnect);
+			DataTable successTable = tagTable(successTag);
+			DataTable failureTable = tagTable(failureTag);
 
 			DataTable formatSuccessTable = new DataTable();
 			formatSuccessTable.Columns.Add("Date", typeof(DateTime));
@@ -348,7 +296,8 @@ namespace WebApplication1.App_Code
 			dt.Columns.Add(failureTag, typeof(int));
 			toAdd = dt.NewRow();
 
-			for(DateTime i = start; i < end; i = i.AddHours(1)){
+			for(DateTime i = start; i < end; i = i.AddHours(1))
+			{
 				toAdd["Date"] = i;
 
 				for (int j = 0; j < formatSuccessTable.Rows.Count; j++ )
@@ -371,18 +320,17 @@ namespace WebApplication1.App_Code
 				toAdd = dt.NewRow();
 			}
 
-
+			dbConnect.Close();
 			return dt;
 		}
 
 		/*
 		 * 
 		 * 
-		 
+		 */
 		public DataTable PipelineCalculate(String pPipleine)
 		{
 			//connect to DB and query for 
-			SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
 			dbConnect.Open();
 			
 			//Get all components from pipeline
@@ -416,44 +364,28 @@ namespace WebApplication1.App_Code
 				datePercents[i] = CalculateComponent(comps[i], dbConnect);
 				dt.Columns.Add(comps[i], typeof(decimal));
 			}
-			Console.WriteLine("makes it here");
+			DataRow toAdd = dt.NewRow();
 
-			DataRow tempRow;
-
-			//two for loops. One for a day, the other for the hour.
-			//May need a third loop within to go through all the entries
-			/*for (DateTime i = start; i < end; i.AddDays(1))
+			for (DateTime i = start; i < end; i = i.AddHours(1))
 			{
-				Console.WriteLine(i.ToString());
-				for (int hour = 0; hour < 23; hour++)
+				toAdd["Date"] = i;
+
+				for(int j = 0; j < datePercents.Length; j++)
 				{
-					tempRow = dt.NewRow();
-					tempRow["Date"] = i + new TimeSpan(1,0,0);
-					
-					dt.Rows.Add(tempRow);
-
-					tempRow = dt.NewRow();
+					for (int k = 0; k < datePercents[j].Rows.Count; k++)
+					{
+						if((DateTime)datePercents[j].Rows[k]["Date"] == i)
+						{
+							toAdd[comps[j]] = datePercents[j].Rows[k]["Percent"];
+						}
+					}
 				}
+				dt.Rows.Add(toAdd);
+				toAdd = dt.NewRow();
 			}
-			//Still need dt with all time values
-			DataTable joinedDataTable = null;
-
-			var resultQuery = from TableA in datePercents[0].AsEnumerable()
-							  join TableB in datePercents[1].AsEnumerable()
-							  on TableA.Field<DateTime>("Date") equals TableB.Field<DateTime>("Date")
-							  into GJ from sub in GJ.DefaultIfEmpty()
-							  select new
-							  {
-								  Column1 = 
-							  }
-
-
-
-			joinedDataTable = resultQuery.ExtCopyToDataTable();
-
-			return joinedDataTable; 
+			return dt; 
 		}
-		*/
+		
 
 		/*
 		 * 
