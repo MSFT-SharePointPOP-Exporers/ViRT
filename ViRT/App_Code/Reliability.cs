@@ -28,9 +28,9 @@ namespace Test
 			dataCenter = "all";
 			networkID = -1;
 			farmID = -1;
-			pipeline = "overview";
+			pipeline = "Overview";
 
-			start = DateTime.Today.AddDays(-9);
+			start = DateTime.Today.AddDays(-8);
 			end = DateTime.Today.AddDays(-1);
 			//Time span is 7 days.
 		}
@@ -61,9 +61,9 @@ namespace Test
 		 * @param pComponent	Component which reliability is calculated
 		 * @return		A DataTable with the relailbity calculation of every every hour for the component
 		 */
-		private DataTable CalculateComponent(String pComponent, SqlConnection dbConnect){
+		private DataTable CalculateComponent(String pComponent){
 			//get success and fail tags
-			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Components = '" + pComponent + "'";
+			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Component = '" + pComponent + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
 			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
 
@@ -78,25 +78,25 @@ namespace Test
 			String failureTag = (String)twoTags.Rows[0][col.ColumnName];
 
 			//DataTable which have date, hour and hits
-			DataTable successTable = tagTable(successTag);
-			DataTable failureTable = tagTable(failureTag);
+			DataTable successTable = TagTable(successTag);
+			DataTable failureTable = TagTable(failureTag);
 
 			//return calculated table that has dates and percentages
-			return Calculate(successTable, failureTable);
+			return CalculatePercent(successTable, failureTable);
 		}
 
 		/*
-		 * Retrieves the tags for a component
+		 * Retrieves the Date, Hour, and Number of Hits for a single Tag
 		 * 
 		 * @param pTag		Tag to get info
 		 * @param connect	The connection to DB
 		 * @return		Table with all the entries for that tag
 		 */
-		private DataTable tagTable(String pTag)
+		private DataTable TagTable(String pTag)
 		{
 			//Strings that create the query
 			String query = "SELECT Date, Hour, NumberOfHits FROM ProdDollar_RandomJess";
-			String where = " WHERE Tag = '" + pTag + "'";
+			String where = " WHERE Tag = '" + pTag + "' AND Date >= '" + start.ToString() + "' AND Date <= '" + end.ToString() + "'";
 
 			//Creates the remainer of the where portion of the query
 			if (!dataCenter.Equals("all"))
@@ -127,27 +127,23 @@ namespace Test
 		}
 
 		/*
-		 * Calculates the % for a specific time
+		 * Calculates the success percentage for every time where a component has both
+		 * success and failure tags
+		 * 
+		 * Need to work on the feature where if one of the tags is missing, the percent is missing
 		 * 
 		 * @param sTable		Success table
 		 * @param fTable		Failure table
 		 * @return		Data and Time table
 		 */
-		private DataTable Calculate(DataTable sTable, DataTable fTable)
+		private DataTable CalculatePercent(DataTable sTable, DataTable fTable)
 		{
 			int length = sTable.Rows.Count;
 
 			DataTable datePercent = new DataTable();
-			datePercent.Clear();
 
-			DataColumn colDateTime = new DataColumn("Date");
-			colDateTime.DataType = System.Type.GetType("System.DateTime");
-
-			DataColumn colPercent = new DataColumn("Percent");
-			colPercent.DataType = System.Type.GetType("System.Decimal");
-
-			datePercent.Columns.Add(colDateTime);
-			datePercent.Columns.Add(colPercent);
+			datePercent.Columns.Add("Date", typeof(DateTime));
+			datePercent.Columns.Add("Percent", typeof(decimal));
 
 			DataRow toAdd = datePercent.NewRow();
 			int succHits;
@@ -155,6 +151,8 @@ namespace Test
 			decimal per;
 
 			//calculate reliability
+			//What if the dates dont match up? That would be bad
+			//MUST BE FIXED!
 			for (int i = 0; i < length; i++)
 			{
 				int time = (int)sTable.Rows[i]["Hour"];
@@ -165,15 +163,12 @@ namespace Test
 
 				per = ((decimal)succHits / (succHits + failHits)) * 100;
 				per = Math.Round(per, 4);
-				//Console.WriteLine(per);
+
 				toAdd["Percent"] = per; 
 
 				datePercent.Rows.Add(toAdd);
 
-				if (!(i == length - 1))
-				{
-					toAdd = datePercent.NewRow();
-				}
+				toAdd = datePercent.NewRow();
 			}
 
 			return datePercent;
@@ -183,68 +178,77 @@ namespace Test
 		 * 
 		 * 
 		 */
-		public DataTable OverviewCalculate()
+		public DataTable OverviewCalculate(String pPipeline)
 		{
+			//Open db and create a new query that gets all the components in the pipeline
 			dbConnect.Open();
-			String query = "SELECT * FROM Pipeline";
+			String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipeline + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
 			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
 
-			DataTable pipelineTable = new DataTable();
-			pipelineTable.Load(queryCommandReader);
+			//Put all the pipeline names into a DataTable
+			DataTable componentTable = new DataTable();
+			componentTable.Load(queryCommandReader);
 
-			int length = pipelineTable.Rows.Count;
+			//Create new DatTable with two columns named Pipeline and Percent
+			DataTable retTable = new DataTable();
+			retTable.Columns.Add("Component", typeof(String));
+			retTable.Columns.Add("Percent", typeof(decimal));
+
+			//Create new variables needed to fill retTable
+			DataRow toAdd = retTable.NewRow();
 			DataTable temp;
 			decimal total = 0;
-			
-			DataTable retTable = new DataTable();
-			retTable.Clear();
 
-			DataColumn colDateTime = new DataColumn("Pipeline");
-			colDateTime.DataType = System.Type.GetType("System.String");
 
-			DataColumn colPercent = new DataColumn("Percent");
-			colPercent.DataType = System.Type.GetType("System.Decimal");
-
-			retTable.Columns.Add(colDateTime);
-			retTable.Columns.Add(colPercent);
-
-			DataRow toAdd = retTable.NewRow();
-
-			for (int i = 0; i < length; i++)
+			//Iterate the pipeline table
+			for (int i = 0; i < componentTable.Rows.Count; i++)
 			{
-				temp = CalculateComponent((String)pipelineTable.Rows[i]["Pipeline"], dbConnect);
+				//Temp holds the values of a single component in the pipeline
+				temp = CalculateComponent((String)componentTable.Rows[i]["Component"]);
 
-				for (int j = 0; j < temp.Rows.Count; j++)
+				//Check for divide by 0
+				if (temp.Rows.Count != 0)
 				{
-					total = total + (decimal)temp.Rows[j]["Percent"];
+					//Iterate through temp and add the values
+					for (int j = 0; j < temp.Rows.Count; j++)
+					{
+						total = total + (decimal)temp.Rows[j]["Percent"];
+					}
+
+					total = total / temp.Rows.Count;
+				}
+				else
+				{
+					total = 0;
 				}
 
-				total = total / temp.Rows.Count;
-
-				toAdd["Pipeline"] = (string)pipelineTable.Rows[i]["Pipleline"];
+				//Add the Component name and the totalAverage to the return table
+				toAdd["Component"] = (string)componentTable.Rows[i]["Component"];
 				toAdd["Percent"] = total;
 				retTable.Rows.Add(toAdd);
 
-				if (!(i == length - 1))
-				{
-					toAdd = retTable.NewRow();
-				}
+				toAdd = retTable.NewRow();
+
 			}
 
+			//Close connection and return the table
 			dbConnect.Close();
 			return retTable;
 		}
 
 		/*
+		 * Retrieves the raw numbers by date and time for Success and Failure Tags of a Component
 		 * 
-		 * 
-		 * 
+		 * @param pComponent		The component which the raw numbers will be retreived for
+		 * @return		DataTable with Dates, Success Tag Hits, and Failure Tag Hits
 		 */
 		public DataTable RawDataTable(String pComponent)
 		{
+			//Open connection and query DB
 			dbConnect.Open();
-			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Components = '" + pComponent + "'";
+			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Component = '" + pComponent + 
+				"' AND Date >= '" + start.ToString() + "' AND Date <= '" + end.ToString() + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
 			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
 
@@ -252,15 +256,17 @@ namespace Test
 			DataTable twoTags = new DataTable();
 			twoTags.Load(queryCommandReader);
 
-			//Pick out the two tags and convert 
+			//Get the names of the two tags
 			DataColumn col = twoTags.Columns[0];
 			String successTag = (String)twoTags.Rows[0][col.ColumnName];
 			col = twoTags.Columns[1];
 			String failureTag = (String)twoTags.Rows[0][col.ColumnName];
 
-			DataTable successTable = tagTable(successTag);
-			DataTable failureTable = tagTable(failureTag);
+			//Fill DataTables with the hits for that tag
+			DataTable successTable = TagTable(successTag);
+			DataTable failureTable = TagTable(failureTag);
 
+			//Since the dates are formatted weird in the DB, the dates need to be adjusted
 			DataTable formatSuccessTable = new DataTable();
 			formatSuccessTable.Columns.Add("Date", typeof(DateTime));
 			formatSuccessTable.Columns.Add("Tag", typeof(int));
@@ -271,6 +277,7 @@ namespace Test
 
 			DataRow toAdd = formatSuccessTable.NewRow();
 
+			//Creating adjusted tables with dates which can be easily worked with
 			for (int i = 0; i < successTable.Rows.Count; i++)
 			{
 				int time = (int)successTable.Rows[i]["Hour"];
@@ -290,16 +297,20 @@ namespace Test
 				toAdd = formatFailureTable.NewRow();
 			}
 
+			//Create the DataTable which will be returned
+			//Columns are Date, SuccessTagHits, FailureTagHits
 			DataTable dt = new DataTable();
 			dt.Columns.Add("Date", typeof(DateTime));
 			dt.Columns.Add(successTag, typeof(int));
 			dt.Columns.Add(failureTag, typeof(int));
 			toAdd = dt.NewRow();
 
+			//Iterate through the entire timespan given in the object
 			for(DateTime i = start; i < end; i = i.AddHours(1))
 			{
 				toAdd["Date"] = i;
 
+				//Iterate through the successTable and add any entries which are presented
 				for (int j = 0; j < formatSuccessTable.Rows.Count; j++ )
 				{
 					if ((DateTime)formatSuccessTable.Rows[j]["Date"] == i)
@@ -361,7 +372,7 @@ namespace Test
 			//Also creates new columns for the date and percents table with all the components
 			for (int i = 0; i < length; i++)
 			{
-				datePercents[i] = CalculateComponent(comps[i], dbConnect);
+				datePercents[i] = CalculateComponent(comps[i]);
 				dt.Columns.Add(comps[i], typeof(decimal));
 			}
 			DataRow toAdd = dt.NewRow();
@@ -386,7 +397,6 @@ namespace Test
 			return dt; 
 		}
 		
-
 		/*
 		 * 
 		 * 
@@ -404,8 +414,6 @@ namespace Test
 		public void ChangeDataCenter(String pDataCenter)
 		{
 			dataCenter = pDataCenter;
-			networkID = -1;
-			farmID = -1;
 		}
 
 		/*
@@ -417,8 +425,70 @@ namespace Test
 		{
 			networkID = pNetworkID;
 			farmID = -1;
+		}
+		
+		/*
+		 * 
+		 * 
+		 */
+		public void ChangeFarmID(int pFarmID)
+		{
+			farmID = -1;
+		}
 
-			//Need to add the DataCenter to this.
+		/*
+		 * 
+		 */
+		public void ChangeDataCenterNetworkID(String pDataCenter, int pNetworkID)
+		{
+			dataCenter = pDataCenter;
+			networkID = pNetworkID;
+			farmID = -1;
+		}
+
+		/*
+		 * 
+		 * 
+		 */
+		public void ChangeNetworkIDFarmID(int pNetworkID, int pFarmID)
+		{
+			networkID = pNetworkID;
+			farmID = pFarmID;
+		}
+
+		/*
+		 * 
+		 * 
+		 */
+		public void ChangeLocationFilter(String pDataCenter, int pNetworkID, int pFarmID)
+		{
+			dataCenter = pDataCenter;
+			networkID = pNetworkID;
+			farmID = pFarmID;
+		}
+
+		/*
+		 * 
+		 * 
+		 */
+		public void ChangeAllFilters(String pDataCenter, int pNetworkID, int pFarmID, String pPipeline,
+			DateTime pStart, DateTime pEnd)
+		{
+			dataCenter = pDataCenter;
+			networkID = pNetworkID;
+			farmID = pFarmID;
+			pipeline = pPipeline;
+			start = pStart;
+			end = pEnd;
+		}
+
+		/*
+		 * 
+		 * 
+		 */
+		public void ChangePipeline(String pPipeline)
+		{
+			pipeline = pPipeline;
 		}
 	}
 }
