@@ -15,9 +15,9 @@ namespace MvcApplication1.Controllers
     public class QueryController : Controller
     {
 
-        public ActionResult Test()
+        public string Test()
         {
-            return View("~/Views/Home/About2.ascx");
+            return Request.QueryString["pipeline"];
         }
 
     }

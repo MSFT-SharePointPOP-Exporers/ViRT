@@ -9,15 +9,17 @@ namespace MvcApplication1
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/ui.js", 
+                        "~/Scripts/jquery-{version}.js", 
                         "~/Scripts/foundation/foundation/foundation.js", 
                         "~/Scripts/foundation/foundation/foundation.topbar.js",
                         "~/Scripts/foundation/foundation/foundation.dropdown.js",
-                        "~/Scripts/foundation/foundation/foundation.alert.js"));
+                        "~/Scripts/foundation/foundation/foundation.alert.js",
+                        "~/Scripts/date.js",
+                        "~/Scripts/querystring-0.9.0.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/jquery-ui-1.10.4.js",
+                        "~/Scripts/ui.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
@@ -26,7 +28,7 @@ namespace MvcApplication1
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                        "~/Scripts/modernizr*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/foundation/foundation.css", "~/Content/foundation/normalize.css", "~/Content/site.css"));
 

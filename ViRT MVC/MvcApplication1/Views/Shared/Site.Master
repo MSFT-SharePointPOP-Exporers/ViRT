@@ -1,93 +1,77 @@
 ﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
 <!DOCTYPE html>
 <html lang="en">
-    <head runat="server">
-        <meta charset="utf-8" />
-        <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
-        <link href="<%: Url.Content("~/favicon.ico") %>" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        <%: Styles.Render("~/Content/css") %>
-        <%: Styles.Render("~/Content/themes/base/css") %>
-        <%: Scripts.Render("~/bundles/jquery") %>
-        <%: Scripts.Render("~/bundles/modernizr") %>
-        <%: Scripts.Render("~/bundles/jqueryui") %>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $(document).foundation();
-                $('#FeaturedContent_Datacenter').change(function () {
-                    $.ajax({
-                        contentType: "text/html; charset=utf-8",
-                        data: "datacenter=" + $('#FeaturedContent_Datacenter').val(),
-                        url: '<%= Url.Action("Test", "Query") %>',
-                        dataType: "html",
-                        success: function (data) {
-                            $("#rendering").html(data);
-                        }
-                    });
-                });
-            });
-        </script>
-        <asp:ContentPlaceHolder ID="Head" runat="server" />
-    </head>
-<body>
-<nav class="top-bar" data-topbar>
-              <!-- Left Nav Section -->
+  <head runat="server">
+    <meta charset="utf-8" />
+    <title>
+      <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <link href="<%: Url.Content("~/favicon.ico") %>" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <%: Styles.Render("~/Content/css") %>
+    <%: Styles.Render("~/Content/themes/base/css") %>
+    <%: Scripts.Render("~/bundles/jquery") %>
+    <%: Scripts.Render("~/bundles/jqueryui") %>
+    <%: Scripts.Render("~/bundles/modernizr") %>
+    <asp:ContentPlaceHolder ID="Head" runat="server" />
+  </head>
+  <body>
+    <nav class="top-bar" data-topbar>
+      <!-- Left Nav Section -->
       <ul class="breadcrumbs show-for-medium-up">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Features</a></li>
-          <li class="unavailable"><a href="#">Gene Splicing</a></li>
-          <li class="current"><a href="#">Cloning</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li class="unavailable"><a href="#">Gene Splicing</a></li>
+        <li class="current"><a href="#">Cloning</a></li>
       </ul>
-  <ul class="title-area">
-    <li class="name">
-    </li>
-     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-  </ul>
-
-  <section class="top-bar-section">
-    <!-- Right Nav Section -->
-    <ul class="right show-for-small-only">
-        <li class="has-dropdown">
-        <a href="#">Change Pipeline</a>
-        <ul class="dropdown">
-            <li><%: Html.ActionLink("Pipeline 1", "Index") %></li>
-            <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
-            <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
+      <ul class="title-area">
+        <li class="name">
+        </li>
+        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right show-for-small-only">
+          <li class="has-dropdown">
+            <a href="#">Change Pipeline</a>
+            <ul class="dropdown">
+              <li><%: Html.ActionLink("Pipeline 1", "Index") %></li>
+              <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
+              <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
+            </ul>
+          </li>
+          <li class="has-form">
+            <div id="small_dates" class="show-for-medium-down medium-12 small-12">
+                <label for="from">Start Date:</label>
+                <input type="text" class="from" name="from">
+                <label for="to">Start Date:</label>
+                <input type="text" class="to" name="to">
+              <a href="#" class="button success [small large] expand">Apply Date Filters</a>
+            </div>
+          </li>
         </ul>
-      </li>
-        <li class="has-form">
-       <div id="small_dates" class="show-for-medium-down medium-12 small-12">
-        <label for="from">Start Date:</label>
-        <input type="text" class="from" name="from">
-        <label for="to">End Date:</label>
-        <input type="text" class="to" name="to">
-        <a href="#" class="button success [tiny small large] expand">Apply Date Filters</a>
-    </div>
-</li>
-    </ul>
-  </section>
-</nav>
-
+      </section>
+    </nav>
     <div id="pipelines" class="show-for-medium-up medium-2 large-1 columns">
-        <ul class="side-nav">
-            <li><%: Html.ActionLink("Pipeline 1", "Index") %></li>
-            <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
-            <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
-        </ul>
+      <ul class="side-nav">
+        <li><%: Html.ActionLink("Pipeline 1", "Index") %></li>
+        <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
+        <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
+      </ul>
     </div>
     <div id="overviewbar" class="small-12 medium-2 large-2 columns">
     </div>
     <div id="rendering" class="small-12 medium-8 large-9 columns">
-        <div id="dates" class="large-2 columns show-for-large-up">
+      <div id="dates" class="large-2 columns show-for-large-up">
             <label for="from">Start Date:</label>
             <input type="text" class="from" name="from">
             <label for="to">End Date:</label>
             <input type="text" class="to" name="to">
-            <a href="#" class="button success [tiny small large] expand">Apply Date Filters</a>
-        </div>
-        <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
-        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        <a href="#" class="button success [tiny small large] expand">Apply Date Filters</a>
+      </div>
+      <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
+      <asp:ContentPlaceHolder ID="MainContent" runat="server" />
     </div>
-</body>
+  </body>
 </html>
