@@ -5,7 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Test
+namespace WebApplication1.App_Code
 {
 	public class Reliability
 	{
