@@ -247,8 +247,7 @@ namespace Test
 		{
 			//Open connection and query DB
 			dbConnect.Open();
-			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Component = '" + pComponent + 
-				"' AND Date >= '" + start.ToString() + "' AND Date <= '" + end.ToString() + "'";
+			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Component = '" + pComponent + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
 			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
 
@@ -305,39 +304,51 @@ namespace Test
 			dt.Columns.Add(failureTag, typeof(int));
 			toAdd = dt.NewRow();
 
+			int quickDateUpSuccess = 0;
+			int quickDateUpFailure = 0;
+
 			//Iterate through the entire timespan given in the object
 			for(DateTime i = start; i < end; i = i.AddHours(1))
 			{
 				toAdd["Date"] = i;
 
-				//Iterate through the successTable and add any entries which are presented
-				for (int j = 0; j < formatSuccessTable.Rows.Count; j++ )
+				//Iterate through the successTable and add any entries which are present
+				for (int j = quickDateUpSuccess; j < formatSuccessTable.Rows.Count; j++)
 				{
+					quickDateUpSuccess++;
 					if ((DateTime)formatSuccessTable.Rows[j]["Date"] == i)
 					{
 						toAdd[successTag] = formatSuccessTable.Rows[j]["Tag"];
+						j = formatSuccessTable.Rows.Count;
 					}
 				}
 
-				for (int j = 0; j < formatFailureTable.Rows.Count; j++)
+				//Iterate through the failureTable and add any entries which are present
+				for (int j = quickDateUpFailure; j < formatFailureTable.Rows.Count; j++)
 				{
+					quickDateUpFailure++;
 					if ((DateTime)formatFailureTable.Rows[j]["Date"] == i)
 					{
 						toAdd[failureTag] = formatFailureTable.Rows[j]["Tag"];
+						j = formatFailureTable.Rows.Count;
 					}
 				}
 
+				//Add the row and continue
 				dt.Rows.Add(toAdd);
 				toAdd = dt.NewRow();
 			}
 
+			//Close and return the DataTable
 			dbConnect.Close();
 			return dt;
 		}
 
 		/*
+		 * Calculate all the percentages for a pipeline's components
 		 * 
-		 * 
+		 * @param pPipeline		The pipeline for all the components
+		 * @return		A DataTable which holds the percentages of all the components for the given time
 		 */
 		public DataTable PipelineCalculate(String pPipleine)
 		{
@@ -377,29 +388,38 @@ namespace Test
 			}
 			DataRow toAdd = dt.NewRow();
 
+			//Iterate throught the entire time period
 			for (DateTime i = start; i < end; i = i.AddHours(1))
 			{
 				toAdd["Date"] = i;
-
+				//Iterate through all the datePercent components tables
 				for(int j = 0; j < datePercents.Length; j++)
 				{
+					//Iterate through a datePercent table
 					for (int k = 0; k < datePercents[j].Rows.Count; k++)
 					{
+						//Check if there are entries with the time i
 						if((DateTime)datePercents[j].Rows[k]["Date"] == i)
 						{
 							toAdd[comps[j]] = datePercents[j].Rows[k]["Percent"];
 						}
 					}
 				}
+				//Add the entries to the return table
 				dt.Rows.Add(toAdd);
 				toAdd = dt.NewRow();
 			}
+
+			//Close db and return table
+			dbConnect.Close();
 			return dt; 
 		}
 		
 		/*
+		 * Changes the start and end date
 		 * 
-		 * 
+		 * @param pStart		New start date
+		 * @param pEnd			New end date
 		 */
 		public void ChangeDate(DateTime pStart, DateTime pEnd)
 		{
@@ -408,18 +428,21 @@ namespace Test
 		}
 
 		/*
+		 * Changes the Data Center and changes network and farm to default
 		 * 
-		 * 
+		 * @param pDataCenter		Desired new data center
 		 */
 		public void ChangeDataCenter(String pDataCenter)
 		{
 			dataCenter = pDataCenter;
+			networkID = -1;
+			farmID = -1;
 		}
 
 		/*
+		 * Changes the Network and changes the farm to the default
 		 * 
-		 * 
-		 * 
+		 * @param pNetworkID		Desired new networkID
 		 */
 		public void ChangeNetworkID(int pNetworkID)
 		{
@@ -428,16 +451,20 @@ namespace Test
 		}
 		
 		/*
+		 * Change the farmID
 		 * 
-		 * 
+		 * @param pFarmID		Desired new farmID
 		 */
 		public void ChangeFarmID(int pFarmID)
 		{
-			farmID = -1;
+			farmID = pFarmID;
 		}
 
 		/*
+		 * Change both the Data Center and NetworkId and make farm default
 		 * 
+		 * @param pDataCenter		New DataCenter
+		 * @param pNetworkID		New NetworkID
 		 */
 		public void ChangeDataCenterNetworkID(String pDataCenter, int pNetworkID)
 		{
@@ -447,8 +474,10 @@ namespace Test
 		}
 
 		/*
+		 * Changes the NetworkID and the FarmID
 		 * 
-		 * 
+		 * @param pNetworkID		New NetworkID
+		 * @param pFarmID			New FarmID
 		 */
 		public void ChangeNetworkIDFarmID(int pNetworkID, int pFarmID)
 		{
@@ -457,8 +486,11 @@ namespace Test
 		}
 
 		/*
+		 * Change all location filters
 		 * 
-		 * 
+		 * @param pDataCenter		New DataCenter
+		 * @param pNetworkID		New NetworkID
+		 * @param pFarmID			New FarmID
 		 */
 		public void ChangeLocationFilter(String pDataCenter, int pNetworkID, int pFarmID)
 		{
@@ -468,8 +500,14 @@ namespace Test
 		}
 
 		/*
+		 * Changes all filters
 		 * 
-		 * 
+		 * @param pDataCenter		New DataCenter
+		 * @param pNetworkID		New NetworkID
+		 * @param pFarmID			New FarmID
+		 * @param pPipeline			New Pipeline
+		 * @param pStart			New start time
+		 * @param pEnd				New End time
 		 */
 		public void ChangeAllFilters(String pDataCenter, int pNetworkID, int pFarmID, String pPipeline,
 			DateTime pStart, DateTime pEnd)
@@ -483,8 +521,9 @@ namespace Test
 		}
 
 		/*
+		 * Changes the pipeline
 		 * 
-		 * 
+		 * @param pPipeline		New Pipeline
 		 */
 		public void ChangePipeline(String pPipeline)
 		{

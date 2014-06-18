@@ -13,11 +13,11 @@ DECLARE @Time INT
 
 --Up is Success
 SET @LowerUp = 950
-SET @UpperUp = 1000
+SET @UpperUp = 960
 
 --Down is Failure
-SET @LowerDown = 0
-SET @UpperDown = 50
+SET @LowerDown = 50
+SET @UpperDown = 100
 SET @RowCount = 0
 
 
@@ -30,11 +30,11 @@ SET @RowCount = 0
  * INTO ARRAY results
  */
 
-WHILE @RowCount < 648
+WHILE @RowCount < (24*1)
 BEGIN
 	SET @HitValUp = ROUND( (@UpperUp - @LowerUp - 1) * RAND() + @LowerUp, 0)
 	SET @HitValDown = ROUND( (@UpperDown - @LowerDown - 1) * RAND() + @LowerDown, 0)
-	SET @Date = DATEADD(dd, FLOOR((@RowCount / 24)), '2014-06-04')
+	SET @Date = DATEADD(dd, FLOOR((@RowCount / 24)), '2014-06-13')
 	SET @Time = @RowCount % 24
 
 --Success Insert
