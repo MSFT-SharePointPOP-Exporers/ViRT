@@ -187,7 +187,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PercentDataController.cs" />
     <Compile Include="Controllers\QueryController.cs" />
+    <Compile Include="Controllers\RawDataController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -338,6 +340,8 @@
     <Content Include="Scripts\amcharts\themes\dark.js" />
     <Content Include="Scripts\amcharts\themes\light.js" />
     <Content Include="Views\Home\About2.ascx" />
+    <Content Include="Views\PercentData\PercentData.aspx" />
+    <Content Include="Views\RawData\RawData.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
