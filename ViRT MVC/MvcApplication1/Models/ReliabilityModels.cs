@@ -5,7 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Test
+namespace MvcApplication1.Models
 {
 	public class Reliability
 	{
