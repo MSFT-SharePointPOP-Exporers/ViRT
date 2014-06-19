@@ -172,6 +172,65 @@ namespace Test
 			}
 
 			return datePercent;
+
+
+
+			int length = sTable.Rows.Count;
+
+			DataTable datePercent = new DataTable();
+
+			datePercent.Columns.Add("Date", typeof(DateTime));
+			datePercent.Columns.Add("Percent", typeof(decimal));
+
+			DataRow toAdd = datePercent.NewRow();
+			int succHits = 0;
+			int failHits = 0;
+			decimal per;
+			DateTime tempDate;
+
+			for (DateTime i = start; i < end; i = i.AddHours(1))
+			{
+
+				toAdd["Date"] = i;
+
+				//Iterate through the successTable and add any entries which are present
+				for (int j = 0; j < sTable.Rows.Count; j++)
+				{
+					tempDate = (DateTime)sTable.Rows[j]["Date"];
+					tempDate = tempDate.AddHours((int)sTable.Rows[j]["Hour"]);
+					if (tempDate == i)
+					{
+						succHits = (int)sTable.Rows[j]["NumberOfHits"];
+						j = sTable.Rows.Count;
+					}
+				}
+
+				//Iterate through the failureTable and add any entries which are present
+				for (int j = 0; j < fTable.Rows.Count; j++)
+				{
+					tempDate = (DateTime)fTable.Rows[j]["Date"];
+					tempDate = tempDate.AddHours((int)fTable.Rows[j]["Hour"]);
+					if (tempDate == i)
+					{
+						failHits = (int)fTable.Rows[j]["NumberOfHits"];
+						j = fTable.Rows.Count;
+					}
+				}
+
+				if (succHits != 0 || failHits != 0)
+				{
+					per = ((decimal)succHits / (succHits + failHits)) * 100;
+					toAdd["Percent"] = per;
+				}
+
+				//Add the row and continue
+				datePercent.Rows.Add(toAdd);
+				toAdd = datePercent.NewRow();
+				succHits = 0;
+				failHits = 0;
+			}
+
+			return datePercent;
 		}
 
 		/*

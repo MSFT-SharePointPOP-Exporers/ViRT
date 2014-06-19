@@ -146,29 +146,51 @@ namespace Test
 			datePercent.Columns.Add("Percent", typeof(decimal));
 
 			DataRow toAdd = datePercent.NewRow();
-			int succHits;
-			int failHits;
+			int succHits = 0;
+			int failHits = 0;
 			decimal per;
+			DateTime tempDate;
 
-			//calculate reliability
-			//What if the dates dont match up? That would be bad
-			//MUST BE FIXED!
-			for (int i = 0; i < length; i++)
+			for (DateTime i = start; i < end; i = i.AddHours(1))
 			{
-				int time = (int)sTable.Rows[i]["Hour"];
-				toAdd["Date"] = ((DateTime)sTable.Rows[i]["Date"]).AddHours(time);
 
-				succHits = (int)sTable.Rows[i]["NumberOfHits"];
-				failHits  = (int)fTable.Rows[i]["NumberOfHits"];
+				toAdd["Date"] = i;
 
-				per = ((decimal)succHits / (succHits + failHits)) * 100;
-				per = Math.Round(per, 4);
+				//Iterate through the successTable and add any entries which are present
+				for (int j = 0; j < sTable.Rows.Count; j++)
+				{
+					tempDate = (DateTime)sTable.Rows[j]["Date"];
+					tempDate = tempDate.AddHours((int)sTable.Rows[j]["Hour"]);
+					if (tempDate == i)
+					{
+						succHits = (int)sTable.Rows[j]["NumberOfHits"];
+						j = sTable.Rows.Count;
+					}
+				}
 
-				toAdd["Percent"] = per; 
+				//Iterate through the failureTable and add any entries which are present
+				for (int j = 0; j < fTable.Rows.Count; j++)
+				{
+					tempDate = (DateTime)fTable.Rows[j]["Date"];
+					tempDate = tempDate.AddHours((int)fTable.Rows[j]["Hour"]);
+					if (tempDate == i)
+					{
+						failHits = (int)fTable.Rows[j]["NumberOfHits"];
+						j = fTable.Rows.Count;
+					}
+				}
 
+				if (succHits != 0 || failHits != 0)
+				{
+					per = ((decimal)succHits / (succHits + failHits)) * 100;
+					toAdd["Percent"] = Math.Round(per, 4); 
+				}
+
+				//Add the row and continue
 				datePercent.Rows.Add(toAdd);
-
 				toAdd = datePercent.NewRow();
+				succHits = 0;
+				failHits = 0;
 			}
 
 			return datePercent;
@@ -201,7 +223,6 @@ namespace Test
 			DataRow toAdd = retTable.NewRow();
 			DataTable temp;
 			decimal total = 0;
-
 
 			//Iterate the pipeline table
 			for (int i = 0; i < componentTable.Rows.Count; i++)
@@ -306,18 +327,14 @@ namespace Test
 			dt.Columns.Add(failureTag, typeof(int));
 			toAdd = dt.NewRow();
 
-			int quickDateUpSuccess = 0;
-			int quickDateUpFailure = 0;
-
 			//Iterate through the entire timespan given in the object
 			for(DateTime i = start; i < end; i = i.AddHours(1))
 			{
 				toAdd["Date"] = i;
 
 				//Iterate through the successTable and add any entries which are present
-				for (int j = quickDateUpSuccess; j < formatSuccessTable.Rows.Count; j++)
+				for (int j = 0; j < formatSuccessTable.Rows.Count; j++)
 				{
-					quickDateUpSuccess++;
 					if ((DateTime)formatSuccessTable.Rows[j]["Date"] == i)
 					{
 						toAdd[successTag] = formatSuccessTable.Rows[j]["Tag"];
@@ -326,9 +343,8 @@ namespace Test
 				}
 
 				//Iterate through the failureTable and add any entries which are present
-				for (int j = quickDateUpFailure; j < formatFailureTable.Rows.Count; j++)
+				for (int j = 0; j < formatFailureTable.Rows.Count; j++)
 				{
-					quickDateUpFailure++;
 					if ((DateTime)formatFailureTable.Rows[j]["Date"] == i)
 					{
 						toAdd[failureTag] = formatFailureTable.Rows[j]["Tag"];
@@ -583,7 +599,6 @@ namespace Test
 
 			dbConnect.Close();
 			return pipeArray;
-			return null;
 		}
 	}
 }
