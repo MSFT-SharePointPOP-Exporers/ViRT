@@ -5,39 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-<h2>PercentData</h2>
     <div id="chartdiv"></div>
-
-</asp:Content>
-
-<asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">
-</asp:Content>
-
-<asp:Content ID="Content5" ContentPlaceHolderID="Head" runat="server">
-    <style>
-        .amChartsLegend g text {
-            text-decoration: underline;
-        }
-
-        #chartdiv .newchart{
-            width: 100%;
-            height: 500px;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-
-        rect {
-            text-decoration: none;
-        }
-    </style>
-        <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
-    <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-    <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
     <script>
         var bullets = ["round", "square", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "diamond", "xError", "yError"];
         var data = <%= Html.Raw(ViewBag.PercentData)%>;//generateChartData();
@@ -118,4 +86,65 @@
         }
 
     </script>
+
+</asp:Content>
+
+<asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
+<h1>Component Reliability</h1>
+    <div id="selectors" class="small-12 small-centered medium-12 medium-centered large-centered large-12">
+        <form id="form1" runat="server">
+            <div id="SelectDatacenter">
+                <p>Datacenter</p>
+       
+                <asp:DropDownList ID="Datacenter" runat="server" DataSourceID="SqlDataSource4" DataTextField="DataCenter" DataValueField="DataCenter">
+                    <asp:ListItem Selected="True">All  </asp:ListItem>
+                </asp:DropDownList>
+                <asp:SqlDataSource runat="server" ID="SqlDataSource4" ConnectionString="Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;User ID=dataUser;Password=userData!" ProviderName="System.Data.SqlClient" SelectCommand="SELECT DISTINCT [DataCenter] FROM [DataCenter]"></asp:SqlDataSource>
+            </div>
+            <div id="SelectNetwork">
+                <p>Network ID</p>
+       
+                <asp:DropDownList ID="Network" runat="server" DataSourceID="SqlDataSource2" DataTextField="NetworkId" DataValueField="NetworkId">
+                    <asp:ListItem Selected="False" Value="-1">5</asp:ListItem>
+                </asp:DropDownList>
+                <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString="Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;User ID=dataUser;Password=userData!" ProviderName="System.Data.SqlClient" SelectCommand="SELECT DISTINCT [NetworkId] FROM [DataCenterNetworkId]"></asp:SqlDataSource>
+            </div>
+            <div id="SelectFarm">
+                <p>Farm ID</p>
+       
+                <asp:DropDownList ID="Farm" runat="server" DataSourceID="SqlDataSource1" DataTextField="FarmId" DataValueField="FarmId">
+                    <asp:ListItem Selected="False" Value="-1">5</asp:ListItem>
+                </asp:DropDownList>
+                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString="Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;User ID=dataUser;Password=userData!" ProviderName="System.Data.SqlClient" SelectCommand="SELECT DISTINCT [FarmID] FROM [ProdDollar_TagAggregation]"></asp:SqlDataSource>
+            </div>
+            <div id="Entry">
+            </div>
+        </form>
+    </div>
+</asp:Content>
+
+<asp:Content ID="Content5" ContentPlaceHolderID="Head" runat="server">
+    <style>
+        .amChartsLegend g text {
+            text-decoration: underline;
+        }
+
+        #chartdiv .newchart{
+            width: 100%;
+            height: 500px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        rect {
+            text-decoration: none;
+        }
+    </style>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
 </asp:Content>
