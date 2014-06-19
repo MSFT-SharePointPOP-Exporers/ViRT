@@ -1,39 +1,50 @@
-﻿var start;
-var end;
-var pipeline;
-var datacen;
-var network;
-var farm;
-
-function setFields() {
+﻿function setFields() {
     $(".from").val($.QueryString("start"));
     $(".to").val($.QueryString("end"));
+    $("#FeaturedContent_Datacenter").val($.QueryString("datacen").substring(0,3));
+    $("#FeaturedContent_Network").val($.QueryString("network"));
+    $("#FeaturedContent_Farm").val($.QueryString("farm"));
 }
 
 function setDefaults() {
-    start = new Date.parse("t - 8 d").toString("yyyy-MM-dd");
-    end = new Date.parse("t - 1 d").toString("yyyy-MM-dd");
-    pipeline = "overview";
-    datacen = "all";
-    network = -1;
-    farm = -1;
+    sessionStorage["start"] = new Date.parse("t - 8 d").toString("yyyy-MM-dd");
+    sessionStorage["end"] = new Date.parse("t - 1 d").toString("yyyy-MM-dd");
+    sessionStorage["pipeline"] = "overview";
+    sessionStorage["datacen"] = "all";
+    sessionStorage["network"] = -1;
+    sessionStorage["farm"] = -1;
+    sessionStorage["query"] = "?start=" + sessionStorage["start"] + "&end=" + sessionStorage["end"] + "&pipeline=" + sessionStorage["pipeline"] + "&datacen=" + sessionStorage["datacen"] + "&network=" + sessionStorage["network"] + "&farm=" + sessionStorage["farm"];
 }
 
 function updateQueryString() {
-    document.cookie = "?start=" + start + "&end=" + end + "&pipeline=" + pipeline + "&datacen=" + datacen + "&network=" + network + "&farm=" + farm;
-    window.location.search = document.cookie;
+    if (sessionStorage["start"] == undefined) {
+        setDefaults();
+    }
+    sessionStorage["query"] = "?start=" + sessionStorage["start"] + "&end=" + sessionStorage["end"] + "&pipeline=" + sessionStorage["pipeline"] + "&datacen=" + sessionStorage["datacen"] + "&network=" + sessionStorage["network"] + "&farm=" + sessionStorage["farm"];
+    window.location.search = sessionStorage["query"];
 }
 
 $(document).ready(function () {
     $(document).foundation();
     if (window.location.search == "") {
-        setDefaults();
         updateQueryString();
     }
     setFields();
     $(".button").click(function () {
-        start = $(".from").val();
-        end = $(".to").val();
+        sessionStorage["start"] = $(".from").val();
+        sessionStorage["end"] = $(".to").val();
+        updateQueryString();
+    });
+    $("#FeaturedContent_Datacenter").change(function () {
+        sessionStorage["datacen"] = $("#FeaturedContent_Datacenter").val().toString();
+        updateQueryString();
+    });
+    $("#FeaturedContent_Network").change(function () {
+        sessionStorage["network"] = $("#FeaturedContent_Network").val();
+        updateQueryString();
+    });
+    $("#FeaturedContent_Farm").change(function () {
+        sessionStorage["farm"] = $("#FeaturedContent_Farm").val();
         updateQueryString();
     });
 });
@@ -41,7 +52,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(".from").datepicker({
-        defaultDate: start,
+        defaultDate: sessionStorage["start"],
         changeMonth: true,
         changeYear: true,
         dateFormat:'yy-mm-dd',
@@ -52,7 +63,7 @@ $(document).ready(function () {
         }
     });
     $(".to").datepicker({
-        defaultDate: end,
+        defaultDate: sessionStorage["end"],
         changeMonth: true,
         changeYear: true,
         maxDate: "+0D",

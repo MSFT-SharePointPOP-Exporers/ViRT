@@ -17,7 +17,8 @@ namespace MvcApplication1.Controllers
 
         public string Test()
         {
-            return Request.QueryString["pipeline"];
+            Reliability test = new Reliability();
+            return JsonConvert.SerializeObject(test.OverviewCalculate("UserLogin"));
         }
 
     }

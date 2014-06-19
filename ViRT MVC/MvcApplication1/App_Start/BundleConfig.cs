@@ -15,7 +15,8 @@ namespace MvcApplication1
                         "~/Scripts/foundation/foundation/foundation.dropdown.js",
                         "~/Scripts/foundation/foundation/foundation.alert.js",
                         "~/Scripts/date.js",
-                        "~/Scripts/querystring-0.9.0.js"));
+                        "~/Scripts/querystring-0.9.0.js",
+                        "~/Scripts/jquery.cookie.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-1.10.4.js",

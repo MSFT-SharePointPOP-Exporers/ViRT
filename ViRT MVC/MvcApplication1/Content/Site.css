@@ -25,6 +25,11 @@
         float:left;
     }
 
+    #overviewbar h1 {
+        font-size: 25px;
+        font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
+    }
+
     #rendering {
         background-color: #dd3a5d;
         height: 100%;
