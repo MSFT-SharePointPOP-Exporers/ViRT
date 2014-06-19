@@ -61,7 +61,8 @@ namespace WebApplication1.App_Code
 		 * @param pComponent	Component which reliability is calculated
 		 * @return		A DataTable with the relailbity calculation of every every hour for the component
 		 */
-		private DataTable CalculateComponent(String pComponent){
+		private DataTable CalculateComponent(String pComponent)
+		{
 			//get success and fail tags
 			String query = "SELECT SuccessTag, FailureTag FROM Component WHERE Component = '" + pComponent + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
@@ -110,7 +111,7 @@ namespace WebApplication1.App_Code
 					where += " AND NetworkID = " + networkID.ToString() + " AND FarmID = " + farmID.ToString();
 				}
 			}
-			
+
 			//concatenate the where to the original query
 			query = query + where;
 
@@ -183,7 +184,11 @@ namespace WebApplication1.App_Code
 				if (succHits != 0 || failHits != 0)
 				{
 					per = ((decimal)succHits / (succHits + failHits)) * 100;
-					toAdd["Percent"] = Math.Round(per, 4); 
+					toAdd["Percent"] = Math.Round(per, 4);
+				}
+				else
+				{
+					toAdd["Percent"] = 0;
 				}
 
 				//Add the row and continue
@@ -328,7 +333,7 @@ namespace WebApplication1.App_Code
 			toAdd = dt.NewRow();
 
 			//Iterate through the entire timespan given in the object
-			for(DateTime i = start; i < end; i = i.AddHours(1))
+			for (DateTime i = start; i < end; i = i.AddHours(1))
 			{
 				toAdd["Date"] = i;
 
@@ -372,12 +377,12 @@ namespace WebApplication1.App_Code
 		{
 			//connect to DB and query for 
 			dbConnect.Open();
-			
+
 			//Get all components from pipeline
 			String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipeline + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
 			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
-			
+
 			//componentsTable has all the components from the pipeline
 			DataTable componentsTable = new DataTable();
 			componentsTable.Load(queryCommandReader);
@@ -411,13 +416,13 @@ namespace WebApplication1.App_Code
 			{
 				toAdd["Date"] = i;
 				//Iterate through all the datePercent components tables
-				for(int j = 0; j < datePercents.Length; j++)
+				for (int j = 0; j < datePercents.Length; j++)
 				{
 					//Iterate through a datePercent table
 					for (int k = 0; k < datePercents[j].Rows.Count; k++)
 					{
 						//Check if there are entries with the time i
-						if((DateTime)datePercents[j].Rows[k]["Date"] == i)
+						if ((DateTime)datePercents[j].Rows[k]["Date"] == i)
 						{
 							toAdd[comps[j]] = datePercents[j].Rows[k]["Percent"];
 						}
@@ -430,9 +435,9 @@ namespace WebApplication1.App_Code
 
 			//Close db and return table
 			dbConnect.Close();
-			return dt; 
+			return dt;
 		}
-		
+
 		/*
 		 * Changes the start and end date
 		 * 
@@ -467,7 +472,7 @@ namespace WebApplication1.App_Code
 			networkID = pNetworkID;
 			farmID = -1;
 		}
-		
+
 		/*
 		 * Change the farmID
 		 * 
@@ -566,7 +571,7 @@ namespace WebApplication1.App_Code
 
 			String[] compsArray = new String[componentsForPipeline.Rows.Count];
 
-			for (int i = 0; i < componentsForPipeline.Rows.Count; i++ )
+			for (int i = 0; i < componentsForPipeline.Rows.Count; i++)
 			{
 				compsArray[i] = (String)componentsForPipeline.Rows[i]["Component"];
 			}
