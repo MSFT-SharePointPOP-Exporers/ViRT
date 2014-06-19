@@ -38,7 +38,6 @@
                     "title": "Select Component:",
                     "font": 40,
                     "labelText": "[[title]]",
-                    "titlePosition": "top",
                     "useGraphSettings": true,
                     "color": "#0000FF",
                     "position": "left",
