@@ -175,8 +175,10 @@ namespace Test
 		}
 
 		/*
+		 * Calculates an overview of a pipeline
 		 * 
-		 * 
+		 * @param pPipeline		The pipeline to calculate the overview
+		 * @return		DataTable with Component Column and Percent Column
 		 */
 		public DataTable OverviewCalculate(String pPipeline)
 		{
@@ -225,7 +227,7 @@ namespace Test
 
 				//Add the Component name and the totalAverage to the return table
 				toAdd["Component"] = (string)componentTable.Rows[i]["Component"];
-				toAdd["Percent"] = total;
+				toAdd["Percent"] = Math.Round(total, 4);
 				retTable.Rows.Add(toAdd);
 
 				toAdd = retTable.NewRow();
@@ -350,13 +352,13 @@ namespace Test
 		 * @param pPipeline		The pipeline for all the components
 		 * @return		A DataTable which holds the percentages of all the components for the given time
 		 */
-		public DataTable PipelineCalculate(String pPipleine)
+		public DataTable PipelineCalculate(String pPipeline)
 		{
 			//connect to DB and query for 
 			dbConnect.Open();
 			
 			//Get all components from pipeline
-			String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipleine + "'";
+			String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipeline + "'";
 			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
 			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
 			
@@ -528,6 +530,30 @@ namespace Test
 		public void ChangePipeline(String pPipeline)
 		{
 			pipeline = pPipeline;
+		}
+
+		/*
+		 * 
+		 */
+		public String[] getComponents(String pPipeline)
+		{
+			dbConnect.Open();
+			String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipeline + "'";
+			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+			DataTable componentsForPipeline = new DataTable();
+			componentsForPipeline.Load(queryCommandReader);
+
+
+			String[] compsArray = new String[componentsForPipeline.Rows.Count];
+
+			for (int i = 0; i < componentsForPipeline.Rows.Count; i++ )
+			{
+				compsArray[i] = (String)componentsForPipeline.Rows[i]["Component"];
+			}
+
+			dbConnect.Close();
+			return compsArray;
 		}
 	}
 }
