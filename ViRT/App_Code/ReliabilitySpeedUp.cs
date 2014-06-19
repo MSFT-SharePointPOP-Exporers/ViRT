@@ -533,7 +533,10 @@ namespace Test
 		}
 
 		/*
+		 * Retrieves the names of the components for a pipeline
 		 * 
+		 * @param pPipeline		The pipeline whose components will be returned
+		 * @return		Array of componets for the pipeline
 		 */
 		public String[] getComponents(String pPipeline)
 		{
@@ -554,6 +557,33 @@ namespace Test
 
 			dbConnect.Close();
 			return compsArray;
+		}
+
+		/*
+		 * Retrieves all the pipeline names 
+		 * 
+		 * @return a String array of all the pipelines
+		 */
+		public String[] getAllPipelines()
+		{
+			dbConnect.Open();
+			String query = "SELECT * FROM Pipeline";
+			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+			DataTable pipelines = new DataTable();
+			pipelines.Load(queryCommandReader);
+
+
+			String[] pipeArray = new String[pipelines.Rows.Count];
+
+			for (int i = 0; i < pipelines.Rows.Count; i++)
+			{
+				pipeArray[i] = (String)pipelines.Rows[i]["Pipeline"];
+			}
+
+			dbConnect.Close();
+			return pipeArray;
+			return null;
 		}
 	}
 }
