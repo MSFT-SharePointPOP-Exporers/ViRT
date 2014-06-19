@@ -15,9 +15,9 @@ namespace MvcApplication1.Controllers
     public class QueryController : Controller
     {
         Reliability test = new Reliability();
-        public DataTable Test()
+        public string Test()
         {
-            return null; 
+            return JsonConvert.SerializeObject(test.GetAllPipelines());
         }
 
     }

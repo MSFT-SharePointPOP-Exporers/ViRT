@@ -16,12 +16,12 @@
       <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                contentType: "text/html; charset=utf-8",
-                data: sessionStorage["query"],
+                contentType: "application/json"; "charset=utf-8",
+                data: '',
                 url: '<%= Url.Action("Test", "Query") %>',
                 dataType: "html",
                 success: function (data) {
-                    console.log(data);
+                    console.log(typeof(data));
                 }
             });
         });
