@@ -14,11 +14,11 @@ namespace MvcApplication1.Controllers
 {
     public class QueryController : Controller
     {
+        Reliability test = new Reliability();
 
-        public string Test()
+        public String[] Test()
         {
-            Reliability test = new Reliability();
-            return JsonConvert.SerializeObject(test.OverviewCalculate("UserLogin"));
+            return test.getAllPipelines();
         }
 
     }

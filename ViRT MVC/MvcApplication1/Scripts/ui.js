@@ -1,7 +1,7 @@
 ﻿function setFields() {
     $(".from").val($.QueryString("start"));
     $(".to").val($.QueryString("end"));
-    $("#FeaturedContent_Datacenter").val($.QueryString("datacen").substring(0,3));
+    $("#FeaturedContent_Datacenter").val($.QueryString("datacen").replace("%20%20", "  "));
     $("#FeaturedContent_Network").val($.QueryString("network"));
     $("#FeaturedContent_Farm").val($.QueryString("farm"));
 }

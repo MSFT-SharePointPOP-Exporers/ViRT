@@ -10,7 +10,7 @@
     <div id="chartdiv"></div>
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="Header" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="Head" runat="server">
         <style>
         .amChartsLegend g text {
             text-decoration: underline;
@@ -25,12 +25,6 @@
             text-decoration: none;
         }
     </style>
-</asp:Content>
-
-<asp:Content ID="Content4" ContentPlaceHolderID="FeaturedContent" runat="server">
-</asp:Content>
-
-<asp:Content ID="Content5" ContentPlaceHolderID="ScriptsSection" runat="server">
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
@@ -134,5 +128,8 @@
         }
 
     </script>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>
 

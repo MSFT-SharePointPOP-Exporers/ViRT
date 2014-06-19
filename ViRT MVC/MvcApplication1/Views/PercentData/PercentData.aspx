@@ -14,8 +14,28 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="ScriptsSection" runat="server">
-    <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+<asp:Content ID="Content5" ContentPlaceHolderID="Head" runat="server">
+    <style>
+        .amChartsLegend g text {
+            text-decoration: underline;
+        }
+
+        #chartdiv .newchart{
+            width: 100%;
+            height: 500px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        rect {
+            text-decoration: none;
+        }
+    </style>
+        <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
     <script>
@@ -98,27 +118,4 @@
         }
 
     </script>
-</asp:Content>
-
-<asp:Content ID="Content5" ContentPlaceHolderID="Header" runat="server">
-    <style>
-        .amChartsLegend g text {
-            text-decoration: underline;
-        }
-
-        #chartdiv .newchart{
-            width: 100%;
-            height: 500px;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-
-        rect {
-            text-decoration: none;
-        }
-    </style>
 </asp:Content>

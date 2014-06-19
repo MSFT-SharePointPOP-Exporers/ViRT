@@ -14,19 +14,19 @@
     <%: Scripts.Render("~/bundles/jqueryui") %>
     <%: Scripts.Render("~/bundles/modernizr") %>
       <script type="text/javascript">
-          $(document).ready(function () {
-              $('#FeaturedContent_Datacenter').change(function () {
-                  $.ajax({
-                      contentType: "text/html; charset=utf-8",
-                      data: "datacenter=" + $('#FeaturedContent_Datacenter').val(),
-                      url: '<%= Url.Action("Test", "Query") %>',
-                      dataType: "html",
-                      success: function (data) {
-                          $("#rendering").html(data);
-                      }
-                  });
-              });
-          });
+        $(document).ready(function () {
+            $.ajax({
+                contentType: "text/html; charset=utf-8",
+                data: "datacenter=" + $('#FeaturedContent_Datacenter').val(),
+                url: '<%= Url.Action("Test", "Query") %>',
+                dataType: "html",
+                success: function (data) {
+                    for (x in data) {
+                        console.log(x);
+                    }
+                }
+            });
+        });
       </script>
     <asp:ContentPlaceHolder ID="Head" runat="server" />
   </head>
