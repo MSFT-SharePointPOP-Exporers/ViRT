@@ -585,7 +585,7 @@ namespace MvcApplication1.Models
          * 
          * @return a String array of all the pipelines
          */
-        public String[] getAllPipelines()
+        public DataTable GetAllPipelines()
         {
             dbConnect.Open();
             String query = "SELECT * FROM Pipeline";
@@ -594,16 +594,8 @@ namespace MvcApplication1.Models
             DataTable pipelines = new DataTable();
             pipelines.Load(queryCommandReader);
 
-
-            String[] pipeArray = new String[pipelines.Rows.Count];
-
-            for (int i = 0; i < pipelines.Rows.Count; i++)
-            {
-                pipeArray[i] = (String)pipelines.Rows[i]["Pipeline"];
-            }
-
             dbConnect.Close();
-            return pipeArray;
+            return pipelines;
         }
     }
 }
