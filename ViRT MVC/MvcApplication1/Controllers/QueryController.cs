@@ -15,10 +15,9 @@ namespace MvcApplication1.Controllers
     public class QueryController : Controller
     {
         Reliability test = new Reliability();
-
-        public String[] Test()
+        public DataTable Test()
         {
-            return test.getAllPipelines();
+            return null; 
         }
 
     }

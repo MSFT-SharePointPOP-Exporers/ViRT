@@ -9,7 +9,7 @@
 function setDefaults() {
     sessionStorage["start"] = new Date.parse("t - 8 d").toString("yyyy-MM-dd");
     sessionStorage["end"] = new Date.parse("t - 1 d").toString("yyyy-MM-dd");
-    sessionStorage["pipeline"] = "overview";
+    sessionStorage["pipeline"] = "Overview";
     sessionStorage["datacen"] = "all";
     sessionStorage["network"] = -1;
     sessionStorage["farm"] = -1;

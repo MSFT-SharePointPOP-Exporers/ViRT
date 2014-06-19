@@ -267,6 +267,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\Raw Data.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -339,7 +340,6 @@
     <Content Include="Scripts\amcharts\themes\chalk.js" />
     <Content Include="Scripts\amcharts\themes\dark.js" />
     <Content Include="Scripts\amcharts\themes\light.js" />
-    <Content Include="Views\Home\About2.ascx" />
     <Content Include="Views\PercentData\PercentData.aspx" />
     <Content Include="Views\RawData\RawData.aspx" />
     <Content Include="Web.config" />
