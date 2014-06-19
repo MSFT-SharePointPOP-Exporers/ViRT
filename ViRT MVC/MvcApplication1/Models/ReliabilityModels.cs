@@ -147,37 +147,61 @@ namespace MvcApplication1.Models
             datePercent.Columns.Add("Percent", typeof(decimal));
 
             DataRow toAdd = datePercent.NewRow();
-            int succHits;
-            int failHits;
+            int succHits = 0;
+            int failHits = 0;
             decimal per;
+            DateTime tempDate;
 
-            //calculate reliability
-            //What if the dates dont match up? That would be bad
-            //MUST BE FIXED!
-            for (int i = 0; i < length; i++)
+            for (DateTime i = start; i < end; i = i.AddHours(1))
             {
-                int time = (int)sTable.Rows[i]["Hour"];
-                toAdd["Date"] = ((DateTime)sTable.Rows[i]["Date"]).AddHours(time);
 
-                succHits = (int)sTable.Rows[i]["NumberOfHits"];
-                failHits = (int)fTable.Rows[i]["NumberOfHits"];
+                toAdd["Date"] = i;
 
-                per = ((decimal)succHits / (succHits + failHits)) * 100;
-                per = Math.Round(per, 4);
+                //Iterate through the successTable and add any entries which are present
+                for (int j = 0; j < sTable.Rows.Count; j++)
+                {
+                    tempDate = (DateTime)sTable.Rows[j]["Date"];
+                    tempDate = tempDate.AddHours((int)sTable.Rows[j]["Hour"]);
+                    if (tempDate == i)
+                    {
+                        succHits = (int)sTable.Rows[j]["NumberOfHits"];
+                        j = sTable.Rows.Count;
+                    }
+                }
 
-                toAdd["Percent"] = per;
+                //Iterate through the failureTable and add any entries which are present
+                for (int j = 0; j < fTable.Rows.Count; j++)
+                {
+                    tempDate = (DateTime)fTable.Rows[j]["Date"];
+                    tempDate = tempDate.AddHours((int)fTable.Rows[j]["Hour"]);
+                    if (tempDate == i)
+                    {
+                        failHits = (int)fTable.Rows[j]["NumberOfHits"];
+                        j = fTable.Rows.Count;
+                    }
+                }
 
+                if (succHits != 0 || failHits != 0)
+                {
+                    per = ((decimal)succHits / (succHits + failHits)) * 100;
+                    toAdd["Percent"] = Math.Round(per, 4);
+                }
+
+                //Add the row and continue
                 datePercent.Rows.Add(toAdd);
-
                 toAdd = datePercent.NewRow();
+                succHits = 0;
+                failHits = 0;
             }
 
             return datePercent;
         }
 
         /*
+         * Calculates an overview of a pipeline
          * 
-         * 
+         * @param pPipeline		The pipeline to calculate the overview
+         * @return		DataTable with Component Column and Percent Column
          */
         public DataTable OverviewCalculate(String pPipeline)
         {
@@ -200,7 +224,6 @@ namespace MvcApplication1.Models
             DataRow toAdd = retTable.NewRow();
             DataTable temp;
             decimal total = 0;
-
 
             //Iterate the pipeline table
             for (int i = 0; i < componentTable.Rows.Count; i++)
@@ -226,7 +249,7 @@ namespace MvcApplication1.Models
 
                 //Add the Component name and the totalAverage to the return table
                 toAdd["Component"] = (string)componentTable.Rows[i]["Component"];
-                toAdd["Percent"] = total;
+                toAdd["Percent"] = Math.Round(total, 4);
                 retTable.Rows.Add(toAdd);
 
                 toAdd = retTable.NewRow();
@@ -305,18 +328,14 @@ namespace MvcApplication1.Models
             dt.Columns.Add(failureTag, typeof(int));
             toAdd = dt.NewRow();
 
-            int quickDateUpSuccess = 0;
-            int quickDateUpFailure = 0;
-
             //Iterate through the entire timespan given in the object
             for (DateTime i = start; i < end; i = i.AddHours(1))
             {
                 toAdd["Date"] = i;
 
                 //Iterate through the successTable and add any entries which are present
-                for (int j = quickDateUpSuccess; j < formatSuccessTable.Rows.Count; j++)
+                for (int j = 0; j < formatSuccessTable.Rows.Count; j++)
                 {
-                    quickDateUpSuccess++;
                     if ((DateTime)formatSuccessTable.Rows[j]["Date"] == i)
                     {
                         toAdd[successTag] = formatSuccessTable.Rows[j]["Tag"];
@@ -325,9 +344,8 @@ namespace MvcApplication1.Models
                 }
 
                 //Iterate through the failureTable and add any entries which are present
-                for (int j = quickDateUpFailure; j < formatFailureTable.Rows.Count; j++)
+                for (int j = 0; j < formatFailureTable.Rows.Count; j++)
                 {
-                    quickDateUpFailure++;
                     if ((DateTime)formatFailureTable.Rows[j]["Date"] == i)
                     {
                         toAdd[failureTag] = formatFailureTable.Rows[j]["Tag"];
@@ -351,13 +369,13 @@ namespace MvcApplication1.Models
          * @param pPipeline		The pipeline for all the components
          * @return		A DataTable which holds the percentages of all the components for the given time
          */
-        public DataTable PipelineCalculate(String pPipleine)
+        public DataTable PipelineCalculate(String pPipeline)
         {
             //connect to DB and query for 
             dbConnect.Open();
 
             //Get all components from pipeline
-            String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipleine + "'";
+            String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipeline + "'";
             SqlCommand queryCommand = new SqlCommand(query, dbConnect);
             SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
 
@@ -529,6 +547,59 @@ namespace MvcApplication1.Models
         public void ChangePipeline(String pPipeline)
         {
             pipeline = pPipeline;
+        }
+
+        /*
+         * Retrieves the names of the components for a pipeline
+         * 
+         * @param pPipeline		The pipeline whose components will be returned
+         * @return		Array of componets for the pipeline
+         */
+        public String[] getComponents(String pPipeline)
+        {
+            dbConnect.Open();
+            String query = "SELECT Component FROM PipelineComponent WHERE Pipeline = '" + pPipeline + "'";
+            SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+            SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+            DataTable componentsForPipeline = new DataTable();
+            componentsForPipeline.Load(queryCommandReader);
+
+
+            String[] compsArray = new String[componentsForPipeline.Rows.Count];
+
+            for (int i = 0; i < componentsForPipeline.Rows.Count; i++)
+            {
+                compsArray[i] = (String)componentsForPipeline.Rows[i]["Component"];
+            }
+
+            dbConnect.Close();
+            return compsArray;
+        }
+
+        /*
+         * Retrieves all the pipeline names 
+         * 
+         * @return a String array of all the pipelines
+         */
+        public String[] getAllPipelines()
+        {
+            dbConnect.Open();
+            String query = "SELECT * FROM Pipeline";
+            SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+            SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+            DataTable pipelines = new DataTable();
+            pipelines.Load(queryCommandReader);
+
+
+            String[] pipeArray = new String[pipelines.Rows.Count];
+
+            for (int i = 0; i < pipelines.Rows.Count; i++)
+            {
+                pipeArray[i] = (String)pipelines.Rows[i]["Pipeline"];
+            }
+
+            dbConnect.Close();
+            return pipeArray;
         }
     }
 }
