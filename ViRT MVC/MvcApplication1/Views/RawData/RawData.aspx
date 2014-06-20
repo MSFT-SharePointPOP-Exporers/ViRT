@@ -114,8 +114,7 @@
                 },
                 "chartScrollbar": {
                     "autoGridCount": true,
-                    "scrollbarHeight": 40,
-                    "color": "#000000"
+                    "scrollbarHeight": 40
                 },
                 "chartCursor": {
                     "cursorPosition": "mouse",

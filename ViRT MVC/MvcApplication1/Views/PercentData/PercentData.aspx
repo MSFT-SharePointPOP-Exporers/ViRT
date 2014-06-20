@@ -27,7 +27,7 @@
         function create(chartData, newdiv) {
             var chart = AmCharts.makeChart(newdiv, {
                 "type": "serial",
-                "theme": "none",
+                "theme": "dark",
                 "pathToImages": "http://www.amcharts.com/lib/3/images/",
                 "dataProvider": chartData,
                 "valueAxes": [{
@@ -46,8 +46,7 @@
                 },
                 "chartScrollbar": {
                     "autoGridCount": true,
-                    "scrollbarHeight": 40,
-                    "color": "#000000"
+                    "scrollbarHeight": 40
                 },
                 "chartCursor": {
                     "cursorPosition": "mouse",
@@ -145,5 +144,5 @@
     </style>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-    <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
 </asp:Content>
