@@ -16,15 +16,6 @@ function updateQueryString() {
     window.location.search = sessionStorage["query"];
 }
 
-
-function setFields() {
-    $(".from").val(sessionStorage["start"]);
-    $(".to").val(sessionStorage["end"]);
-    $("#FeaturedContent_Datacenter").val(sessionStorage["datacen"].replace("%20%20","  "));
-    $("#FeaturedContent_Network").val(sessionStorage["network"]);
-    $("#FeaturedContent_Farm").val(sessionStorage["farm"]);
-}
-
 function setSessionStorage() {
     sessionStorage["start"] = $.QueryString("start");
     sessionStorage["end"] = $.QueryString("end");
@@ -34,11 +25,46 @@ function setSessionStorage() {
     sessionStorage["farm"] = $.QueryString("farm");
 }
 
+function setFields() {
+    $(".from").val(sessionStorage["start"]);
+    $(".to").val(sessionStorage["end"]);
+    $("#FeaturedContent_Datacenter").val(sessionStorage["datacen"].replace("%20%20","  "));
+    $("#FeaturedContent_Network").val(sessionStorage["network"]);
+    $("#FeaturedContent_Farm").val(sessionStorage["farm"]);
+}
+
+function setActivePipeline(id) {
+    if (id == sessionStorage["pipeline"]) {
+        $("#" + id).addClass("selected");
+    }
+}
+
 function setPipeline(id) {
     sessionStorage["pipeline"] = id;
+    if (id == sessionStorage["pipeline"]) {
+        $("#" + id).addClass("selected");
+    }
     updateQueryString();
 }
 
+/*
+*Set a farm and it's network is found and set in the url too!
+*/
+function setFarms(id) {
+    sessionStorage["farm"] = id;
+    sessionStorage["network"] = $("#" + id).parent().attr('id');;
+    updateQueryString();
+}
+
+/*
+*Set a network and it'll reset the farm!
+*/
+function setNetwork(id) {
+    sessionStorage["network"] = id;
+    sessionStorage["farm"] = -1;
+    updateQueryString();
+}
+                                                
 
 $(document).ready(function () {
     $(document).foundation();

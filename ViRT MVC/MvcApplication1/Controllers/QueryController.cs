@@ -15,10 +15,21 @@ namespace MvcApplication1.Controllers
     public class QueryController : Controller
     {
         Reliability test = new Reliability();
-        public string Test()
+        public string getPipelines()
         {
             return JsonConvert.SerializeObject(test.GetAllPipelines());
         }
+
+        public string getOverview()
+        {
+            return JsonConvert.SerializeObject(test.OverviewCalculate(Request.QueryString["pipeline"]));
+        }
+
+        public string getNetworkFarm()
+        {
+            return "hey";
+        }
+
 
     }
 }

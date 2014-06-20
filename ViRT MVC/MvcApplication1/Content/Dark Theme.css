@@ -1,6 +1,7 @@
-﻿    h1 {
+﻿    h1, h2 {
         color:#e4e4e4;
-    } 
+    }
+
 
     #pipelines {
         background-color: #0F0F0F;
@@ -15,6 +16,10 @@
     }
 
     #overviewbar h1 {
+        color:#e4e4e4;
+    }
+
+    td {
         color:#e4e4e4;
     }
 

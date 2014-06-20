@@ -17,16 +17,38 @@
 
       <script type="text/javascript">
           $(document).ready(function () {
+              $(document).ajaxSend(function () {
+                  $("#loading").fadeIn();
+              });
+
+              $(document).ajaxComplete(function () {
+                  $("#loading").fadeOut("slow");
+              });
+
               $.ajax({
                   contentType: "application/json",
                   data: "",
-                  url: '<%= Url.Action("Test", "Query") %>',
+                  url: '<%= Url.Action("getPipelines", "Query") %>',
                   dataType: "json",
                   success: function (data) {
                       for (var x = data.length - 1; x >= 0; x--) {
                           $(".pipelines").append("<li class='pipe' id='" + data[x].Pipeline + "' onclick='setPipeline(this.id)'><a href='#'>" + data[x].Pipeline + "</a></li>");
                       }
                   }
+              });
+
+              $.ajax({
+                  data: sessionStorage["query"],
+                  url: '<%= Url.Action("getOverview", "Query") %>',
+                  dataType: "json",
+                  success: function (data) {
+                      for (var x = 0; x < data.length; x++) {
+                            $("tbody").append("<tr>");
+                            $("tbody").append("<td class='overview_component'>" + data[x].Component + "</td>");
+                            $("tbody").append("<td class='overview_percent'>" + data[x].Percent + "%</td>");
+                            $("tbody").append("</tr>");
+                          }
+                      }
               });
               $('p').click(function () {
                   alert("hey");
@@ -56,7 +78,7 @@
     <nav class="top-bar" data-topbar>
       <!-- Left Nav Section -->
       <ul class="breadcrumbs show-for-medium-up">
-        <li><a href="#">Home</a></li>
+        <li><a href="Home/Contact">Home</a></li>
         <li><a href="#">Features</a></li>
         <li class="unavailable"><a href="#">Gene Splicing</a></li>
         <li class="current"><a href="#">Cloning</a></li>
@@ -93,6 +115,10 @@
     </div>
     <div id="overviewbar" class="small-12 medium-2 large-2 columns">
         <h1>Overview Bar</h1>
+	    <table>
+		    <tbody>
+		    </tbody>
+	    </table>
     </div>
     <div id="rendering" class="small-12 medium-8 large-9 columns">
       <div id="dates" class="dates large-2 columns show-for-large-up">
@@ -105,5 +131,9 @@
       <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
       <asp:ContentPlaceHolder ID="MainContent" runat="server" />
     </div>
+      <div id="loading">
+	        <h1>Loading....</h1>
+	        <img src = "http://www.projectalexa.com/static/img/large-ajax-loader.gif" alt ="">
+	    </div>
   </body>
 </html>

@@ -17,14 +17,15 @@ p {
     font-family:"Segoe UI",Verdana,Helvetica,sans-serif;
 }
 
-ul {
-    height:100%;
-}
 
 #DHCM {
 height: 100%;
 overflow: scroll;
 text-align: center;
+}
+
+#DCHM ul {
+    height:100%;
 }
 
 #rendering {
