@@ -81,7 +81,8 @@
         function create(chartData, newdiv, graphTitle) {
             var chart = AmCharts.makeChart(newdiv, {
                 "titles": [{
-                    "text": graphTitle
+                    "text": graphTitle,
+                    "size": 30
                 }],
                 "type": "serial",
                 "theme": "dark",
@@ -90,7 +91,7 @@
                 "valueAxes": [{
                     "id": "v1",
                     "position": "left",
-                    "axisColor": "blue",
+                    "axisColor": "#008CBA",
                     "axisThickness": 2,
                     "gridAlpha": 0,
                     "axisAlpha": 1
@@ -98,7 +99,7 @@
                 }, {
                     "id": "v2",
                     "position": "right",
-                    "axisColor": "green",
+                    "axisColor": "#43AC6A",
                     "axisThickness": 2,
                     "gridAlpha": 0,
                     "axisAlpha": 1
@@ -145,13 +146,13 @@
                     if( i ==0)
                     {
                         graph1.valueAxis = "v1";
-                        graph1.lineColor = "blue";
+                        graph1.lineColor = "#008CBA";
                     }
                         
                     if( i ==1)
                     {
                         graph1.valueAxis = "v2";
-                        graph1.lineColor = "green";
+                        graph1.lineColor = "#43AC6A";
                     }
                         
 
