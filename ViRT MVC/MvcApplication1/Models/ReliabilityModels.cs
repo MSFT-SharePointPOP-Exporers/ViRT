@@ -597,5 +597,23 @@ namespace MvcApplication1.Models
             dbConnect.Close();
             return pipelines;
         }
+
+		/*
+		 * Retrieves the datacenter with the lat and long
+		 * 
+		 * @return		DataTable with latitude and longitude
+		 */
+		public DataTable GetDataCenterLatLong()
+		{
+			dbConnect.Open();
+			String query = "SELECT DataCenter, latitude, longitude FROM DataCenter";
+			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+			DataTable dclatlong = new DataTable();
+			dclatlong.Load(queryCommandReader);
+			dbConnect.Close();
+			return dclatlong;
+		}
+
     }
 }
