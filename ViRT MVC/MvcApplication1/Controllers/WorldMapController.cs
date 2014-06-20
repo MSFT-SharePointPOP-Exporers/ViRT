@@ -14,18 +14,15 @@ namespace MvcApplication1.Controllers
         //
         // GET: /WorldMap/
 
-        public ActionResult WorldMap()
+        public ActionResult Index()
         {
 			Reliability world = new Reliability();
-
-			world.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
 
 			DataTable worldLocs = world.GetDataCenterLatLong();
 
 			var json = JsonConvert.SerializeObject(worldLocs);
 
-			
-			ViewBag.Index = json;
+			ViewBag.WorldMap = json;
 
             return View();
         }
