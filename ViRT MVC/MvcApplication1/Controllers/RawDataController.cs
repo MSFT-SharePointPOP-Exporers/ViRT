@@ -27,12 +27,11 @@ namespace MvcApplication1.Controllers
                 DataTable rawDataTable = percent.RawDataTable(compName);
                 allComponentsRawData.Add(rawDataTable);
             }
-            var table = JsonConvert.SerializeObject(allComponentsRawData);
+            var table = JsonConvert.SerializeObject(allComponentsRawData, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             //ViewData["RawData"] = data;
             ViewBag.RawData = table;
-            ViewBag.RawTitles = JsonConvert.SerializeObject(components, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});
+            ViewBag.RawTitles = JsonConvert.SerializeObject(components);
 
-            ViewBag.worldstuff = JsonConvert.SerializeObject(percent.GetDataCenterLatLong());
             return View();
         }
 

@@ -65,7 +65,6 @@
         var bullets = ["round", "square", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "diamond", "xError", "yError"];
         var data = <%= Html.Raw(ViewBag.RawData)%>;//generateChartData();
         var titles = <%= Html.Raw(ViewBag.RawTitles)%>;
-        var worlds = <%= Html.Raw(ViewBag.worldstuff)%>;
         createCharts(data);
 
         function createCharts(datasets) {
@@ -142,6 +141,7 @@
                     graph1.title = propertyName;
                     graph1.bullet = bullets[i];
                     graph1.bulletSize = 10;
+                    graph1.connect = false;
                     graph1.hideBulletsCount = 30;
 
                     if( i ==0)
