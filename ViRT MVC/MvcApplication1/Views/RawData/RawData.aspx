@@ -65,6 +65,7 @@
         var bullets = ["round", "square", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "diamond", "xError", "yError"];
         var data = <%= Html.Raw(ViewBag.RawData)%>;//generateChartData();
         var titles = <%= Html.Raw(ViewBag.RawTitles)%>;
+        var worlds = <%= Html.Raw(ViewBag.worldstuff)%>;
         createCharts(data);
 
         function createCharts(datasets) {

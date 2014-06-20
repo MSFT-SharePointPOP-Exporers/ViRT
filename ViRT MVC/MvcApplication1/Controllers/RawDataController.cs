@@ -32,7 +32,7 @@ namespace MvcApplication1.Controllers
             ViewBag.RawData = table;
             ViewBag.RawTitles = JsonConvert.SerializeObject(components, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});
 
-            var worldstuff = JsonConvert.SerializeObject(percent)
+            ViewBag.worldstuff = JsonConvert.SerializeObject(percent.GetDataCenterLatLong());
             return View();
         }
 
