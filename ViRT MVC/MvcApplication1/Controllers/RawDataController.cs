@@ -30,6 +30,7 @@ namespace MvcApplication1.Controllers
             var table = JsonConvert.SerializeObject(allComponentsRawData);
             //ViewData["RawData"] = data;
             ViewBag.RawData = table;
+            ViewBag.RawTitles = JsonConvert.SerializeObject(components);
             return View();
         }
 

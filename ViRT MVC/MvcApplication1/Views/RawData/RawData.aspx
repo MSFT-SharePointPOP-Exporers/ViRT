@@ -18,7 +18,7 @@
     </style>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
-    <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/none.js"></script>
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="TitleContent" runat="server">
@@ -64,6 +64,7 @@
     <script>
         var bullets = ["round", "square", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "diamond", "xError", "yError"];
         var data = <%= Html.Raw(ViewBag.RawData)%>;//generateChartData();
+        var titles = <%= Html.Raw(ViewBag.RawTitles)%>;
         createCharts(data);
 
         function createCharts(datasets) {
@@ -72,14 +73,18 @@
                 div.className = "newchart";
                 document.getElementById("chartdiv").appendChild(div);
                 var object = datasets[i];
-                var chart = create(object, div);
+                var title = titles[i];
+                var chart = create(object, div, title);
             }
         }
 
-        function create(chartData, newdiv) {
+        function create(chartData, newdiv, graphTitle) {
             var chart = AmCharts.makeChart(newdiv, {
+                "titles": [{
+                    "text": graphTitle
+                }],
                 "type": "serial",
-                "theme": "none",
+                "theme": "dark",
                 "pathToImages": "http://www.amcharts.com/lib/3/images/",
                 "dataProvider": chartData,
                 "valueAxes": [{
@@ -105,8 +110,6 @@
                     "titlePosition": "top",
                     "useGraphSettings": true,
                     "color": "#0000FF",
-                    "position": "left",
-                    "width": 320,
                     "valueText": ""
                 },
                 "chartScrollbar": {
