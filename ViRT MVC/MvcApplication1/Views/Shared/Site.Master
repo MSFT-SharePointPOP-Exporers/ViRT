@@ -13,17 +13,41 @@
     <%: Scripts.Render("~/bundles/jquery") %>
     <%: Scripts.Render("~/bundles/jqueryui") %>
     <%: Scripts.Render("~/bundles/modernizr") %>
+      <link href="../../Content/Dark%20Theme.css" rel="stylesheet" />
+
       <script type="text/javascript">
-        $(document).ready(function () {
-            $.ajax({
-                contentType: "application/json"; "charset=utf-8",
-                data: '',
-                url: '<%= Url.Action("Test", "Query") %>',
-                dataType: "html",
-                success: function (data) {
-                    console.log(typeof(data));
-                }
-            });
+          $(document).ready(function () {
+              $.ajax({
+                  contentType: "application/json",
+                  data: "",
+                  url: '<%= Url.Action("Test", "Query") %>',
+                  dataType: "json",
+                  success: function (data) {
+                      for (var x = data.length - 1; x >= 0; x--) {
+                          $(".pipelines").append("<li class='pipe' id='" + data[x].Pipeline + "' onclick='setPipeline(this.id)'><a href='#'>" + data[x].Pipeline + "</a></li>");
+                      }
+                  }
+              });
+              $('p').click(function () {
+                  alert("hey");
+              });
+              $(".button").click(function () {
+                  sessionStorage["start"] = $(".from").val();
+                  sessionStorage["end"] = $(".to").val();
+                  updateQueryString();
+              });
+              $("#FeaturedContent_Datacenter").change(function () {
+                  sessionStorage["datacen"] = $("#FeaturedContent_Datacenter").val().toString();
+                  updateQueryString();
+              });
+              $("#FeaturedContent_Network").change(function () {
+                  sessionStorage["network"] = $("#FeaturedContent_Network").val();
+                  updateQueryString();
+              });
+              $("#FeaturedContent_Farm").change(function () {
+                  sessionStorage["farm"] = $("#FeaturedContent_Farm").val();
+                  updateQueryString();
+              });
         });
       </script>
     <asp:ContentPlaceHolder ID="Head" runat="server" />
@@ -48,10 +72,7 @@
         <ul class="right show-for-small-only">
           <li class="has-dropdown">
             <a href="#">Change Pipeline</a>
-            <ul class="dropdown">
-              <li><%: Html.ActionLink("Pipeline 1", "Index")%></li>
-              <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
-              <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
+            <ul class="dropdown pipelines">
             </ul>
           </li>
           <li class="has-form">
@@ -67,10 +88,7 @@
       </section>
     </nav>
     <div id="pipelines" class="show-for-medium-up medium-2 large-1 columns">
-      <ul class="side-nav">
-        <li><%: Html.ActionLink("Pipeline 1", "Index") %></li>
-        <li><%: Html.ActionLink("Pipeline 2", "Contact") %></li>
-        <li><%: Html.ActionLink("Pipeline 3", "About") %></li>
+      <ul class="side-nav pipelines">
       </ul>
     </div>
     <div id="overviewbar" class="small-12 medium-2 large-2 columns">

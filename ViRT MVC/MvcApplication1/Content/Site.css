@@ -7,15 +7,16 @@
     body {
         height:100%;
         margin:0;
-        font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
     }
         
 
     #pipelines {
-        background-color:#FF99CC;                                                                               
-        height:100%;
-        padding-top:60px;
-        float:left;
+        background-color: #FF99CC;
+        height: 100%;
+        padding: 0;
+        padding-top: 60px;
+        float: left;
+        margin: 0;
     }
 
     #overviewbar {

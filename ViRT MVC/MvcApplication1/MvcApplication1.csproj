@@ -205,6 +205,7 @@
     <Content Include="Content\foundation\foundation.css" />
     <Content Include="Content\foundation\foundation.min.css" />
     <Content Include="Content\foundation\normalize.css" />
+    <Content Include="Content\Dark Theme.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -323,7 +324,7 @@
     <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\foundation\vendor\placeholder.js" />
     <Content Include="Scripts\querystring-0.9.0.js" />
-    <Content Include="Scripts\ui.js" />
+    <Content Include="Scripts\querystrings.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

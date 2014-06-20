@@ -1,0 +1,42 @@
+﻿    h1 {
+        color:#e4e4e4;
+    } 
+
+    #pipelines {
+        background-color: #0F0F0F;
+    }
+
+     #pipelines ul {
+        background-color:#1E1E1E;
+     }
+
+    #overviewbar {
+        background-color:#1E1E1E;
+    }
+
+    #overviewbar h1 {
+        color:#e4e4e4;
+    }
+
+    #rendering {
+        background-color: #0F0F0F;
+    }
+
+
+    #legendBar {
+        background-color: #0F0F0F;
+        color:#a30b71;
+    }
+
+    #legendBar h1 {
+        color:#e4e4e4;
+    }
+
+    #dates label {
+        color:#e4e4e4;
+    }
+
+    #small_dates label{
+        color:#e4e4e4;
+    }
+

@@ -20,7 +20,7 @@ namespace MvcApplication1
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-1.10.4.js",
-                        "~/Scripts/ui.js"));
+                        "~/Scripts/querystrings.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
