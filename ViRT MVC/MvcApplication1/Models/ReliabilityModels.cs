@@ -661,7 +661,7 @@ namespace MvcApplication1.Models
 			return dclatlong;
 		}
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		public decimal CalculatePipeOverview()
 		{
 			DataTable pipePercentTable = OverviewCalculate(pipeline);
@@ -678,7 +678,7 @@ namespace MvcApplication1.Models
 		}
 
 
-=======
+//=======
          /*
         * Retrieves all the NetworkID's for a specific dataCenter
         * 
@@ -725,6 +725,6 @@ namespace MvcApplication1.Models
             }
             return farms;
         }
->>>>>>> origin/master
+//>>>>>> origin/master
     }
 }
