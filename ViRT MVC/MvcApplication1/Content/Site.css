@@ -5,8 +5,9 @@
     }
 
     body {
-        height:100%;
-        margin:0;
+        height: 100%;
+        margin: 0;
+        background-color: #0F0F0F;
     }
 
         
@@ -78,7 +79,7 @@
     }
 
     #rendering {
-        background-url()
+        background-color:#0f0f0f;
         height: 100%;
         padding-top: 60px;
         padding-left: 0;
