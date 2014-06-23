@@ -110,11 +110,11 @@
         </ul>
       </section>
     </nav>
-    <div id="pipelines" class="show-for-medium-up medium-2 large-1 columns">
+    <div id="pipelines" class="show-for-large-up medium-2 large-1 columns">
       <ul class="side-nav pipelines">
       </ul>
     </div>
-    <div id="overviewbar" class="small-12 medium-2 large-2 columns">
+    <div id="overviewbar" class="small-12 medium-4 large-2 columns">
         <h1>Overview Bar</h1>
 	    <table>
 		    <tbody>

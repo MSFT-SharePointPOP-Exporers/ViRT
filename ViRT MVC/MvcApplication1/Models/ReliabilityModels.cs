@@ -652,7 +652,7 @@ namespace MvcApplication1.Models
             DataColumn percent = new DataColumn("Percentage", typeof(double));
             farms.Columns.Add(id);
             farms.Columns.Add(percent); 
-            for (int i = 0; i < random.Next(7,15) ; i++)
+            for (int i = 0; i < random.Next(0,15) ; i++)
             {
                 DataRow newRow = farms.NewRow();
                 newRow["FarmID"] = random.Next(1000,10000);

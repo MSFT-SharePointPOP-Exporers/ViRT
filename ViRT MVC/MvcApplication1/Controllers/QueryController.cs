@@ -39,7 +39,7 @@ namespace MvcApplication1.Controllers
                 DataRow network = table.NewRow();
                 network["NetworkID"] = row["NetworkID"].ToString();
                 network["Percentage"] = Convert.ToDouble(String.Format("{0:0.0000}", random.NextDouble() * 100));
-                network["Farms"] = test.getFarms(Convert.ToInt32(row["NetworkID"]));
+                network["Farms"] = test.getFarms(random.Next(0,10000));
                 table.Rows.Add(network);
             }
             //Console.WriteLine(JsonConvert.SerializeObject(test.getFarms(20)));

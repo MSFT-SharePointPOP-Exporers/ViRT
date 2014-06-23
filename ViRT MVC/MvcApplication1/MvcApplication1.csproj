@@ -272,6 +272,7 @@
     <Content Include="Content\Raw Data.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Content\foundation\_settings.scss" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\images\arrowDown.gif" />
     <Content Include="Images\images\arrowUp.gif" />
@@ -293,6 +294,7 @@
     <Content Include="Images\images\plus.gif" />
     <Content Include="Images\images\xIcon.gif" />
     <Content Include="Images\images\xIconH.gif" />
+    <Content Include="Images\outlets.png" />
     <Content Include="Scripts\amcharts\amcharts.js" />
     <Content Include="Scripts\amcharts\ammap.js" />
     <Content Include="Scripts\amcharts\serial.js" />

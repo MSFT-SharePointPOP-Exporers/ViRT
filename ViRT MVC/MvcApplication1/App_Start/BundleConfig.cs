@@ -31,7 +31,11 @@ namespace MvcApplication1
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/foundation/foundation.css", "~/Content/foundation/normalize.css", "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/foundation/_settings.scss",
+                "~/Content/foundation/foundation.css",
+                "~/Content/foundation/normalize.css",
+                "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

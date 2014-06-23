@@ -12,7 +12,7 @@
                 success: function (data) {
                     $(".dchm").append('<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">');
                     for (var x = 0; x < data.length;x++) {
-                        console.log(data[x].NetworkID);
+                        console.log(data);
                         $(".dchm ul").append("<li id ='" + x +"'>");
                         $("#"+x).append("<h2>Network " + data[x].NetworkID + "<br/><a href='#' onClick='setNetwork(" + data[x].NetworkID + ")'>" + data[x].Percentage + "%</a></h2>");
                         $("#"+x).append("<div class ='network-box' id =" + data[x].NetworkID + ">");
@@ -45,11 +45,14 @@
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
     <h1></h1> <!-- Data Center will go here -->
     <h2>Select a Network of Farm to filter reliability data.</h2>
+    <div class="sticky large-centered" id="jumptonetwork">
+        <label for="networks">Jump To</label>
+        <select id="networks" onchange="window.location.hash = this.value">
+        </select>
+    </div>
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
    <div class = "dchm">
-	<select onchange="window.location.hash = this.value">
-	</select>
     </div>
 </asp:Content>

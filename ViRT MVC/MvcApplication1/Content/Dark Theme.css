@@ -2,6 +2,10 @@
         color:#e4e4e4;
     }
 
+    .top-bar {
+        background-color:#1e1e1e;
+    }
+
 
     #pipelines {
         background-color: #0F0F0F;
@@ -19,7 +23,7 @@
         color:#e4e4e4;
     }
 
-    td {
+    td, label {
         color:#e4e4e4;
     }
 
