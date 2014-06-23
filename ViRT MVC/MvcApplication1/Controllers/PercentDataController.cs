@@ -14,11 +14,9 @@ namespace MvcApplication1.Controllers
         //
         // GET: /PercentData/
 
-        public ActionResult PercentData(DateTime start, DateTime end, string pipeline, string datacenter, int network, int farm)
+        public ActionResult PercentData(DateTime start, DateTime end, string pipeline, string datacen, int network, int farm)
         {
-            Reliability percent = new Reliability();
-
-            Reliability paramsPercent = new Reliability(datacenter, network, farm, pipeline, start, end);
+            Reliability paramsPercent = new Reliability(datacen, network, farm, pipeline, start, end);
 
             paramsPercent.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
 
