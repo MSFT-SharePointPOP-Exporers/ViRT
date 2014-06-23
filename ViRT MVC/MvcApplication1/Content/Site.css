@@ -122,19 +122,20 @@
     }
 
 	.green {
-		background-color: #00FF00;
+		background-color: #43ac6a;
 	}
 
 	.yellow {
-		background-color: #FFFF00;
+		background-color: #ffff51;
 	}
 
 	.red1 {
-		background-color: #FF0000;
+		background-color: #c52e2e;
+        color:#ffffff;
 	}
 
 	.red2 {
-		background-color:#660000;
+		background-color:#4e1010;
 		color:white;
 	}
 
@@ -216,4 +217,4 @@
               margin-bottom: 6%;
           }
 
-    } /* max-width 640px, mobile-only styles
+    } /* max-width 640px, mobile-only styles */

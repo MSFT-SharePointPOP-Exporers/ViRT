@@ -18,13 +18,13 @@
                         $("select").append("<option value=" + data[x].NetworkID + ">" + data[x].NetworkID + "</option>");
                         for (var y = 0; y < data[x].Farms.length;y++) {
                             console.log(data[x].Farms[y].FarmID.toString() + " " + data[x].Farms[y].Percentage + "%");
-                            if (data[x].Farms[y].Percentage <= 100.00 && data[x].Farms[y].Percentage >= 50.0) {
+                            if (data[x].Farms[y].Percentage <= 100.00 && data[x].Farms[y].Percentage >= 99.9) {
                                 $("#" + data[x].NetworkID).append("<div class ='farm-box green' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
-                            } else if (data[x].Farms[y].Percentage < 50.0 && data[x].Farms[y].Percentage >= 30.0) {
+                            } else if (data[x].Farms[y].Percentage < 99.9 & data[x].Farms[y].Percentage >= 99.0) {
                                 $("#" + data[x].NetworkID).append("<div class ='farm-box yellow' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
-                            } else if (data[x].Farms[y].Percentage < 30.0 && data[x].Farms[y].Percentage >= 20.0) {
+                            } else if (data[x].Farms[y].Percentage < 99.0 && data[x].Farms[y].Percentage >= 95.0) {
                                 $("#" + data[x].networkID).append("<div class ='farm-box red1' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
-                            } else if (data[x].Farms[y].Percentage < 20.0 && data[x].Farms[y].percentage >= 10.0) {
+                            } else if (data[x].Farms[y].Percentage < 95.0 && data[x].Farms[y].percentage >= 85.0) {
                                 $("#" + data[x].NetworkID).append("<div class ='farm-box red2' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
                             } else {
                                 $("#" + data[x].NetworkID).append("<div class ='farm-box red3' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
@@ -44,7 +44,7 @@
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
     <h1></h1> <!-- Data Center will go here -->
     <h2>Select a Network of Farm to filter reliability data.</h2>
-    <div class="sticky large-centered" id="jumptonetwork">
+    <div class="" id="jumptonetwork">
         <label for="networks">Jump To</label>
         <select id="networks" onchange="window.location.hash = this.value">
         </select>

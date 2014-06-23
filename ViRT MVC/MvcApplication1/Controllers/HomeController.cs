@@ -54,7 +54,7 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult DCHM()
         {
             ViewBag.Message = "Your contact page.";
 
