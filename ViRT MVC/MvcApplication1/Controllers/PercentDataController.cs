@@ -20,9 +20,12 @@ namespace MvcApplication1.Controllers
 
             Reliability paramsPercent = new Reliability(datacenter, network, farm, pipeline, start, end);
 
-            percent.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
-            DataTable percentTable = percent.PipelineCalculate("DynamicClaims");
+            paramsPercent.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
+
+            DataTable percentTable = paramsPercent.PipelineCalculate(pipeline);
+
             var json = JsonConvert.SerializeObject(percentTable, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            
             ViewBag.PercentData = json;
 
             return View();
