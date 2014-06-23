@@ -82,7 +82,7 @@
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
 <h1>Component Reliability</h1>
 
-    <a href="#" id="RawDataLink">View Raw Data</a>
+    <a href="RawData" id="RawDataLink">View Raw Data</a>
 
     <div id="selectors" class="small-12 small-centered medium-12 medium-centered large-centered large-12">
         <form id="form1" runat="server">
