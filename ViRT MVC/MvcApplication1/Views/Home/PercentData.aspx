@@ -7,6 +7,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="chartdiv"></div>
     <script>
+        $(document).ready(function() {
+            $(document).ajaxSend(function () {
+                $("#loading").fadeIn();
+            });
+
+            $(document).ajaxComplete(function () {
+                $("#loading").fadeOut("slow");
+            });
+        });
+
         var bullets = ["round", "square", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "diamond", "xError", "yError"];
         var data = <%= Html.Raw(ViewBag.PercentData)%>;//generateChartData();
         //var second = generateChartData2();

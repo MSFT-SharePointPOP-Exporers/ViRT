@@ -15,6 +15,10 @@
         rect {
             text-decoration: none;
         }
+
+        #PercentDataLink {
+            padding: 0;
+        }
     </style>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
@@ -27,6 +31,9 @@
 
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
 <h1>RawData</h1>
+
+    <a href="PercentData" id="PercentDataLink">View Component Reliability</a>
+
     <div id="selectors" class="small-12 small-centered medium-12 medium-centered large-centered large-12">
         <form id="form1" runat="server">
             <div id="SelectDatacenter">
@@ -62,6 +69,15 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
     <div id="chartdiv" style="width: 100%; height: 70%;"></div>
     <script>
+        $(document).ready(function() {
+            $(document).ajaxSend(function () {
+                $("#loading").fadeIn();
+            });
+
+            $(document).ajaxComplete(function () {
+                $("#loading").fadeOut("slow");
+            });
+        });
         var bullets = ["round", "square", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "diamond", "xError", "yError"];
         var data = <%= Html.Raw(ViewBag.RawData)%>;//generateChartData();
         var titles = <%= Html.Raw(ViewBag.RawTitles)%>;

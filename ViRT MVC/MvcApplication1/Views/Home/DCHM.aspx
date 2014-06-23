@@ -4,6 +4,13 @@
     <link href="../../Content/DCHM.css" rel="stylesheet" />
     <script>
         $(document).ready(function () {
+            $(document).ajaxSend(function () {
+                $("#loading").fadeIn();
+            });
+
+            $(document).ajaxComplete(function () {
+                $("#loading").fadeOut("slow");
+            });
             $("#rendering h1").append($.QueryString("datacen").substring(0,3));
             $.ajax({
                 data: sessionStorage["query"],

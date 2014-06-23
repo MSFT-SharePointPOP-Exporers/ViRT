@@ -28,14 +28,6 @@
         padding:0;
     }
 
-    .selected {
-        background-color:#008cba;
-    }
-
-    .selected a {
-        color: black;
-    }
-
     #overviewbar {
         background-color:#a30b71;
         height: 100%;
@@ -65,6 +57,10 @@
     .first {
         font-size: 1.2em;
         margin-bottom: 18%;
+    }
+    
+    .top-bar-section .right li .dropdown {
+        z-index:1000;
     }
 
     .overview_component {
@@ -98,6 +94,7 @@
     h1 {
         text-align:center;
         margin-bottom:30px;
+        font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
     }
 
     #legendBar {
@@ -110,6 +107,8 @@
 
     #legendBar h1 {
         font-size: 1.0em;
+        margin-bottom:10px;
+       font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
     }
     
     .button {
@@ -157,6 +156,7 @@
 
     #small_dates label{
         color:#ebebeb;
+        font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
     }
 
     #chartdiv {
@@ -191,6 +191,7 @@
 
 	#loading h1 {
 		margin-bottom: 2%;
+       font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
 	}
 
 	#loading img {

@@ -61,6 +61,40 @@ namespace MvcApplication1.Controllers
             return View();
         }
 
+        public ActionResult PercentData()
+        {
+            Reliability paramsPercent = new Reliability();
 
+            paramsPercent.ChangeDate(Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+
+            DataTable percentTable = paramsPercent.PipelineCalculate(Request.QueryString["pipeline"]);
+
+            var json = JsonConvert.SerializeObject(percentTable, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+
+            ViewBag.PercentData = json;
+
+            return View();
+        }
+
+        public ActionResult RawData()
+        {
+            Reliability rawData = new Reliability();
+
+            rawData.ChangeDate(Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            String[] components = rawData.getComponents(Request.QueryString["pipeline"]);
+            List<DataTable> allComponentsRawData = new List<DataTable>();
+
+            foreach (var compName in components)
+            {
+                DataTable rawDataTable = rawData.RawDataTable(compName);
+                allComponentsRawData.Add(rawDataTable);
+            }
+            var table = JsonConvert.SerializeObject(allComponentsRawData, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            //ViewData["RawData"] = data;
+            ViewBag.RawData = table;
+            ViewBag.RawTitles = JsonConvert.SerializeObject(components);
+
+            return View();
+        }
     }
 }
