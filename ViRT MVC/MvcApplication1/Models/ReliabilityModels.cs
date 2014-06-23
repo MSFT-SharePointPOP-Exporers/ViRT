@@ -16,6 +16,7 @@ namespace MvcApplication1.Models
         private DateTime start;
         private DateTime end;
         private SqlConnection dbConnect = new SqlConnection("Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;Integrated Security=True;");
+        Random random = new Random();
 
         /*
          * Default constructor
@@ -676,7 +677,6 @@ namespace MvcApplication1.Models
 			return Math.Round(total / pipePercentTable.Rows.Count, 4);
 		}
 
-
          /*
         * Retrieves all the NetworkID's for a specific dataCenter
         * 
@@ -708,13 +708,12 @@ namespace MvcApplication1.Models
             //DataTable networks = new DataTable();
             //networks.Load(queryCommandReader);
             //dbConnect.Close();
-            Random random = new Random();
             DataTable farms = new DataTable();
             DataColumn id = new DataColumn("FarmID", typeof(int));
             DataColumn percent = new DataColumn("Percentage", typeof(double));
             farms.Columns.Add(id);
             farms.Columns.Add(percent); 
-            for (int i = 0; i < random.Next(0,15) ; i++)
+            for (int i = 0; i < random.Next(1,15) ; i++)
             {
                 DataRow newRow = farms.NewRow();
                 newRow["FarmID"] = random.Next(1000,10000);

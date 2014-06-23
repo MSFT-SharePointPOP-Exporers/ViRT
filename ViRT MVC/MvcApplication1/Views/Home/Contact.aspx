@@ -12,7 +12,6 @@
                 success: function (data) {
                     $(".dchm").append('<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">');
                     for (var x = 0; x < data.length;x++) {
-                        console.log(data);
                         $(".dchm ul").append("<li id ='" + x +"'>");
                         $("#"+x).append("<h2>Network " + data[x].NetworkID + "<br/><a href='#' onClick='setNetwork(" + data[x].NetworkID + ")'>" + data[x].Percentage + "%</a></h2>");
                         $("#"+x).append("<div class ='network-box' id =" + data[x].NetworkID + ">");
