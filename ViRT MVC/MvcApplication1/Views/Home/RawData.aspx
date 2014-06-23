@@ -15,6 +15,10 @@
         rect {
             text-decoration: none;
         }
+
+        #PercentDataLink {
+            padding: 0;
+        }
     </style>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
@@ -27,6 +31,9 @@
 
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
 <h1>RawData</h1>
+
+    <a href="PercentData" id="PercentDataLink">View Component Reliability</a>
+
     <div id="selectors" class="small-12 small-centered medium-12 medium-centered large-centered large-12">
         <form id="form1" runat="server">
             <div id="SelectDatacenter">

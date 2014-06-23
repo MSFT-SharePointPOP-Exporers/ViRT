@@ -344,8 +344,8 @@
     <Content Include="Scripts\amcharts\themes\chalk.js" />
     <Content Include="Scripts\amcharts\themes\dark.js" />
     <Content Include="Scripts\amcharts\themes\light.js" />
-    <Content Include="Views\PercentData\PercentData.aspx" />
-    <Content Include="Views\RawData\RawData.aspx" />
+    <Content Include="Views\Home\PercentData.aspx" />
+    <Content Include="Views\Home\RawData.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -385,6 +385,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PercentData\" />
+    <Folder Include="Views\RawData\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
