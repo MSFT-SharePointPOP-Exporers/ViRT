@@ -102,6 +102,7 @@ namespace MvcApplication1.Models
             //Creates the remainer of the where portion of the query
             if (!dataCenter.Equals("All"))
             {
+				Console.WriteLine("Makes it here!");
 				if(networkID == -1 && farmID == -1)
 				{
 					String getNetID = "Select NetworkID FROM DataCenterNetworkID WHERE DataCenter = '" + dataCenter + "'";
@@ -111,7 +112,7 @@ namespace MvcApplication1.Models
 					netIDTable.Load(qComRead);
 					if (netIDTable.Rows.Count != 0)
 					{
-						where = where + " And ( ";
+						where = where + " AND ( ";
 						for (int i = 0; i < netIDTable.Rows.Count; i++)
 						{
 							where = where + "NetworkID = " + (int)netIDTable.Rows[i]["NetworkID"];
@@ -132,10 +133,6 @@ namespace MvcApplication1.Models
                     where += " AND NetworkID = " + networkID.ToString() + " AND FarmID = " + farmID.ToString();
                 }
             }
-			else
-			{
-
-			}
 
             //concatenate the where to the original query
             query = query + where;
@@ -623,6 +620,10 @@ namespace MvcApplication1.Models
             return pipelines;
         }
 
+		/*
+		 * 
+		 * 
+		 */
 		public String[] GetAllDataCentersArray()
 		{
 			dbConnect.Open();
@@ -661,6 +662,10 @@ namespace MvcApplication1.Models
 			return dclatlong;
 		}
 
+		/*
+		 * 
+		 * 
+		 */
 		public decimal CalculatePipeOverview()
 		{
 			DataTable pipePercentTable = OverviewCalculate(pipeline);
