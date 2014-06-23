@@ -81,6 +81,9 @@
 
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
 <h1>Component Reliability</h1>
+
+    <a href="#" id="RawDataLink">View Raw Data</a>
+
     <div id="selectors" class="small-12 small-centered medium-12 medium-centered large-centered large-12">
         <form id="form1" runat="server">
             <div id="SelectDatacenter">
@@ -132,6 +135,10 @@
 
         rect {
             text-decoration: none;
+        }
+
+        #RawDataLink {
+            padding: 0;
         }
     </style>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
