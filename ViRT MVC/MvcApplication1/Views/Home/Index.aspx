@@ -29,6 +29,8 @@ World Heat Map
 			var mapData = new Array();
 			var dataDCLatLong = <%= Html.Raw(ViewBag.WorldMap)%>;
 			var averageDCPer = <%= Html.Raw(ViewBag.AverageDCPercent)%>;
+			//var pipe = <%= Html.Raw(ViewBag.Pipeline)%>;
+
 			for(var i = 0; i < dataDCLatLong.length; i++)
 			{
 				var obj = dataDCLatLong[i];
@@ -49,16 +51,8 @@ World Heat Map
 
 				mapData.push(toPush)
 			}	
-			/*
-			* Working on changing the colors of the circles to the appropriate color
-			*
-			*
-			*
-			*/
 
 			var map;
-			var min = Infinity;
-			var max = -Infinity;
 
 			AmCharts.theme = AmCharts.themes.black;
 
@@ -66,6 +60,7 @@ World Heat Map
 			AmCharts.ready(function () {
 				map = new AmCharts.AmMap();
 				map.pathToImages = "../../Images/images/";
+				map.panEventsEnabled = true;
 
 				map.areasSettings = {
 					unlistedAreasColor: "#FFFFFF",
@@ -75,9 +70,6 @@ World Heat Map
 					alpha: 0.6
 				}
 
-				map.imagesSettings.balloonText = "<span style='font-size:14px;'>[[value]]</span>";
-
-
 				var dataProvider = {
 					mapVar: AmCharts.maps.worldLow,
 					images: []
@@ -86,25 +78,27 @@ World Heat Map
 				// create circle for each country
 				for (var i = 0; i < mapData.length; i++) {
 					var dataItem = mapData[i];
-					var value = dataItem.value;
-					// calculate size of a bubble
+					var val = dataItem.value;
 					var id = dataItem.code;
-
+					var des = "Reliability of Data Center: "
+					des = des.concat(val);
+					des = des.concat("</br></br><a href=\"http://google.com\">Detailed Data Center View</a>");
 					dataProvider.images.push({
-						label: mapData[i]["code"],
+						label: id,
 						labelPosition: "middle",
 						labelShiftX: -15,
 						labelShiftY: -17,
 						type: "circle",
-						width: 30,
-						height: 30,
+						percentWidth: 2,
+						percentHeight: 2,
 						color: dataItem.color,
 						longitude: latlong[id].longitude,
 						latitude: latlong[id].latitude,
-						title: dataItem.name,
-						value: value
+						description: des,
+						title: id
 					});
 				}
+
 
 				map.dataProvider = dataProvider;
 

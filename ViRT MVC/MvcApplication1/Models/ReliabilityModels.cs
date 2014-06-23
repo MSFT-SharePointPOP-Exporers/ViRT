@@ -732,5 +732,10 @@ namespace MvcApplication1.Models
 			}
 			return farms;
 		}
+
+		public String getPipeline()
+		{
+			return pipeline;
+		}
 	}
 }
