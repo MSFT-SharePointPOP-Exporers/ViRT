@@ -726,7 +726,6 @@ namespace MvcApplication1.Models
             {
                 DataRow newRow = farms.NewRow();
 				newRow["FarmID"] = random.Next(1000, 10000);
-<<<<<<< HEAD
 				newRow["Percentage"] = Convert.ToDouble(String.Format("{0:0.0000}", random.NextDouble() * 100));
 				farms.Rows.Add(newRow);
 			}
@@ -738,12 +737,5 @@ namespace MvcApplication1.Models
 			return pipeline;
 		}
 	}
-=======
-                newRow["Percentage"] = Convert.ToDouble(String.Format("{0:0.0000}", random.NextDouble() * 100));
-                farms.Rows.Add(newRow);
-            }
-            return farms;
-        }
-    }
->>>>>>> origin/master
+
 }
