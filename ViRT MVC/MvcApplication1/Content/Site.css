@@ -113,24 +113,30 @@
         float:none;
     }
 
-    #green {
-        background-color:#00ff00;
-    }
+	.green {
+		background-color: #00FF00;
+	}
 
-    #yellow {
-        background-color:#FFFF00;
-    }
+	.yellow {
+		background-color: #FFFF00;
+	}
 
-    #red1 {
-        background-color:#FF0000;
-    }
+	.red1 {
+		background-color: #FF0000;
+	}
 
-    #red2 {
-        background-color:#aa0000;
-    }
+	.red2 {
+		background-color:#660000;
+		color:white;
+	}
 
-    #red3 {
-        background-color:#660000;
+	.red3 {
+		background-color: #330000;
+		color:white;
+	}
+
+    select {
+        width:inherit;
     }
 
     #dates {

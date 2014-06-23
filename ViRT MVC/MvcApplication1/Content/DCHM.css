@@ -18,14 +18,15 @@ p {
 }
 
 
-#DHCM {
+.dchm {
 height: 100%;
 overflow: scroll;
 text-align: center;
 }
 
-#DCHM ul {
+.dchm ul {
     height:100%;
+    list-style-type:none;
 }
 
 #rendering {
@@ -43,29 +44,28 @@ text-align: center;
 }
 
 
-li.network_box {
-background-color: black;
-display: inline-block;
-height: 500px;
-width: 355px;
-margin: 15px;
+.network-box {
+margin: 13px;
 float: none;
+list-style-type: none;
 }
 
-    li.farm_box {
-background-color: #00ff00;
-height: 89px;
-border: 1px solid cyan;
-margin: 4.1%;
-padding: 2%;
+    .farm-box {
+height: 90px;
+margin: 0.5%;
+display: inline-block;
+padding: 6% 1%;
+font-family: "Segoe UI",sans-serif;
+list-style-type: none;
     }
 
-    li.farm_box:hover {
-        background-color:mediumpurple;
+.farm-box:hover {
+        background-color:#008cba;
+        color:black;
     }
 
 @media only screen and (max-width: 40em) {
-    #DHCM {
+    .dchm {
         overflow:visible;
     }
 

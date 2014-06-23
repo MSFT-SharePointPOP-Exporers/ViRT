@@ -14,12 +14,18 @@ namespace MvcApplication1.Controllers
         //
         // GET: /PercentData/
 
-        public ActionResult PercentData()
+        public ActionResult PercentData(DateTime start, DateTime end, string pipeline, string datacenter, int network, int farm)
         {
             Reliability percent = new Reliability();
-            percent.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
-            DataTable percentTable = percent.PipelineCalculate("DynamicClaims");
+
+            Reliability paramsPercent = new Reliability(datacenter, network, farm, pipeline, start, end);
+
+            paramsPercent.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
+
+            DataTable percentTable = paramsPercent.PipelineCalculate(pipeline);
+
             var json = JsonConvert.SerializeObject(percentTable, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            
             ViewBag.PercentData = json;
 
             return View();
