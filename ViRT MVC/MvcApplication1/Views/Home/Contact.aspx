@@ -6,15 +6,35 @@
         $(document).ready(function () {
             $("#rendering h1").append($.QueryString("datacen").substring(0,3));
             $.ajax({
-                contentType: "application/json",
                 data: sessionStorage["query"],
                 url: '<%= Url.Action("getNetworkFarm", "Query") %>',
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
+                    $(".dchm").append('<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">');
+                    for (var x = 0; x < data.length;x++) {
+                        console.log(data[x].NetworkID);
+                        $(".dchm ul").append("<li id ='" + x +"'>");
+                        $("#"+x).append("<h2>Network " + data[x].NetworkID + "<br/><a href='#' onClick='setNetwork(" + data[x].NetworkID + ")'>" + data[x].Percentage + "%</a></h2>");
+                        $("#"+x).append("<div class ='network-box' id =" + data[x].NetworkID + ">");
+                        $("select").append("<option value=" + data[x].NetworkID + ">" + data[x].NetworkID + "</option>");
+                        for (var y = 0; y < data[x].Farms.length;y++) {
+                            console.log(data[x].Farms[y].FarmID.toString() + " " + data[x].Farms[y].Percentage + "%");
+                            if (data[x].Farms[y].Percentage <= 100.00 && data[x].Farms[y].Percentage >= 50.0) {
+                                $("#" + data[x].NetworkID).append("<div class ='farm-box green' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                            } else if (data[x].Farms[y].Percentage < 50.0 && data[x].Farms[y].Percentage >= 30.0) {
+                                $("#" + data[x].NetworkID).append("<div class ='farm-box yellow' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                            } else if (data[x].Farms[y].Percentage < 30.0 && data[x].Farms[y].Percentage >= 20.0) {
+                                $("#" + data[x].networkID).append("<div class ='farm-box red1' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                            } else if (data[x].Farms[y].Percentage < 20.0 && data[x].Farms[y].percentage >= 10.0) {
+                                $("#" + data[x].NetworkID).append("<div class ='farm-box red2' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                            } else {
+                                $("#" + data[x].NetworkID).append("<div class ='farm-box red3' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                            }
+                        }
+                    }
                 }
             });
-      });
+        });
     </script>
 </asp:Content>
 
@@ -28,58 +48,8 @@
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
-    <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-3">
-        <div id ="DHCM">
-        <li class="network_box">
-            <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
-                <li class="farm_box"><p>Farm 24</p><p>99.55%</p></li>
-                <li class="farm_box"><p>Farm 24</p><p>99.55%</p></li>
-                <li class="farm_box"><p>Farm 24</p><p>99.55%</p></li>
-                <li class="farm_box"><p>Farm 24</p><p>99.55%</p></li>
-            </ul>
-        </li>
-        <li class="network_box">
-            <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-
-            </ul>
-        </li>
-        <li class="network_box">
-            <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-            </ul>
-        </li>
-        <li class="network_box">
-            <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-            </ul>
-        </li>
-        <li class="network_box">
-             <ul class="small-block-grid-4 medium-block-grid-4 large-block-grid-4">
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-                <li class="farm_box"><!-- Your content goes here --></li>
-            </ul>
-        </li>
-    </ul>
-    <div id ="legendBar" class="small-12 small-centered medium-12 large-12 columns large-centered">
-        <h1>Legend Bar</h1>
-                <ul class="button-group [radius round]">
-          <li><a href="#" id="green" class="button [tiny small large]">100-99.9</a></li>
-          <li><a href="#" id="yellow" class="button [tiny small large]">99.9-99.0</a></li>
-          <li><a href="#" id="red1" class="button [tiny small large]">99.0-95.0</a></li>
-            <li><a href="#" id="red2" class="button [tiny small large]">95.0-85.0</a></li>
-            <li><a href="#" id="red3" class="button [tiny small large]">85.0-0.0</a></li>
-        </ul>
+   <div class = "dchm">
+	<select onchange="window.location.hash = this.value">
+	</select>
     </div>
 </asp:Content>

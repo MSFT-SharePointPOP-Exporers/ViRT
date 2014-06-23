@@ -615,5 +615,51 @@ namespace MvcApplication1.Models
 			return dclatlong;
 		}
 
+         /*
+        * Retrieves all the NetworkID's for a specific dataCenter
+        * 
+        * @return a DataTable of the NetworkID's
+        */
+        public DataTable getNetworks(String dataCenter)
+        {
+            dbConnect.Open();
+            String query = "SELECT DISTINCT NetworkID FROM DataCenterNetworkId WHERE DataCenter = '" + dataCenter + "'";
+            SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+            SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+            DataTable networks = new DataTable();
+            networks.Load(queryCommandReader);
+            dbConnect.Close();
+            return networks;
+        }
+
+        /*
+        * Retrieves all the FarmID for the NetworkID
+        * 
+        * @return a DataTable of the FarmID's
+        */
+        public DataTable getFarms(int NetworkID)
+        {
+            //dbConnect.Open();
+            //String query = "SELECT NetworkID FROM DataCenterNetworkId WHERE DataCenter = '" + dataCenter + "'";
+            //SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+            //SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+            //DataTable networks = new DataTable();
+            //networks.Load(queryCommandReader);
+            //dbConnect.Close();
+            Random random = new Random();
+            DataTable farms = new DataTable();
+            DataColumn id = new DataColumn("FarmID", typeof(int));
+            DataColumn percent = new DataColumn("Percentage", typeof(double));
+            farms.Columns.Add(id);
+            farms.Columns.Add(percent); 
+            for (int i = 0; i < random.Next(7,15) ; i++)
+            {
+                DataRow newRow = farms.NewRow();
+                newRow["FarmID"] = random.Next(1000,10000);
+                newRow["Percentage"] = Convert.ToDouble(String.Format("{0:0.0000}", random.NextDouble() * 100));
+                farms.Rows.Add(newRow);
+            }
+            return farms;
+        }
     }
 }
