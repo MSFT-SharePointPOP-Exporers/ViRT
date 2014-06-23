@@ -34,9 +34,18 @@ World Heat Map
 				var obj = dataDCLatLong[i];
 				var objName = obj["DataCenter"];
 				latlong[objName] = {"latitude":obj["latitude"], "longitude":obj["longitude"]};
-
+				
+				var col = "#000000";
 				var objVal = averageDCPer[i];
-				var toPush = { "code":objName, "color":"#00ff00", "value": objVal["Percent"]};
+				var per = objVal["Percent"];
+
+				if(per > 99.90)	   {col = "$43ac6a";}
+				else if(per > 99.0){col = "#ffff51";}
+				else if(per > 95.0){col = "#c52e2e";}
+				else if(per > 85.0){col = "#8f0202";}
+				else			   {col = "#4e1010";}
+				
+				var toPush = { "code":objName, "color":col, "value": per};
 
 				mapData.push(toPush)
 			}	

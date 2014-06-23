@@ -14,17 +14,17 @@ namespace MvcApplication1.Controllers
         //
         // GET: /RawData/
 
-        public ActionResult RawData()
+        public ActionResult RawData(DateTime start, DateTime end, string pipeline, string datacen, int network, int farm)
         {
-            Reliability percent = new Reliability();
+            Reliability rawData = new Reliability(datacen, network, farm, pipeline, start, end);
 
-            percent.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
-            String[] components = percent.getComponents("DynamicClaims");
+            rawData.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
+            String[] components = rawData.getComponents(pipeline);
             List<DataTable> allComponentsRawData = new List<DataTable>();
 
             foreach (var compName in components)
             {
-                DataTable rawDataTable = percent.RawDataTable(compName);
+                DataTable rawDataTable = rawData.RawDataTable(compName);
                 allComponentsRawData.Add(rawDataTable);
             }
             var table = JsonConvert.SerializeObject(allComponentsRawData, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });

@@ -10,22 +10,14 @@
         var bullets = ["round", "square", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "diamond", "xError", "yError"];
         var data = <%= Html.Raw(ViewBag.PercentData)%>;//generateChartData();
         //var second = generateChartData2();
-        var datasets = [data];
+        //var datasets = [data];
         //var chart = create(data);
-        createCharts(datasets);
+        //createCharts(datasets);
 
-        function createCharts(datasets) {
-            for (var i = 0; i < datasets.length; i++) {
-                var div = document.createElement("div");
-                div.className = "newchart";
-                document.getElementById("chartdiv").appendChild(div);
-                var object = datasets[i];
-                var chart = create(object, div);
-            }
-        }
+        create(data);
 
-        function create(chartData, newdiv) {
-            var chart = AmCharts.makeChart(newdiv, {
+        function create(chartData) {
+            var chart = AmCharts.makeChart("chartdiv", {
                 "type": "serial",
                 "theme": "dark",
                 "pathToImages": "http://www.amcharts.com/lib/3/images/",
@@ -89,6 +81,9 @@
 
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
 <h1>Component Reliability</h1>
+
+    <a href="#" id="RawDataLink">View Raw Data</a>
+
     <div id="selectors" class="small-12 small-centered medium-12 medium-centered large-centered large-12">
         <form id="form1" runat="server">
             <div id="SelectDatacenter">
@@ -127,7 +122,7 @@
             text-decoration: underline;
         }
 
-        #chartdiv .newchart{
+        #chartdiv {
             width: 100%;
             height: 500px;
         }
@@ -140,6 +135,10 @@
 
         rect {
             text-decoration: none;
+        }
+
+        #RawDataLink {
+            padding: 0;
         }
     </style>
     <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>

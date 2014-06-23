@@ -98,12 +98,13 @@ namespace MvcApplication1.Models
         {
             //Strings that create the query
             String query = "SELECT Date, Hour, NumberOfHits FROM ProdDollar_RandomJess";
-            String where = " WHERE Tag = '" + pTag + "' AND Date >= '" + start.ToString() + "' AND Date <= '" + end.ToString() + "'";
+			String where = " WHERE Tag = '" + pTag + "' AND Date >= '" + start.ToString() + "' AND Date < '" + end.ToString() + "'";
 
             //Creates the remainer of the where portion of the query
             if (!dataCenter.Equals("All"))
             {
-				if(networkID == -1 && farmID == -1)
+
+				if (networkID == -1 && farmID == -1)
 				{
 					String getNetID = "Select NetworkID FROM DataCenterNetworkID WHERE DataCenter = '" + dataCenter + "'";
 					SqlCommand qCom = new SqlCommand(getNetID, dbConnect);
@@ -112,7 +113,7 @@ namespace MvcApplication1.Models
 					netIDTable.Load(qComRead);
 					if (netIDTable.Rows.Count != 0)
 					{
-						where = where + " And ( ";
+						where = where + " AND ( ";
 						for (int i = 0; i < netIDTable.Rows.Count; i++)
 						{
 							where = where + "NetworkID = " + (int)netIDTable.Rows[i]["NetworkID"];
@@ -122,6 +123,11 @@ namespace MvcApplication1.Models
 							}
 						}
 						where = where + " )";
+					}
+					else
+					{
+						//prevents the error from occuring
+						where = where + " AND Hour = -1";
 					}
 				}
                 else if (networkID != -1 && farmID == -1)
@@ -133,14 +139,9 @@ namespace MvcApplication1.Models
                     where += " AND NetworkID = " + networkID.ToString() + " AND FarmID = " + farmID.ToString();
                 }
             }
-			else
-			{
-
-			}
 
             //concatenate the where to the original query
             query = query + where;
-
             //Gets the query info
             SqlCommand queryCommand = new SqlCommand(query, dbConnect);
             SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
@@ -624,6 +625,10 @@ namespace MvcApplication1.Models
             return pipelines;
         }
 
+		/*
+		 * 
+		 * 
+		 */
 		public String[] GetAllDataCentersArray()
 		{
 			dbConnect.Open();
@@ -662,6 +667,10 @@ namespace MvcApplication1.Models
 			return dclatlong;
 		}
 
+		/*
+		 * 
+		 * 
+		 */
 		public decimal CalculatePipeOverview()
 		{
 			DataTable pipePercentTable = OverviewCalculate(pipeline);
@@ -716,7 +725,7 @@ namespace MvcApplication1.Models
             for (int i = 0; i < random.Next(1,15) ; i++)
             {
                 DataRow newRow = farms.NewRow();
-                newRow["FarmID"] = random.Next(1000,10000);
+				newRow["FarmID"] = random.Next(1000, 10000);
                 newRow["Percentage"] = Convert.ToDouble(String.Format("{0:0.0000}", random.NextDouble() * 100));
                 farms.Rows.Add(newRow);
             }
