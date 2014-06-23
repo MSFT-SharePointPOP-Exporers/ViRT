@@ -14,12 +14,12 @@ namespace MvcApplication1.Controllers
         //
         // GET: /RawData/
 
-        public ActionResult RawData(DateTime start, DateTime end, string pipeline, string datacen, int network, int farm)
+        public ActionResult RawData()
         {
-            Reliability rawData = new Reliability(datacen, network, farm, pipeline, start, end);
+            Reliability rawData = new Reliability();
 
-            rawData.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
-            String[] components = rawData.getComponents(pipeline);
+            rawData.ChangeDate(Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            String[] components = rawData.getComponents(Request.QueryString["pipeline"]);
             List<DataTable> allComponentsRawData = new List<DataTable>();
 
             foreach (var compName in components)

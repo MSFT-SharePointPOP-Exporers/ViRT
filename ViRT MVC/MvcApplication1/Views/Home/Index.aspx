@@ -114,12 +114,10 @@ World Heat Map
     </div>
     <div id ="legendBar" class="small-12 medium-12 large-12 columns">
         <h1>Legend Bar</h1>
-        <ul class="button-group [radius round]">
-          <li><a href="#" id="green" class="button [tiny small large]">100-99.9</a></li>
-          <li><a href="#" id="yellow" class="button [tiny small large]">99.9-99.0</a></li>
-          <li><a href="#" id="red1" class="button [tiny small large]">99.0-95.0</a></li>
-            <li><a href="#" id="red2" class="button [tiny small large]">95.0-85.0</a></li>
-            <li><a href="#" id="red3" class="button [tiny small large]">85.0-0.0</a></li>
-        </ul>
+          <a href="#" class="button [tiny small large] green">100-99.9</a>
+          <a href="#" class="button [tiny small large] yellow">99.9-99.0</a>
+          <a href="#" class="button [tiny small large] red1">99.0-95.0</a>
+           <a href="#" class="button [tiny small large] red2">95.0-85.0</a>
+           <a href="#" class="button [tiny small large] red3">85.0-0.0</a>
     </div>
 </asp:Content>

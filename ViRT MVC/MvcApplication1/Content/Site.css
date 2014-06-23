@@ -84,7 +84,6 @@
         padding-top: 60px;
         padding-left: 0;
         float: left;
-        overflow: auto;
            -moz-box-shadow:    inset 0 0 10px #000000;
    -webkit-box-shadow: inset 0 0 10px #000000;
    box-shadow:         inset 0 0 10px #000000;
@@ -106,20 +105,18 @@
         bottom: 0;
         height: 11%;
         padding:0.5%;
+        text-align:center;
     }
 
     #legendBar h1 {
-        text-align: center;
         font-size: 1.0em;
     }
     
-    #legendBar a {
+    .button {
         color:black;
     }
 
-    .button-group {
-        float:none;
-    }
+    
 
 	.green {
 		background-color: #43ac6a;
