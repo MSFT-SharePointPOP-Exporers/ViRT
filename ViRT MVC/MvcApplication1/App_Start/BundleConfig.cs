@@ -32,7 +32,6 @@ namespace MvcApplication1
                         "~/Scripts/modernizr*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/foundation/_settings.scss",
                 "~/Content/foundation/foundation.css",
                 "~/Content/foundation/normalize.css",
                 "~/Content/site.css"));

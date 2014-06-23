@@ -28,21 +28,21 @@ namespace MvcApplication1.Controllers
         public string getNetworkFarm()
         {
             Reliability test = new Reliability();
-            Random random = new Random();
+            Random rand = new Random();
             DataTable table = new DataTable();
             DataTable networkTable = test.getNetworks("CH1");
             table.Columns.Add(new DataColumn("NetworkID", typeof(int)));
             table.Columns.Add(new DataColumn("Percentage", typeof(double)));
             table.Columns.Add(new DataColumn("Farms", typeof(DataTable)));
+            DataRow network;
             foreach (DataRow row in networkTable.Rows)
             {
-                DataRow network = table.NewRow();
-                network["NetworkID"] = row["NetworkID"].ToString();
-                network["Percentage"] = Convert.ToDouble(String.Format("{0:0.0000}", random.NextDouble() * 100));
-                network["Farms"] = test.getFarms(random.Next(0,10000));
+                network = table.NewRow();
+                network["NetworkID"] = row["NetworkID"];
+                network["Percentage"] = rand.NextDouble() * 100;
+                network["Farms"] = test.getFarms((int)row["NetworkID"]);
                 table.Rows.Add(network);
             }
-            //Console.WriteLine(JsonConvert.SerializeObject(test.getFarms(20)));
             table.AcceptChanges();
             return JsonConvert.SerializeObject(table, Formatting.Indented);
         }

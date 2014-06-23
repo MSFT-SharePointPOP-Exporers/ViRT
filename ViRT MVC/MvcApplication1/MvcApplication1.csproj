@@ -187,9 +187,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PercentDataController.cs" />
     <Compile Include="Controllers\QueryController.cs" />
-    <Compile Include="Controllers\RawDataController.cs" />
     <Compile Include="Controllers\WorldMapController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -344,8 +342,8 @@
     <Content Include="Scripts\amcharts\themes\chalk.js" />
     <Content Include="Scripts\amcharts\themes\dark.js" />
     <Content Include="Scripts\amcharts\themes\light.js" />
-    <Content Include="Views\PercentData\PercentData.aspx" />
-    <Content Include="Views\RawData\RawData.aspx" />
+    <Content Include="Views\Home\PercentData.aspx" />
+    <Content Include="Views\Home\RawData.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -378,7 +376,7 @@
     <Content Include="Views\Account\ExternalLoginFailure.aspx" />
     <Content Include="Views\Account\ExternalLoginConfirmation.aspx" />
     <Content Include="Views\Home\About.aspx" />
-    <Content Include="Views\Home\Contact.aspx" />
+    <Content Include="Views\Home\DCHM.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
