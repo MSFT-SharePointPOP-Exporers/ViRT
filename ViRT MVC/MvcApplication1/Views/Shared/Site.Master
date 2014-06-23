@@ -79,7 +79,7 @@
     <nav class="top-bar" data-topbar>
       <!-- Left Nav Section -->
       <ul class="breadcrumbs show-for-large-up">
-        <li><a href="Home/Contact">Home</a></li>
+        <li><a href="Home/DCHM">Home</a></li>
         <li><a href="#">Features</a></li>
         <li class="unavailable"><a href="#">Gene Splicing</a></li>
         <li class="current"><a href="#">Cloning</a></li>
