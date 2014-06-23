@@ -45,6 +45,7 @@ namespace MvcApplication1.Controllers
 
 			ViewBag.AverageDCPercent = percentages;
 			ViewBag.WorldMap = json;
+			ViewBag.Pipeline = world.getPipeline();
             return View();
         }
 
