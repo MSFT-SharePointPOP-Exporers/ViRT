@@ -25,7 +25,7 @@ namespace MvcApplication1.Models
          */
         public Reliability()
         {
-            dataCenter = "all";
+            dataCenter = "All";
             networkID = -1;
             farmID = -1;
             pipeline = "Overview";
@@ -79,8 +79,8 @@ namespace MvcApplication1.Models
             String failureTag = (String)twoTags.Rows[0][col.ColumnName];
 
             //DataTable which have date, hour and hits
-            DataTable successTable = TagTable(successTag);
-            DataTable failureTable = TagTable(failureTag);
+            DataTable successTable = TagHitTable(successTag);
+            DataTable failureTable = TagHitTable(failureTag);
 
             //return calculated table that has dates and percentages
             return CalculatePercent(successTable, failureTable);
@@ -93,24 +93,49 @@ namespace MvcApplication1.Models
          * @param connect	The connection to DB
          * @return		Table with all the entries for that tag
          */
-        private DataTable TagTable(String pTag)
+        private DataTable TagHitTable(String pTag)
         {
             //Strings that create the query
             String query = "SELECT Date, Hour, NumberOfHits FROM ProdDollar_RandomJess";
             String where = " WHERE Tag = '" + pTag + "' AND Date >= '" + start.ToString() + "' AND Date <= '" + end.ToString() + "'";
 
             //Creates the remainer of the where portion of the query
-            if (!dataCenter.Equals("all"))
+            if (!dataCenter.Equals("All"))
             {
-                if (networkID != -1 && farmID == -1)
+				if(networkID == -1 && farmID == -1)
+				{
+					String getNetID = "Select NetworkID FROM DataCenterNetworkID WHERE DataCenter = '" + dataCenter + "'";
+					SqlCommand qCom = new SqlCommand(getNetID, dbConnect);
+					SqlDataReader qComRead = qCom.ExecuteReader();
+					DataTable netIDTable = new DataTable();
+					netIDTable.Load(qComRead);
+					if (netIDTable.Rows.Count != 0)
+					{
+						where = where + " And ( ";
+						for (int i = 0; i < netIDTable.Rows.Count; i++)
+						{
+							where = where + "NetworkID = " + (int)netIDTable.Rows[i]["NetworkID"];
+							if ((i + 1) < netIDTable.Rows.Count)
+							{
+								where = where + " OR ";
+							}
+						}
+						where = where + " )";
+					}
+				}
+                else if (networkID != -1 && farmID == -1)
                 {
-                    where = where + " AND NetworkID = " + networkID.ToString();
+					where = where + " AND NetworkID = " + networkID.ToString();
                 }
                 else if (networkID != -1 && farmID != -1)
                 {
                     where += " AND NetworkID = " + networkID.ToString() + " AND FarmID = " + farmID.ToString();
                 }
             }
+			else
+			{
+
+			}
 
             //concatenate the where to the original query
             query = query + where;
@@ -290,8 +315,8 @@ namespace MvcApplication1.Models
             String failureTag = (String)twoTags.Rows[0][col.ColumnName];
 
             //Fill DataTables with the hits for that tag
-            DataTable successTable = TagTable(successTag);
-            DataTable failureTable = TagTable(failureTag);
+            DataTable successTable = TagHitTable(successTag);
+            DataTable failureTable = TagHitTable(failureTag);
 
             //Since the dates are formatted weird in the DB, the dates need to be adjusted
             DataTable formatSuccessTable = new DataTable();
@@ -598,6 +623,27 @@ namespace MvcApplication1.Models
             return pipelines;
         }
 
+		public String[] GetAllDataCentersArray()
+		{
+			dbConnect.Open();
+			String query = "SELECT DataCenter FROM DataCenter";
+			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+			DataTable dataCenters = new DataTable();
+			dataCenters.Load(queryCommandReader);
+
+
+			String[] dcArray = new String[dataCenters.Rows.Count];
+
+			for (int i = 0; i < dataCenters.Rows.Count; i++)
+			{
+				dcArray[i] = (String)dataCenters.Rows[i]["DataCenter"];
+			}
+
+			dbConnect.Close();
+			return dcArray;
+		}
+
 		/*
 		 * Retrieves the datacenter with the lat and long
 		 * 
@@ -615,6 +661,24 @@ namespace MvcApplication1.Models
 			return dclatlong;
 		}
 
+<<<<<<< HEAD
+		public decimal CalculatePipeOverview()
+		{
+			DataTable pipePercentTable = OverviewCalculate(pipeline);
+			decimal total = 0;
+
+			for (int i = 0; i < pipePercentTable.Rows.Count; i++)
+			{
+				total = total + (decimal)pipePercentTable.Rows[i]["Percent"];
+			}
+
+			if (pipePercentTable.Rows.Count == 0) return 0;
+
+			return Math.Round(total / pipePercentTable.Rows.Count, 4);
+		}
+
+
+=======
          /*
         * Retrieves all the NetworkID's for a specific dataCenter
         * 
@@ -661,5 +725,6 @@ namespace MvcApplication1.Models
             }
             return farms;
         }
+>>>>>>> origin/master
     }
 }
