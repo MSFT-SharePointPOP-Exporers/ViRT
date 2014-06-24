@@ -10,7 +10,9 @@
         background-color: #0F0F0F;
     }
 
-        
+    p { 
+        color:#e1e1e1;
+    }                         
 
     #pipelines {
         background-color: #FF99CC;
@@ -19,9 +21,9 @@
         padding-top: 60px;
         float: left;
         margin: 0;
-           -moz-box-shadow:    inset 0 0 10px #000000;
-   -webkit-box-shadow: inset 0 0 10px #000000;
-   box-shadow:         inset 0 0 10px #000000;
+        -moz-box-shadow:    inset 0 0 10px #000000;
+        -webkit-box-shadow: inset 0 0 10px #000000;
+        box-shadow:         inset 0 0 10px #000000;
     }
 
     #pipelines ul {
@@ -33,6 +35,10 @@
         height: 100%;
         padding: 60px 2% 0px 2%;
         float: left;
+    }
+
+    .graph_header {
+        text-align:center;
     }
 
     #overviewbar h1 {
@@ -84,15 +90,19 @@
         padding-top: 60px;
         padding-left: 0;
         float: left;
-           -moz-box-shadow:    inset 0 0 10px #000000;
-   -webkit-box-shadow: inset 0 0 10px #000000;
-   box-shadow:         inset 0 0 10px #000000;
+        -moz-box-shadow:    inset 0 0 10px #000000;
+        -webkit-box-shadow: inset 0 0 10px #000000;
+        box-shadow:         inset 0 0 10px #000000;
     }
 
     .breadcrumbs {
         border:none;
         padding:0.98em 0.875rem 0.5625rem;
         background:none; 
+    }
+
+    .breadcrumbs > *.current {
+        color: #E1E1E1;
     }
     
     h1 {
@@ -194,8 +204,9 @@
 	}
 
 	#loading h1 {
-		margin-bottom: 2%;
-       font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
+		margin-bottom: 1%;
+        margin-top: 18%;
+        font-family: "Segoe WP",Verdana,Helvetica,sans-serif;
 	}
 
 	#loading img {

@@ -44,7 +44,6 @@
                   success: function (data) {
                       for (var x = 0; x < data.length; x++) {
                           if (data[x].Component.indexOf(sessionStorage["pipeline"]) > -1 && sessionStorage["pipeline"] != "Overview") {
-                              console.log("woo");
                               $("tbody").append("<tr>");
                               $("tbody").append("<td class='overview_component first'>" + data[x].Component + "</td>");
                               $("tbody").append("<td class='overview_percent first'><a href = '../Home/PercentData'>" + data[x].Percent + "%</a></td>");
@@ -94,10 +93,7 @@
     <nav class="top-bar" data-topbar>
       <!-- Left Nav Section -->
       <ul class="breadcrumbs show-for-large-up">
-        <li><%:Html.ActionLink("DCHM","DCHM","Home") %></li>
-        <li><%:Html.ActionLink("Raw","RawData","Home") %></li>
-        <li class="unavailable"><a href="#">Gene Splicing</a></li>
-        <li class="current"><a href="#">Cloning</a></li>
+        <li onclick="setHomeDefaults()"><%:Html.ActionLink("Home","Index","Home") %></li>
       </ul>
       <ul class="title-area">
         <li class="name">

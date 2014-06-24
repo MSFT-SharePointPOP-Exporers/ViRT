@@ -8,6 +8,13 @@
     sessionStorage["query"] = "?start=" + sessionStorage["start"] + "&end=" + sessionStorage["end"] + "&pipeline=" + sessionStorage["pipeline"] + "&datacen=" + sessionStorage["datacen"] + "&network=" + sessionStorage["network"] + "&farm=" + sessionStorage["farm"];
 }
 
+function setHomeDeafults() {
+    sessionStorage["datacen"] = "All";
+    sessionStorage["network"] = -1;
+    sessionStorage["farm"] = -1;
+    sessionStorage["query"] = "?start=" + sessionStorage["start"] + "&end=" + sessionStorage["end"] + "&pipeline=" + sessionStorage["pipeline"] + "&datacen=" + sessionStorage["datacen"] + "&network=" + sessionStorage["network"] + "&farm=" + sessionStorage["farm"];
+}
+
 function updateQueryString() {
     if (sessionStorage["start"] == undefined) {
         setDefaults();
@@ -33,12 +40,6 @@ function setFields() {
     $("#FeaturedContent_Farm").val(sessionStorage["farm"]);
 }
 
-function setActivePipeline(id) {
-    if (id == sessionStorage["pipeline"]) {
-        $("#" + id).addClass("selected");
-    }
-}
-
 function setPipeline(id) {
     sessionStorage["pipeline"] = id;
     updateQueryString();
@@ -51,6 +52,22 @@ function setDatacenter(id) {
     sessionStorage["farm"] = -1;
     window.location.href = "DCHM";
 
+}
+
+function setBreadcrumbs() {
+    console.log("hi");
+    if (sessionStorage["datacen"] != "All" && sessionStorage["network"] != -1 && sessionStorage["farm"] != -1) {
+        $(".breadcrumbs").append("<li><a href='../Home/DCHM'>Datacenter " + sessionStorage["datacen"] + "</a></li>");
+        $(".breadcrumbs").append("<li><a href='../Home/DCHM'>Network " + sessionStorage["network"] + "</a></li>");
+        $(".breadcrumbs").append("<li class='current'>Farm " + sessionStorage["farm"] + "</li>");
+    } else if (sessionStorage["datacen"] != "All" && sessionStorage["network"] != -1 && sessionStorage["farm"] == -1) {
+        console.log("hi");
+        $(".breadcrumbs").append("<li onclick='setDefaults()'><a href='../Home/DCHM'>Datacenter " + sessionStorage["datacen"] + "</a></li>");
+        $(".breadcrumbs").append("<li onclick='setDefaults()' class='current'>Network " + sessionStorage["network"] + "</li>");
+    } else if (sessionStorage["datacen"] != "All" && sessionStorage["network"] == -1 && sessionStorage["farm"] == -1) {
+        console.log("hi");
+        $(".breadcrumbs").append("<li class='current'>Datacenter " + sessionStorage["datacen"] + "</li>");
+    }
 }
 
 /*
@@ -79,6 +96,7 @@ $(document).ready(function () {
     } else {
         setSessionStorage();
         setFields();
+        setBreadcrumbs();
     }
 });
 

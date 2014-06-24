@@ -80,9 +80,9 @@
                     "font": 40,
                     "labelText": "[[title]]",
                     "useGraphSettings": true,
-                    "color": "#0000FF",
-                    "position": "left",
-                    "width": 320,
+                    "color": "#e1e1e1",
+                    "position": "bottom",
+                    "width": 500,
                     "valueText": ""
                 },
                 "chartScrollbar": {
@@ -129,10 +129,10 @@
 </asp:Content>
 
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
-<h1>Component Reliability</h1>
-
-    <a href="RawData" id="RawDataLink">View Raw Data</a>
-
+    <div class="graph_header">
+        <h1>Component Reliability</h1>
+        <a href="RawData" id="RawDataLink">View Raw Data</a>
+    </div> 
     <div id="selectors" class="small-12 medium-12 large-12">
         <form id="form1" runat="server">
             <div id="SelectDatacenter">
@@ -167,7 +167,7 @@
 
         #chartdiv {
             width: 100%;
-            height: 500px;
+            height: 700px;
         }
 
         body {

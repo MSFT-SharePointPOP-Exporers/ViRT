@@ -11,7 +11,6 @@
             $(document).ajaxComplete(function () {
                 $("#loading").fadeOut("slow");
             });
-            $("#rendering h1").append($.QueryString("datacen").substring(0,3));
             $.ajax({
                 data: sessionStorage["query"],
                 url: '<%= Url.Action("getNetworkFarm", "Query") %>',
@@ -61,4 +60,8 @@
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
    <div class = "dchm">
     </div>
+
+    <script>
+        $("#rendering h1").append(sessionStorage["datacen"].substring(0, 3));
+    </script>
 </asp:Content>

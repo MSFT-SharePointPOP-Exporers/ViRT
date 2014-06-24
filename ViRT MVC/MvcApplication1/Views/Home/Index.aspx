@@ -82,7 +82,10 @@ World Heat Map
 					var des = "Reliability of Data Center: "
 					des = des.concat(val);
 					des = des.concat("</br></br><a href='../Home/DCHM' id='" + dataItem.code.substring(0,3) + "' onclick='setDatacenter(this.id)'>Detailed Data Center View</a>");
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 					dataProvider.images.push({
 						label: id,
 						labelPosition: "middle",
