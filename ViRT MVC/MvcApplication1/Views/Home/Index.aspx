@@ -29,7 +29,6 @@ World Heat Map
 			var mapData = new Array();
 			var dataDCLatLong = <%= Html.Raw(ViewBag.WorldMap)%>;
 			var averageDCPer = <%= Html.Raw(ViewBag.AverageDCPercent)%>;
-			//var pipe = <%= Html.Raw(ViewBag.Pipeline)%>;
 
 			for(var i = 0; i < dataDCLatLong.length; i++)
 			{
@@ -82,7 +81,8 @@ World Heat Map
 					var id = dataItem.code;
 					var des = "Reliability of Data Center: "
 					des = des.concat(val);
-					des = des.concat("</br></br><a href=\"http://google.com\">Detailed Data Center View</a>");
+					des = des.concat("%</br></br><a href='DCHM'>Detailed Data Center View</a>");
+
 					dataProvider.images.push({
 						label: id,
 						labelPosition: "middle",

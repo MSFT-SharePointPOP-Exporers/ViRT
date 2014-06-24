@@ -21,8 +21,8 @@ namespace MvcApplication1.Controllers
 			Reliability world = new Reliability();
 
 			DataTable worldLocs = world.GetDataCenterLatLong();
-			world.ChangeDate((new DateTime(2014, 06, 18)), new DateTime(2014, 06, 19));
-			world.ChangePipeline("DynamicClaims");
+			world.ChangeDate(Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+			world.ChangePipeline(Request.QueryString["pipeline"]);
 			var json = JsonConvert.SerializeObject(worldLocs);
 			String[] dcs = world.GetAllDataCentersArray();
 
@@ -45,7 +45,6 @@ namespace MvcApplication1.Controllers
 
 			ViewBag.AverageDCPercent = percentages;
 			ViewBag.WorldMap = json;
-			ViewBag.Pipeline = world.getPipeline();
             return View();
         }
 
