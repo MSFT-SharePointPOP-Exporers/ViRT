@@ -63,11 +63,11 @@ namespace MvcApplication1.Controllers
 
         public ActionResult PercentData()
         {
-            Reliability paramsPercent = new Reliability();
-
-            paramsPercent.ChangeDate(Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
-
-            DataTable percentTable = paramsPercent.PipelineCalculate(Request.QueryString["pipeline"]);
+            Reliability percent = new Reliability();
+            
+            percent.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            
+            DataTable percentTable = percent.PipelineCalculate(Request.QueryString["pipeline"]);
 
             var json = JsonConvert.SerializeObject(percentTable, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
@@ -80,7 +80,7 @@ namespace MvcApplication1.Controllers
         {
             Reliability rawData = new Reliability();
 
-            rawData.ChangeDate(Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            rawData.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
             String[] components = rawData.getComponents(Request.QueryString["pipeline"]);
             List<DataTable> allComponentsRawData = new List<DataTable>();
 

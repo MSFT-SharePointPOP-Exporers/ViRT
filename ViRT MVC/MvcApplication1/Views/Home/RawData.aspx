@@ -194,35 +194,42 @@
             });
 
             var i = 0;
-            for (var propertyName in chartData[0]) {
-                if (propertyName != 'Date') {
-                    if (i == 9)
-                        i = 0;
-                    var graph1 = new AmCharts.AmGraph();
-                    graph1.type = "line";
-                    graph1.valueField = propertyName;
-                    graph1.balloonText = "<b><span style='font-size:14px;'>[[title]]</span></b><br />[[category]]<br /><span style='font-size:14px;'>Reliability: [[value]]</span>";
-                    graph1.title = propertyName;
-                    graph1.bullet = bullets[i];
-                    graph1.bulletSize = 10;
-                    graph1.connect = false;
-                    graph1.hideBulletsCount = 30;
+            for (var j = 0; j < chartData.length; j++) {
 
-                    if( i ==0)
-                    {
-                        graph1.valueAxis = "v1";
-                        graph1.lineColor = "#008CBA";
-                    }
+                if (Object.keys(chartData[j]).length > 1)
+                {
+                    for (var propertyName in chartData[j]) {
+                        if (propertyName != 'Date') {
+                            if (i == 9)
+                                i = 0;
+                            var graph1 = new AmCharts.AmGraph();
+                            graph1.type = "line";
+                            graph1.valueField = propertyName;
+                            graph1.balloonText = "<b><span style='font-size:14px;'>[[title]]</span></b><br />[[category]]<br /><span style='font-size:14px;'>Reliability: [[value]]</span>";
+                            graph1.title = propertyName;
+                            graph1.bullet = bullets[i];
+                            graph1.bulletSize = 10;
+                            graph1.connect = false;
+                            graph1.hideBulletsCount = 30;
+
+                            if( i ==0)
+                            {
+                                graph1.valueAxis = "v1";
+                                graph1.lineColor = "#008CBA";
+                            }
                         
-                    if( i ==1)
-                    {
-                        graph1.valueAxis = "v2";
-                        graph1.lineColor = "#43AC6A";
-                    }
+                            if( i ==1)
+                            {
+                                graph1.valueAxis = "v2";
+                                graph1.lineColor = "#43AC6A";
+                            }
                         
 
-                    chart.addGraph(graph1);
-                    i++;
+                            chart.addGraph(graph1);
+                            i++;
+                        }
+                    }
+                    break;
                 }
             }
             return chart;
