@@ -17,31 +17,31 @@ namespace MvcApplication1.Controllers
         Reliability querydata = new Reliability();
         public string getPipelines()
         {
-            querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            //querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
             return JsonConvert.SerializeObject(querydata.GetAllPipelines());
         }
 
         public string getOverview()
         {
-            querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            //querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
             return JsonConvert.SerializeObject(querydata.OverviewCalculate(Request.QueryString["pipeline"]));
         }
 
         public string getDatacenters()
         {
-            querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            //querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
             return JsonConvert.SerializeObject(querydata.GetDataCenterLatLong());
         }
 
         public string getNetworks()
         {
-            querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            //querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
             return JsonConvert.SerializeObject(querydata.GetAllNetworks());
         }
 
         public string getFarms()
         {
-            querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
+            //querydata.ChangeAllFilters(Request.QueryString["datacen"], Convert.ToInt32(Request.QueryString["network"]), Convert.ToInt32(Request.QueryString["farm"]), Request.QueryString["pipeline"], Convert.ToDateTime(Request.QueryString["start"]), Convert.ToDateTime(Request.QueryString["end"]));
             return JsonConvert.SerializeObject(querydata.GetAllFarms());
         }
 
