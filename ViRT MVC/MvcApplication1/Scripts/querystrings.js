@@ -53,6 +53,20 @@ function setDatacenter(id) {
 
 }
 
+function setBreadcrumbs() {
+    if (sessionStorage["datacen"] != "All" && sessionStorage["network"] != -1 && sessionStorage["farm"] != -1) {
+        $(".breadcrumbs").append("<li onclick='setDefaults()'><a href='../Home'>Datacenter " + sessionStorage["datacen"] + "</a></li>");
+        $(".breadcrumbs").append("<li onclick='setDefaults()'><a href='../Home'>Network " + sessionStorage["network"] + "</a></li>");
+        $(".breadcrumbs").append("<li onclick='setDefaults()' class='current'><a href='../Home'>Farm " + sessionStorage["farm"] + "</a></li>");
+    } else if (sessionStorage["datacen"] != "All" && sessionStorage["network"] != -1 && sessionStorage["farm"] == -1) {
+        $(".breadcrumbs").append("<li onclick='setDefaults()'><a href='../Home'>Datacenter " + sessionStorage["datacen"] + "</a></li>");
+        $(".breadcrumbs").append("<li onclick='setDefaults()'><a href='../Home'>Network " + sessionStorage["network"] + "</a></li>");
+    } else if (sessionStorage["datacen"] != "All" && sessionStorage["network"] != -1 && sessionStorage["farm"] == -1) {
+        $(".breadcrumbs").append("<li class='current'><a href='../DCHM'>Datacenter " + sessionStorage["datacen"] + "</a></li>");
+        $(".breadcrumbs").append("<li class='current'><a href='../Home'>Network  " + sessionStorage["network"] + "</a></li>");
+    }
+}
+
 /*
 *Set a farm and it's network is found and set in the url too!
 */
