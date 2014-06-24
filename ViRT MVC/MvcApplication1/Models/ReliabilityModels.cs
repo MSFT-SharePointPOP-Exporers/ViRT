@@ -785,9 +785,9 @@ namespace MvcApplication1.Models
 					toAdd["Farms"] = farms[i];
 					for(int k = 0; k < temp.Rows.Count; k++)
 					{
-						if(temp.Rows[i]["Component"].Equals(pipeline))
+						if(temp.Rows[k]["Component"].Equals(pipeline))
 						{
-							toAdd["Precent"] = temp.Rows[i]["Percent"];
+							toAdd["Precent"] = temp.Rows[k]["Percent"];
 						}
 					}
 					farmPercents.Rows.Add(toAdd);
@@ -799,13 +799,15 @@ namespace MvcApplication1.Models
 
 				for (int i = 0; i < farmPercents.Rows.Count; i++ )
 				{
-					per = per + (decimal)farmPercents.Rows[i]["Percent"];
+					//per = per + (decimal)farmPercents.Rows[i]["Percent"];
 				}
 
 				toAddToRetTable["NetworkID"] = allNetsinDC.Rows[x]["NetworkID"];
 
 				if (per == 0) toAddToRetTable["Percent"] = 0;
 				else toAddToRetTable["Percent"] = Math.Round(per / farmPercents.Rows.Count, 4);
+
+				farmPercents.Rows.Add(toAdd);
 
 				toAddToRetTable["Farms"] = farmPercents;
 				retTable.Rows.Add(toAddToRetTable);
