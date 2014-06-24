@@ -45,7 +45,7 @@ namespace MvcApplication1.Controllers
             Reliability test = new Reliability();
             Random rand = new Random();
             DataTable table = new DataTable();
-            DataTable networkTable = test.getNetworks("CH1");
+            DataTable networkTable = test.getNetworks(Request.QueryString["datacen"]);
             table.Columns.Add(new DataColumn("NetworkID", typeof(int)));
             table.Columns.Add(new DataColumn("Percentage", typeof(double)));
             table.Columns.Add(new DataColumn("Farms", typeof(DataTable)));

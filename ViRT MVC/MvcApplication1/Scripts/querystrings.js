@@ -45,14 +45,12 @@ function setPipeline(id) {
 }
 
 
-/*
-*Set a farm and it's network is found and set in the url too!
-*/
 function setDatacenter(id) {
     sessionStorage["datacen"] = id;
     sessionStorage["network"] = -1;
     sessionStorage["farm"] = -1;
-    updateQueryString();
+    window.location.href = "DCHM";
+
 }
 
 /*
@@ -61,7 +59,7 @@ function setDatacenter(id) {
 function setFarm(id) {
     sessionStorage["farm"] = id;
     sessionStorage["network"] = $("#" + id).parent().attr('id');
-    updateQueryString();
+    window.location.href="PercentData";
 }
 
 /*
@@ -70,7 +68,7 @@ function setFarm(id) {
 function setNetwork(id) {
     sessionStorage["network"] = id;
     sessionStorage["farm"] = -1;
-    updateQueryString();
+    window.location.href = "PercentData";
 }
                                                 
 

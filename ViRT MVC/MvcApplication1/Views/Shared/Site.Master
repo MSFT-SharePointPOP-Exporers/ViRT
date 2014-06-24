@@ -47,7 +47,7 @@
                               console.log("woo");
                               $("tbody").append("<tr>");
                               $("tbody").append("<td class='overview_component first'>" + data[x].Component + "</td>");
-                              $("tbody").append("<td class='overview_percent first'><a href = 'Home/PercentData'>" + data[x].Percent + "%</a></td>");
+                              $("tbody").append("<td class='overview_percent first'><a href = '../Home/PercentData'>" + data[x].Percent + "%</a></td>");
                               $("tbody").append("</tr>");
                           }
                        } 
