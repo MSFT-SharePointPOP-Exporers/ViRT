@@ -21,10 +21,11 @@
                 url: '<%= Url.Action("getDatacenters", "Query") %>',
                 dataType: "json",
                 success: function (data) {
-                    $("#Datacenters").append("<option value='All  '>All</option>");
+                    $("#FeaturedContent_Datacenter").append("<option value='All'>All</option>");
                     for (var x = 0; x < data.length; x++) {
-                        $("#Datacenters").append("<option value=" + data[x].DataCenter + ">" + data[x].DataCenter + "</option>");
+                        $("#FeaturedContent_Datacenter").append("<option value=" + data[x].DataCenter + ">" + data[x].DataCenter + "</option>");
                     }
+                    setFields();
                 }
             });
 
@@ -33,10 +34,11 @@
                 url: '<%= Url.Action("getNetworks", "Query") %>',
                 dataType: "json",
                 success: function (data) {
-                    $("#Networks").append("<option value='-1'>All</option>");
+                    $("#FeaturedContent_Network").append("<option value='-1'>All</option>");
                     for (var x = 0; x < data.length; x++) {
-                        $("#Networks").append("<option value=" + data[x].NetworkID + ">" + data[x].NetworkID + "</option>");
+                        $("#FeaturedContent_Network").append("<option value=" + data[x].NetworkID + ">" + data[x].NetworkID + "</option>");
                     }
+                    setFields();
                 }
             });
 
@@ -45,10 +47,11 @@
                 url: '<%= Url.Action("getFarms", "Query") %>',
                 dataType: "json",
                 success: function (data) {
-                    $("#Farms").append("<option value='-1'>All</option>");
+                    $("#FeaturedContent_Farm").append("<option value='-1'>All</option>");
                     for (var x = 0; x < data.length; x++) {
-                        $("#Farms").append("<option value=" + data[x].FarmID + ">" + data[x].FarmID + "</option>");
+                        $("#FeaturedContent_Farm").append("<option value=" + data[x].FarmID + ">" + data[x].FarmID + "</option>");
                     }
+                    setFields();
                 }
             });
         });
@@ -131,12 +134,28 @@
     <a href="RawData" id="RawDataLink">View Raw Data</a>
 
     <div id="selectors" class="small-12 medium-12 large-12">
-        <label for="Datacenters">Datacenters</label>
-        <select id="Datacenters" onchange="setDatacenter($('#Datacenters').val())"></select>
-        <label for="Networks">Networks</label>
-        <select id="Networks" onchange="setNetwork($('#Networks').val())"></select>
-        <label for="Farms">Farms</label>
-        <select id="Farms" onchange="setFarm($('#Farms').val())"></select>
+        <form id="form1" runat="server">
+            <div id="SelectDatacenter">
+                <p>Datacenter</p>
+
+                <asp:DropDownList ID="Datacenter" runat="server">
+                </asp:DropDownList>
+            </div>
+            <div id="SelectNetwork">
+                <p>Network ID</p>
+
+                <asp:DropDownList ID="Network" runat="server">
+                </asp:DropDownList>
+            </div>
+            <div id="SelectFarm">
+                <p>Farm ID</p>
+
+                <asp:DropDownList ID="Farm" runat="server">
+                </asp:DropDownList>
+            </div>
+            <div id="Entry">
+            </div>
+        </form>
     </div>
 </asp:Content>
 

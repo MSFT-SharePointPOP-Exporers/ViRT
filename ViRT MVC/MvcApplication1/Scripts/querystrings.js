@@ -2,7 +2,7 @@
     sessionStorage["start"] = new Date.parse("t - 8 d").toString("yyyy-MM-dd");
     sessionStorage["end"] = new Date.parse("t - 1 d").toString("yyyy-MM-dd");
     sessionStorage["pipeline"] = "Overview";
-    sessionStorage["datacen"] = "All%20%20";
+    sessionStorage["datacen"] = "All";
     sessionStorage["network"] = -1;
     sessionStorage["farm"] = -1;
     sessionStorage["query"] = "?start=" + sessionStorage["start"] + "&end=" + sessionStorage["end"] + "&pipeline=" + sessionStorage["pipeline"] + "&datacen=" + sessionStorage["datacen"] + "&network=" + sessionStorage["network"] + "&farm=" + sessionStorage["farm"];
@@ -28,7 +28,7 @@ function setSessionStorage() {
 function setFields() {
     $(".from").val(sessionStorage["start"]);
     $(".to").val(sessionStorage["end"]);
-    $("#FeaturedContent_Datacenter").val(sessionStorage["datacen"].replace("%20%20","  "));
+    $("#FeaturedContent_Datacenter").val(sessionStorage["datacen"]);
     $("#FeaturedContent_Network").val(sessionStorage["network"]);
     $("#FeaturedContent_Farm").val(sessionStorage["farm"]);
 }

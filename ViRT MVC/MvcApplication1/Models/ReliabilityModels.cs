@@ -752,7 +752,7 @@ namespace MvcApplication1.Models
             allNetworks.Load(queryCommandReader);
             dbConnect.Close();
             return allNetworks;
-        }
+	}
 
         /*
         * Retrieves all of the available farms
