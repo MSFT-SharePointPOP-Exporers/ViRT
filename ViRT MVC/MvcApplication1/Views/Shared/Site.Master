@@ -86,6 +86,8 @@
                   sessionStorage["farm"] = $("#FeaturedContent_Farm").val();
                   updateQueryString();
               });
+
+              setBreadcrumbs();
         });
       </script>
     <asp:ContentPlaceHolder ID="Head" runat="server" />
@@ -94,10 +96,7 @@
     <nav class="top-bar" data-topbar>
       <!-- Left Nav Section -->
       <ul class="breadcrumbs show-for-large-up">
-        <li><%:Html.ActionLink("DCHM","DCHM","Home") %></li>
-        <li><%:Html.ActionLink("Raw","RawData","Home") %></li>
-        <li class="unavailable"><a href="#">Gene Splicing</a></li>
-        <li class="current"><a href="#">Cloning</a></li>
+        <li onclick="setDefaults()"><%:Html.ActionLink("Home","Index","Home") %></li>
       </ul>
       <ul class="title-area">
         <li class="name">
