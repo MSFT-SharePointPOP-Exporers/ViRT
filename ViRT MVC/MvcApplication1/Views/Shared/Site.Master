@@ -44,7 +44,6 @@
                   success: function (data) {
                       for (var x = 0; x < data.length; x++) {
                           if (data[x].Component.indexOf(sessionStorage["pipeline"]) > -1 && sessionStorage["pipeline"] != "Overview") {
-                              console.log("woo");
                               $("tbody").append("<tr>");
                               $("tbody").append("<td class='overview_component first'>" + data[x].Component + "</td>");
                               $("tbody").append("<td class='overview_percent first'><a href = '../Home/PercentData'>" + data[x].Percent + "%</a></td>");
@@ -86,8 +85,6 @@
                   sessionStorage["farm"] = $("#FeaturedContent_Farm").val();
                   updateQueryString();
               });
-
-              setBreadcrumbs();
         });
       </script>
     <asp:ContentPlaceHolder ID="Head" runat="server" />
