@@ -58,12 +58,13 @@
                   url: '<%= Url.Action("getOverview", "Query") %>',
                   dataType: "json",
                   success: function (data) {
-                      for (var x = 0; x < data.length; x++) {
+                     /* for (var x = 0; x < data.length; x++) {
                           $("tbody").append("<tr>");
                           $("tbody").append("<td class='overview_component'>" + data[x].Component + "</td>");
                           $("tbody").append("<td class='overview_percent'>" + data[x].Percent + "%</td>");
                           $("tbody").append("</tr>");
-                      }
+                      }*/
+                      console.log(data);
                   }
               });
 
