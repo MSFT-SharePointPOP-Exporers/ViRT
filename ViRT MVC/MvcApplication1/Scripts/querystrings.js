@@ -41,9 +41,6 @@ function setActivePipeline(id) {
 
 function setPipeline(id) {
     sessionStorage["pipeline"] = id;
-    if (id == sessionStorage["pipeline"]) {
-        $("#" + id).addClass("selected");
-    }
     updateQueryString();
 }
 
@@ -51,9 +48,19 @@ function setPipeline(id) {
 /*
 *Set a farm and it's network is found and set in the url too!
 */
-function setFarms(id) {
+function setDatacenter(id) {
+    sessionStorage["datacen"] = id;
+    sessionStorage["network"] = -1;
+    sessionStorage["farm"] = -1;
+    updateQueryString();
+}
+
+/*
+*Set a farm and it's network is found and set in the url too!
+*/
+function setFarm(id) {
     sessionStorage["farm"] = id;
-    sessionStorage["network"] = $("#" + id).parent().attr('id');;
+    sessionStorage["network"] = $("#" + id).parent().attr('id');
     updateQueryString();
 }
 

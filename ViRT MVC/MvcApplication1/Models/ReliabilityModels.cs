@@ -726,7 +726,6 @@ namespace MvcApplication1.Models
             {
                 DataRow newRow = farms.NewRow();
 				newRow["FarmID"] = random.Next(1000, 10000);
-<<<<<<< HEAD
 				newRow["Percentage"] = Convert.ToDouble(String.Format("{0:0.0000}", random.NextDouble() * 100));
 				farms.Rows.Add(newRow);
 			}
@@ -737,13 +736,39 @@ namespace MvcApplication1.Models
 		{
 			return pipeline;
 		}
-	}
-=======
-                newRow["Percentage"] = Convert.ToDouble(String.Format("{0:0.0000}", random.NextDouble() * 100));
-                farms.Rows.Add(newRow);
-            }
-            return farms;
+
+        /*
+        * Retrieves all of the available networks
+        * 
+        * @return		A DataTable of All Networks
+        */
+        public DataTable GetAllNetworks()
+        {
+            dbConnect.Open();
+            String query = "SELECT DISTINCT NetworkID FROM DataCenterNetworkId";
+            SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+            SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+            DataTable allNetworks = new DataTable();
+            allNetworks.Load(queryCommandReader);
+            dbConnect.Close();
+            return allNetworks;
+        }
+
+        /*
+        * Retrieves all of the available farms
+        * 
+        * @return	A DataTable of All Farms
+        */
+        public DataTable GetAllFarms()
+        {
+            dbConnect.Open();
+            String query = "SELECT DISTINCT FarmID FROM NetworkIdFarmId";
+            SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+            SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+            DataTable allFarms = new DataTable();
+            allFarms.Load(queryCommandReader);
+            dbConnect.Close();
+            return allFarms;
         }
     }
->>>>>>> origin/master
 }

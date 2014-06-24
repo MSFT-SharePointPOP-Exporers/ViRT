@@ -41,6 +41,10 @@
         font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
     }
 
+    #PercentDataLink {
+        text-align:center;
+    }
+
     table {
         width:100%;
         background:none;
@@ -214,9 +218,4 @@
               font-size:1.1em;
               margin-bottom: 6%;
           }
-
-<<<<<<< HEAD
     } /* max-width 640px, mobile-only styles*/
-=======
-    } /* max-width 640px, mobile-only styles */
->>>>>>> origin/master

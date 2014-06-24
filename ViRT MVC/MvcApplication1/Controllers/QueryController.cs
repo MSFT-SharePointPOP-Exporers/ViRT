@@ -25,6 +25,21 @@ namespace MvcApplication1.Controllers
             return JsonConvert.SerializeObject(test.OverviewCalculate(Request.QueryString["pipeline"]));
         }
 
+        public string getDatacenters()
+        {
+            return JsonConvert.SerializeObject(test.GetDataCenterLatLong());
+        }
+
+        public string getNetworks()
+        {
+            return JsonConvert.SerializeObject(test.GetAllNetworks());
+        }
+
+        public string getFarms()
+        {
+            return JsonConvert.SerializeObject(test.GetAllFarms());
+        }
+
         public string getNetworkFarm()
         {
             Reliability test = new Reliability();
