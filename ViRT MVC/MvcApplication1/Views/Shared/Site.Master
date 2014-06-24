@@ -93,7 +93,7 @@
     <nav class="top-bar" data-topbar>
       <!-- Left Nav Section -->
       <ul class="breadcrumbs show-for-large-up">
-        <li onclick="setDefaults()"><%:Html.ActionLink("Home","Index","Home") %></li>
+        <li onclick="setHomeDefaults()"><%:Html.ActionLink("Home","Index","Home") %></li>
       </ul>
       <ul class="title-area">
         <li class="name">

@@ -8,6 +8,13 @@
     sessionStorage["query"] = "?start=" + sessionStorage["start"] + "&end=" + sessionStorage["end"] + "&pipeline=" + sessionStorage["pipeline"] + "&datacen=" + sessionStorage["datacen"] + "&network=" + sessionStorage["network"] + "&farm=" + sessionStorage["farm"];
 }
 
+function setHomeDeafults() {
+    sessionStorage["datacen"] = "All";
+    sessionStorage["network"] = -1;
+    sessionStorage["farm"] = -1;
+    sessionStorage["query"] = "?start=" + sessionStorage["start"] + "&end=" + sessionStorage["end"] + "&pipeline=" + sessionStorage["pipeline"] + "&datacen=" + sessionStorage["datacen"] + "&network=" + sessionStorage["network"] + "&farm=" + sessionStorage["farm"];
+}
+
 function updateQueryString() {
     if (sessionStorage["start"] == undefined) {
         setDefaults();
