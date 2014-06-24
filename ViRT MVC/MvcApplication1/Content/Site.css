@@ -41,6 +41,10 @@
         font-family:"Segoe WP",Verdana,Helvetica,sans-serif;
     }
 
+    #PercentDataLink {
+        text-align:center;
+    }
+
     table {
         width:100%;
         background:none;

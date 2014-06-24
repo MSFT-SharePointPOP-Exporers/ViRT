@@ -26,15 +26,15 @@
                         for (var y = 0; y < data[x].Farms.length;y++) {
                             console.log(data[x].Farms[y].FarmID.toString() + " " + data[x].Farms[y].Percentage + "%");
                             if (data[x].Farms[y].Percentage <= 100.00 && data[x].Farms[y].Percentage >= 99.9) {
-                                $("#" + data[x].NetworkID).append("<div class ='farm-box green' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                                $("#" + data[x].NetworkID).append("<div class ='farm-box green' onClick='setFarm(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
                             } else if (data[x].Farms[y].Percentage < 99.9 & data[x].Farms[y].Percentage >= 99.0) {
-                                $("#" + data[x].NetworkID).append("<div class ='farm-box yellow' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                                $("#" + data[x].NetworkID).append("<div class ='farm-box yellow' onClick='setFarm(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
                             } else if (data[x].Farms[y].Percentage < 99.0 && data[x].Farms[y].Percentage >= 95.0) {
-                                $("#" + data[x].networkID).append("<div class ='farm-box red1' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                                $("#" + data[x].networkID).append("<div class ='farm-box red1' onClick='setFarm(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
                             } else if (data[x].Farms[y].Percentage < 95.0 && data[x].Farms[y].percentage >= 85.0) {
-                                $("#" + data[x].NetworkID).append("<div class ='farm-box red2' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                                $("#" + data[x].NetworkID).append("<div class ='farm-box red2' onClick='setFarm(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
                             } else {
-                                $("#" + data[x].NetworkID).append("<div class ='farm-box red3' onClick='setFarms(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
+                                $("#" + data[x].NetworkID).append("<div class ='farm-box red3' onClick='setFarm(this.id)' id=" + data[x].Farms[y].FarmID + ">Farm " + data[x].Farms[y].FarmID.toString() + "<br/>" + data[x].Farms[y].Percentage + "%</div>");
                             }
                         }
                     }

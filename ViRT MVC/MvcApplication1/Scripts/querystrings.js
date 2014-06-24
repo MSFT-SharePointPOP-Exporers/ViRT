@@ -2,7 +2,7 @@
     sessionStorage["start"] = new Date.parse("t - 8 d").toString("yyyy-MM-dd");
     sessionStorage["end"] = new Date.parse("t - 1 d").toString("yyyy-MM-dd");
     sessionStorage["pipeline"] = "Overview";
-    sessionStorage["datacen"] = "All%20%20";
+    sessionStorage["datacen"] = "All";
     sessionStorage["network"] = -1;
     sessionStorage["farm"] = -1;
     sessionStorage["query"] = "?start=" + sessionStorage["start"] + "&end=" + sessionStorage["end"] + "&pipeline=" + sessionStorage["pipeline"] + "&datacen=" + sessionStorage["datacen"] + "&network=" + sessionStorage["network"] + "&farm=" + sessionStorage["farm"];
@@ -28,7 +28,7 @@ function setSessionStorage() {
 function setFields() {
     $(".from").val(sessionStorage["start"]);
     $(".to").val(sessionStorage["end"]);
-    $("#FeaturedContent_Datacenter").val(sessionStorage["datacen"].replace("%20%20","  "));
+    $("#FeaturedContent_Datacenter").val(sessionStorage["datacen"]);
     $("#FeaturedContent_Network").val(sessionStorage["network"]);
     $("#FeaturedContent_Farm").val(sessionStorage["farm"]);
 }
@@ -41,20 +41,25 @@ function setActivePipeline(id) {
 
 function setPipeline(id) {
     sessionStorage["pipeline"] = id;
-    if (id == sessionStorage["pipeline"]) {
-        $("#" + id).addClass("selected");
-    }
     updateQueryString();
 }
 
 
+function setDatacenter(id) {
+    sessionStorage["datacen"] = id;
+    sessionStorage["network"] = -1;
+    sessionStorage["farm"] = -1;
+    window.location.href = "DCHM";
+
+}
+
 /*
 *Set a farm and it's network is found and set in the url too!
 */
-function setFarms(id) {
+function setFarm(id) {
     sessionStorage["farm"] = id;
-    sessionStorage["network"] = $("#" + id).parent().attr('id');;
-    updateQueryString();
+    sessionStorage["network"] = $("#" + id).parent().attr('id');
+    window.location.href="PercentData";
 }
 
 /*
@@ -63,7 +68,7 @@ function setFarms(id) {
 function setNetwork(id) {
     sessionStorage["network"] = id;
     sessionStorage["farm"] = -1;
-    updateQueryString();
+    window.location.href = "PercentData";
 }
                                                 
 

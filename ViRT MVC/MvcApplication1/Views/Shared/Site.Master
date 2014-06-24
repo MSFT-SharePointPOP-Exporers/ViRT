@@ -38,22 +38,37 @@
               });
 
               $.ajax({
+                  data: "pipeline=Overview",
+                  url: '<%= Url.Action("getOverview", "Query") %>',
+                  dataType: "json",
+                  success: function (data) {
+                      for (var x = 0; x < data.length; x++) {
+                          if (data[x].Component.indexOf(sessionStorage["pipeline"]) > -1 && sessionStorage["pipeline"] != "Overview") {
+                              console.log("woo");
+                              $("tbody").append("<tr>");
+                              $("tbody").append("<td class='overview_component first'>" + data[x].Component + "</td>");
+                              $("tbody").append("<td class='overview_percent first'><a href = '../Home/PercentData'>" + data[x].Percent + "%</a></td>");
+                              $("tbody").append("</tr>");
+                          }
+                       } 
+                    }
+              });
+
+              $.ajax({
                   data: sessionStorage["query"],
                   url: '<%= Url.Action("getOverview", "Query") %>',
                   dataType: "json",
                   success: function (data) {
                       for (var x = 0; x < data.length; x++) {
-                            $("tbody").append("<tr>");
-                            $("tbody").append("<td class='overview_component'>" + data[x].Component + "</td>");
-                            $("tbody").append("<td class='overview_percent'>" + data[x].Percent + "%</td>");
-                            $("tbody").append("</tr>");
-                          }
+                          $("tbody").append("<tr>");
+                          $("tbody").append("<td class='overview_component'>" + data[x].Component + "</td>");
+                          $("tbody").append("<td class='overview_percent'>" + data[x].Percent + "%</td>");
+                          $("tbody").append("</tr>");
                       }
+                  }
               });
 
-              $('p').click(function () {
-                  alert("hey");
-              });
+
               $(".button").click(function () {
                   sessionStorage["start"] = $(".from").val();
                   sessionStorage["end"] = $(".to").val();

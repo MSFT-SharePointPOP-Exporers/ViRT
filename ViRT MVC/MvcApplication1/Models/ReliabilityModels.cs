@@ -815,6 +815,39 @@ namespace MvcApplication1.Models
 			}
 			return retTable;
 		}
+
+        /*
+        * Retrieves all of the available networks
+        * 
+        * @return		A DataTable of All Networks
+        */
+        public DataTable GetAllNetworks()
+        {
+            dbConnect.Open();
+            String query = "SELECT DISTINCT NetworkID FROM DataCenterNetworkId";
+            SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+            SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+            DataTable allNetworks = new DataTable();
+            allNetworks.Load(queryCommandReader);
+            dbConnect.Close();
+            return allNetworks;
 	}
 
+        /*
+        * Retrieves all of the available farms
+        * 
+        * @return	A DataTable of All Farms
+        */
+        public DataTable GetAllFarms()
+        {
+            dbConnect.Open();
+            String query = "SELECT DISTINCT FarmID FROM NetworkIdFarmId";
+            SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+            SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+            DataTable allFarms = new DataTable();
+            allFarms.Load(queryCommandReader);
+            dbConnect.Close();
+            return allFarms;
+        }
+    }
 }

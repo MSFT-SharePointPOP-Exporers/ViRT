@@ -15,6 +15,45 @@
             $(document).ajaxComplete(function () {
                 $("#loading").fadeOut("slow");
             });
+
+            $.ajax({
+                data: sessionStorage["query"],
+                url: '<%= Url.Action("getDatacenters", "Query") %>',
+                dataType: "json",
+                success: function (data) {
+                    $("#FeaturedContent_Datacenter").append("<option value='All'>All</option>");
+                    for (var x = 0; x < data.length; x++) {
+                        $("#FeaturedContent_Datacenter").append("<option value=" + data[x].DataCenter + ">" + data[x].DataCenter + "</option>");
+                    }
+                    setFields();
+                }
+            });
+
+            $.ajax({
+                data: sessionStorage["query"],
+                url: '<%= Url.Action("getNetworks", "Query") %>',
+                dataType: "json",
+                success: function (data) {
+                    $("#FeaturedContent_Network").append("<option value='-1'>All</option>");
+                    for (var x = 0; x < data.length; x++) {
+                        $("#FeaturedContent_Network").append("<option value=" + data[x].NetworkID + ">" + data[x].NetworkID + "</option>");
+                    }
+                    setFields();
+                }
+            });
+
+            $.ajax({
+                data: sessionStorage["query"],
+                url: '<%= Url.Action("getFarms", "Query") %>',
+                dataType: "json",
+                success: function (data) {
+                    $("#FeaturedContent_Farm").append("<option value='-1'>All</option>");
+                    for (var x = 0; x < data.length; x++) {
+                        $("#FeaturedContent_Farm").append("<option value=" + data[x].FarmID + ">" + data[x].FarmID + "</option>");
+                    }
+                    setFields();
+                }
+            });
         });
 
         var bullets = ["round", "square", "triangleUp", "triangleDown", "triangleLeft", "triangleRight", "diamond", "xError", "yError"];
@@ -94,31 +133,25 @@
 
     <a href="RawData" id="RawDataLink">View Raw Data</a>
 
-    <div id="selectors" class="small-12 small-centered medium-12 medium-centered large-centered large-12">
+    <div id="selectors" class="small-12 medium-12 large-12">
         <form id="form1" runat="server">
             <div id="SelectDatacenter">
                 <p>Datacenter</p>
-       
-                <asp:DropDownList ID="Datacenter" runat="server" DataSourceID="SqlDataSource4" DataTextField="DataCenter" DataValueField="DataCenter">
-                    <asp:ListItem Selected="True">All  </asp:ListItem>
+
+                <asp:DropDownList ID="Datacenter" runat="server">
                 </asp:DropDownList>
-                <asp:SqlDataSource runat="server" ID="SqlDataSource4" ConnectionString="Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;User ID=dataUser;Password=userData!" ProviderName="System.Data.SqlClient" SelectCommand="SELECT DISTINCT [DataCenter] FROM [DataCenter]"></asp:SqlDataSource>
             </div>
             <div id="SelectNetwork">
                 <p>Network ID</p>
-       
-                <asp:DropDownList ID="Network" runat="server" DataSourceID="SqlDataSource2" DataTextField="NetworkId" DataValueField="NetworkId">
-                    <asp:ListItem Selected="False" Value="-1">5</asp:ListItem>
+
+                <asp:DropDownList ID="Network" runat="server">
                 </asp:DropDownList>
-                <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString="Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;User ID=dataUser;Password=userData!" ProviderName="System.Data.SqlClient" SelectCommand="SELECT DISTINCT [NetworkId] FROM [DataCenterNetworkId]"></asp:SqlDataSource>
             </div>
             <div id="SelectFarm">
                 <p>Farm ID</p>
-       
-                <asp:DropDownList ID="Farm" runat="server" DataSourceID="SqlDataSource1" DataTextField="FarmId" DataValueField="FarmId">
-                    <asp:ListItem Selected="False" Value="-1">5</asp:ListItem>
+
+                <asp:DropDownList ID="Farm" runat="server">
                 </asp:DropDownList>
-                <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString="Data Source=FIDEL3127;Initial Catalog=VisDataTestCOSMOS;User ID=dataUser;Password=userData!" ProviderName="System.Data.SqlClient" SelectCommand="SELECT DISTINCT [FarmID] FROM [ProdDollar_TagAggregation]"></asp:SqlDataSource>
             </div>
             <div id="Entry">
             </div>

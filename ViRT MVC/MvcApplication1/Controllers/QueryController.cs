@@ -25,9 +25,45 @@ namespace MvcApplication1.Controllers
             return JsonConvert.SerializeObject(test.OverviewCalculate(Request.QueryString["pipeline"]));
         }
 
+        public string getDatacenters()
+        {
+            return JsonConvert.SerializeObject(test.GetDataCenterLatLong());
+        }
+
+        public string getNetworks()
+        {
+            return JsonConvert.SerializeObject(test.GetAllNetworks());
+        }
+
+        public string getFarms()
+        {
+            return JsonConvert.SerializeObject(test.GetAllFarms());
+        }
+
         public string getNetworkFarm()
         {
             Reliability test = new Reliability();
+<<<<<<< HEAD
+=======
+            Random rand = new Random();
+            DataTable table = new DataTable();
+            DataTable networkTable = test.getNetworks(Request.QueryString["datacen"]);
+            table.Columns.Add(new DataColumn("NetworkID", typeof(int)));
+            table.Columns.Add(new DataColumn("Percentage", typeof(double)));
+            table.Columns.Add(new DataColumn("Farms", typeof(DataTable)));
+            DataRow network;
+            foreach (DataRow row in networkTable.Rows)
+            {
+                network = table.NewRow();
+                network["NetworkID"] = row["NetworkID"];
+                network["Percentage"] = rand.NextDouble() * 100;
+                network["Farms"] = test.getFarms((int)row["NetworkID"]);
+                table.Rows.Add(network);
+            }
+            table.AcceptChanges();
+            return JsonConvert.SerializeObject(table, Formatting.Indented);
+        }
+>>>>>>> origin/master
 
 			test.ChangeDataCenter(Request.QueryString["datacen"]);
 
