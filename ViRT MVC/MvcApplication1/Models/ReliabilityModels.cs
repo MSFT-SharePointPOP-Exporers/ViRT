@@ -97,7 +97,7 @@ namespace MvcApplication1.Models
         private DataTable TagHitTable(String pTag)
         {
             //Strings that create the query
-            String query = "SELECT Date, Hour, NumberOfHits FROM ProdDollar_RandomJess";
+			String query = "SELECT Date, Hour, NumberOfHits FROM ProdDollar_RandomJess";
 			String where = " WHERE Tag = '" + pTag + "' AND Date >= '" + start.ToString() + "' AND Date < '" + end.ToString() + "'";
 
             //Creates the remainer of the where portion of the query
@@ -650,6 +650,28 @@ namespace MvcApplication1.Models
 			return dcArray;
 		}
 
+
+		public int[] GetAllFarmsInNetworkArray()
+		{
+			dbConnect.Open();
+			String query = "SELECT FarmId FROM NetworkIdFarmId WHERE NetworkId = networkID";
+			SqlCommand queryCommand = new SqlCommand(query, dbConnect);
+			SqlDataReader queryCommandReader = queryCommand.ExecuteReader();
+			DataTable farmIDTable = new DataTable();
+			farmIDTable.Load(queryCommandReader);
+
+			int[] farmArray = new int[farmIDTable.Rows.Count];
+
+			for (int i = 0; i < farmIDTable.Rows.Count; i++)
+			{
+				farmArray[i] = (int)farmIDTable.Rows[i]["FarmId"];
+			}
+
+			dbConnect.Close();
+
+			return farmArray;
+		}
+
 		/*
 		 * Retrieves the datacenter with the lat and long
 		 * 
@@ -732,9 +754,66 @@ namespace MvcApplication1.Models
 			return farms;
 		}
 
-		public String getPipeline()
+		/*
+		 * So this is a whole big function again. Womp...
+		 * More complicated than anticipated
+		 * 
+		 */
+		public DataTable CalculateDataCenterHeatMap()
 		{
-			return pipeline;
+			DataTable retTable = new DataTable();
+			retTable.Columns.Add("NetworkID", typeof(int));
+			retTable.Columns.Add("Percent", typeof(decimal)); //potenial error
+			retTable.Columns.Add("Farms", typeof(DataTable));
+			DataRow toAddToRetTable = retTable.NewRow();
+
+			DataTable allNetsinDC = getNetworks(dataCenter);
+
+			for(int x = 0; x < allNetsinDC.Rows.Count; x++)
+			{
+				DataTable farmPercents = new DataTable();
+				farmPercents.Columns.Add("Farms", typeof(int));
+				farmPercents.Columns.Add("Percent", typeof(decimal));
+				DataRow toAdd = farmPercents.NewRow();
+
+				int[] farms = GetAllFarmsInNetworkArray();
+
+				for (int i = 0; i < farms.Length; i++)
+				{
+					ChangeNetworkIDFarmID((int)allNetsinDC.Rows[x]["NetworkID"], farms[i]);
+					DataTable temp = OverviewCalculate("Overview");
+					toAdd["Farms"] = farms[i];
+					for(int k = 0; k < temp.Rows.Count; k++)
+					{
+						if(temp.Rows[i]["Component"].Equals(pipeline))
+						{
+							toAdd["Precent"] = temp.Rows[i]["Percent"];
+						}
+					}
+					farmPercents.Rows.Add(toAdd);
+					toAdd = farmPercents.NewRow();
+				}
+
+				//addstuff here
+				decimal per = 0;
+
+				for (int i = 0; i < farmPercents.Rows.Count; i++ )
+				{
+					per = per + (decimal)farmPercents.Rows[i]["Percent"];
+				}
+
+				toAddToRetTable["NetworkID"] = allNetsinDC.Rows[x]["NetworkID"];
+
+				if (per == 0) toAddToRetTable["Percent"] = 0;
+				else toAddToRetTable["Percent"] = Math.Round(per / farmPercents.Rows.Count, 4);
+
+				toAddToRetTable["Farms"] = farmPercents;
+				retTable.Rows.Add(toAddToRetTable);
+
+				toAddToRetTable = retTable.NewRow();
+
+			}
+			return retTable;
 		}
 
         /*

@@ -43,6 +43,8 @@ namespace MvcApplication1.Controllers
         public string getNetworkFarm()
         {
             Reliability test = new Reliability();
+<<<<<<< HEAD
+=======
             Random rand = new Random();
             DataTable table = new DataTable();
             DataTable networkTable = test.getNetworks(Request.QueryString["datacen"]);
@@ -61,7 +63,13 @@ namespace MvcApplication1.Controllers
             table.AcceptChanges();
             return JsonConvert.SerializeObject(table, Formatting.Indented);
         }
+>>>>>>> origin/master
 
+			test.ChangeDataCenter(Request.QueryString["datacen"]);
 
+			DataTable table = test.CalculateDataCenterHeatMap();
+
+            return JsonConvert.SerializeObject(table, Formatting.Indented);
+        }
     }
 }
