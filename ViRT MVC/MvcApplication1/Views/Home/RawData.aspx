@@ -81,9 +81,10 @@
 </asp:Content>
 
 <asp:Content ID="Content" ContentPlaceHolderID="FeaturedContent" runat="server">
-<h1>RawData</h1>
-
-    <a href="PercentData" id="PercentDataLink">View Component Reliability</a>
+    <div class="graph_header">
+        <h1>RawData</h1>
+        <a href="PercentData" id="PercentDataLink">View Component Reliability</a>
+    </div>
 
     <div id="selectors" class="small-12 small-centered medium-12 medium-centered large-centered large-12">
         <form id="form1" runat="server">
@@ -173,7 +174,7 @@
                     "labelText": "[[title]]",
                     "titlePosition": "top",
                     "useGraphSettings": true,
-                    "color": "#0000FF",
+                    "color": "#e1e1e1",
                     "valueText": ""
                 },
                 "chartScrollbar": {
